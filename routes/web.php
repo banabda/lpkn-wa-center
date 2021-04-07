@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\DialogController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\MessageController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -21,7 +22,25 @@ Route::get('/', function () {
 });
 
 Auth::routes();
-Route::get('/status', [UserController::class, 'status']);
-Route::get('/qrcode', [UserController::class, 'qrCode']);
-Route::get('/me', [UserController::class, 'me']);
+
+Route::group(['middleware' => 'auth'], function () {
+    Route::group(['prefix' => 'user'], function () {
+        Route::get('/', [UserController::class, 'me']);
+        Route::get('/status', [UserController::class, 'status']);
+        Route::get('/qrcode', [UserController::class, 'qrCode']);
+    });
+
+    Route::group(['prefix' => 'message'], function () {
+        Route::get('/', [MessageController::class, 'messages']);
+        Route::get('/latest', [MessageController::class, 'latest']);
+        Route::get('/text', [MessageController::class, 'sendText']);
+        Route::get('/file', [MessageController::class, 'sendFile']);
+        Route::get('/delete', [MessageController::class, 'delete']);
+    });
+    Route::group(['prefix' => 'dialog'], function () {
+        Route::get('/', [DialogController::class, 'dialogs']);
+        Route::get('/{chatId}', [DialogController::class, 'dialog']);
+    });
+});
+
 Route::get('/home', [HomeController::class, 'index'])->name('home');

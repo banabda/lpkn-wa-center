@@ -83,4 +83,19 @@ class DialogController extends Controller
     {
         //
     }
+
+    public function dialogs()
+    {
+        $client = new Client();
+        $result = $client->request('GET', env('WA_URL') . 'dialogs' . env('WA_TOKEN'))->getBody()->getContents();
+        return $result;
+    }
+
+    public function dialog($chatId)
+    {
+        $client = new Client();
+        $result = $client->request('GET', env('WA_URL') . 'dialog' . env('WA_TOKEN') . '&chatId=' . $chatId)->getBody()->getContents();
+        // dd($result);
+        return $result;
+    }
 }
