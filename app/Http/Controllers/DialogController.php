@@ -87,7 +87,7 @@ class DialogController extends Controller
     public function dialogs()
     {
         $client = new Client();
-        $result = $client->request('GET', env('WA_URL') . 'dialogs' . env('WA_TOKEN'))->getBody()->getContents();
+        $result = $client->request('GET', env('WA_URL') . 'dialogs' . env('WA_TOKEN') . '&limit=200')->getBody()->getContents();
         return $result;
     }
 
