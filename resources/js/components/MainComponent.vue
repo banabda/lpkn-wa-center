@@ -4,8 +4,16 @@
       <div class="col-md-12">
         <div class="card">
           <div class="card-body p-0 d-flex">
-            <MainLeft :dialogs="dialogs" :user="user" />
-            <MainRight />
+            <MainLeft
+              :dialogs="dialogs"
+              :user="user"
+              @selectedContact="selectedContact"
+            />
+            <MainRight
+              :selectedContact="select_contact"
+              :messages="messages"
+              @close="close"
+            />
           </div>
         </div>
       </div>
@@ -25,6 +33,8 @@ export default {
   data() {
     return {
       dialogs: [],
+      messages: null,
+      select_contact: null,
     };
   },
   beforeMount() {
@@ -36,12 +46,30 @@ export default {
   mounted() {
     console.log("Component mounted.");
   },
+  methods: {
+    selectedContact(contact) {
+      this.select_contact = contact;
+      axios.get("/chat/contact/" + contact.id).then((e) => {
+        this.messages = e.data;
+      });
+    },
+    close() {
+      this.select_contact = null;
+      this.messages = null;
+    },
+  },
   watch: {
     dialogs(dialogs) {
       this.dialogs = dialogs;
+    },
+    select_contact(select_contact) {
+      this.select_contact = select_contact;
     },
   },
 };
 </script>
 <style lang="scss" scoped>
+.card-body {
+  height: 85vh;
+}
 </style>

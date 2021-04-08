@@ -1,7 +1,7 @@
 <template>
   <div class="main-left">
     <Header :user="user" />
-    <Contact :dialogs="dialogs" />
+    <Contact :dialogs="dialogs" @selectedContact="selectedContact" />
   </div>
 </template>
 <script>
@@ -12,6 +12,11 @@ export default {
   props: {
     dialogs: { require: true },
     user: { require: true },
+  },
+  methods: {
+    selectedContact(contact) {
+      this.$emit("selectedContact", contact);
+    },
   },
 };
 </script>

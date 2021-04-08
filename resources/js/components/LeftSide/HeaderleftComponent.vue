@@ -2,7 +2,8 @@
   <div class="header">
     <div class="me d-flex px-4">
       <span class="name">{{ user.name }}</span>
-      <i class="bi bi-three-dots-vertical"></i>
+
+      <i class="bi bi-box-arrow-right"></i>
     </div>
   </div>
 </template>
@@ -10,6 +11,19 @@
 export default {
   props: {
     user: { require: true },
+  },
+  data() {
+    return {
+      arrayOfObjects: [1, 2, 3],
+      object: {
+        name: "Object Name",
+      },
+    };
+  },
+  methods: {
+    methodToRunOnSelect(payload) {
+      this.object = payload;
+    },
   },
 };
 </script>
@@ -24,6 +38,9 @@ export default {
     font-weight: bold;
     .name {
       font-size: 1.1rem;
+    }
+    .bi {
+      font-size: 20px;
     }
     .bi:hover {
       cursor: pointer;

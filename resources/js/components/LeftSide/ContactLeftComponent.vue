@@ -1,7 +1,10 @@
 <template>
   <div class="contact" v-if="dialogs">
     <div v-for="(dial, index) in dialogs" :key="index">
-      <div class="d-flex contact-container py-2 px-3 mb-1">
+      <div
+        class="d-flex contact-container py-2 px-3 mb-1"
+        @click="$emit('selectedContact', dial)"
+      >
         <div class="contact-left w-25">
           <avatar :username="dial.name" :src="dial.image" :size="40"></avatar>
         </div>

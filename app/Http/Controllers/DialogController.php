@@ -102,7 +102,7 @@ class DialogController extends Controller
     public function latest($chatid)
     {
         $dialog = Dialog::where('id', $chatid)->first();
-        return $dialog->messages->first();
+        return $dialog->messages;
     }
 
     public function contact()

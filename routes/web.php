@@ -47,9 +47,9 @@ Route::group(['prefix' => 'chat-api'], function () {
 Route::group(['prefix' => 'chat'], function () {
     Route::group(['prefix' => 'contact'], function () {
         Route::get('/', [DialogController::class, 'contact']);
+        Route::get('/{chatid}', [DialogController::class, 'latest']);
     });
 });
 
-Route::get('/test/{chatid}', [DialogController::class, 'latest']);
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
