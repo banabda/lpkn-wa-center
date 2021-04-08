@@ -1852,6 +1852,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
     dialogs: {
@@ -1929,8 +1933,6 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 //
 //
 //
-//
-//
 
 
 
@@ -1949,9 +1951,9 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
   beforeMount: function beforeMount() {
     var _this = this;
 
-    axios__WEBPACK_IMPORTED_MODULE_0___default().get("/dialog").then(function (e) {
-      _this.dialogs = e.data.dialogs;
-      console.log(_typeof(e.data.dialogs));
+    axios__WEBPACK_IMPORTED_MODULE_0___default().get("/chat/contact").then(function (e) {
+      _this.dialogs = e.data;
+      console.log(_typeof(e.data));
     });
   },
   mounted: function mounted() {
@@ -37979,7 +37981,15 @@ var render = function() {
     "div",
     { staticClass: "contact" },
     _vm._l(_vm.dialogs, function(dial, index) {
-      return _c("div", { key: index }, [_c("div", [_vm._v(_vm._s(dial.name))])])
+      return _c("div", { key: index, staticClass: "d-flex" }, [
+        _c("div", [_vm._v(_vm._s(dial.name))]),
+        _vm._v(" "),
+        dial.latest_message.type !== "image"
+          ? _c("div", [
+              _vm._v("\n      " + _vm._s(dial.latest_message.body) + "\n    ")
+            ])
+          : _c("div", [_vm._v("Photo")])
+      ])
     }),
     0
   )
@@ -38070,10 +38080,6 @@ var render = function() {
     _c("div", { staticClass: "row justify-content-center" }, [
       _c("div", { staticClass: "col-md-12" }, [
         _c("div", { staticClass: "card" }, [
-          _c("div", { staticClass: "card-header" }, [
-            _vm._v("Example Component")
-          ]),
-          _vm._v(" "),
           _c(
             "div",
             { staticClass: "card-body d-flex" },

@@ -1,7 +1,11 @@
 <template>
   <div class="contact">
-    <div v-for="(dial, index) in dialogs" :key="index">
+    <div class="d-flex" v-for="(dial, index) in dialogs" :key="index">
       <div>{{ dial.name }}</div>
+      <div v-if="dial.latest_message.type !== 'image'">
+        {{ dial.latest_message.body }}
+      </div>
+      <div v-else>Photo</div>
     </div>
   </div>
 </template>

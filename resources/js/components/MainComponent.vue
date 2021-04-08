@@ -3,8 +3,6 @@
     <div class="row justify-content-center">
       <div class="col-md-12">
         <div class="card">
-          <div class="card-header">Example Component</div>
-
           <div class="card-body d-flex">
             <MainLeft :dialogs="dialogs" />
             <MainRight />
@@ -27,9 +25,9 @@ export default {
     };
   },
   beforeMount() {
-    axios.get("/dialog").then((e) => {
-      this.dialogs = e.data.dialogs;
-      console.log(typeof e.data.dialogs);
+    axios.get("/chat/contact").then((e) => {
+      this.dialogs = e.data;
+      console.log(typeof e.data);
     });
   },
   mounted() {

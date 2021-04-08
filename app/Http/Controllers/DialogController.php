@@ -15,7 +15,7 @@ class DialogController extends Controller
      */
     public function index()
     {
-        //
+        return "hai";
     }
 
     /**
@@ -97,5 +97,16 @@ class DialogController extends Controller
         $result = $client->request('GET', env('WA_URL') . 'dialog' . env('WA_TOKEN') . '&chatId=' . $chatId)->getBody()->getContents();
         // dd($result);
         return $result;
+    }
+
+    public function latest($chatid)
+    {
+        $dialog = Dialog::where('id', $chatid)->first();
+        return $dialog->messages->first();
+    }
+
+    public function contact()
+    {
+        return Dialog::has('messages')->with('latestMessage')->get();
     }
 }

@@ -24,7 +24,7 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::group(['middleware' => 'auth'], function () {
+Route::group(['prefix' => 'chat-api'], function () {
     Route::group(['prefix' => 'user'], function () {
         Route::get('/', [UserController::class, 'me']);
         Route::get('/status', [UserController::class, 'status']);
@@ -43,5 +43,13 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/{chatId}', [DialogController::class, 'dialog']);
     });
 });
+
+Route::group(['prefix' => 'chat'], function () {
+    Route::group(['prefix' => 'contact'], function () {
+        Route::get('/', [DialogController::class, 'contact']);
+    });
+});
+
+Route::get('/test/{chatid}', [DialogController::class, 'latest']);
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');

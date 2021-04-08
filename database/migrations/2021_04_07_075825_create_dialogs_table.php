@@ -14,7 +14,11 @@ class CreateDialogsTable extends Migration
     public function up()
     {
         Schema::create('dialogs', function (Blueprint $table) {
-            $table->id();
+            $table->string('id')->primary();
+            $table->string('name');
+            $table->string('image')->default('');
+            $table->boolean('is_group');
+            $table->timestamp('last_time');
             $table->timestamps();
         });
     }
