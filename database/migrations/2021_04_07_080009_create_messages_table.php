@@ -21,7 +21,7 @@ class CreateMessagesTable extends Migration
             $table->boolean('from_me');
             $table->string('type');
             $table->string('author');
-            $table->text('caption');
+            $table->text('caption')->nullable();
             $table->string('sender_name');
             $table->timestamp('time');
             $table->integer('message_number');
