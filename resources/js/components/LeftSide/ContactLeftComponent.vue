@@ -11,16 +11,32 @@
         <div class="contact-right w-75">
           <div class="name">{{ dial.name }}</div>
           <div class="message" v-if="dial.latest_message.type == 'chat'">
-            {{
-              dial.latest_message.body.length > 25
-                ? dial.latest_message.body.substr(0, 21) + "..."
-                : dial.latest_message.body
-            }}
+            <span v-if="regex.test(dial.latest_message.body)">
+              {{
+                dial.latest_message.body.length > 25
+                  ? dial.latest_message.body
+                      .replaceAll(regex, regexTo)
+                      .substr(0, 21) + "..."
+                  : dial.latest_message.body.replaceAll(regex, regexTo)
+              }}
+            </span>
+            <span v-else>
+              {{
+                dial.latest_message.body.length > 25
+                  ? dial.latest_message.body.substr(0, 21) + "..."
+                  : dial.latest_message.body
+              }}
+            </span>
           </div>
           <div class="message" v-else-if="dial.latest_message.type == 'image'">
             <i class="bi bi-file-earmark-image"></i> Photo
           </div>
         </div>
+        <timeago
+          class="small text-right"
+          :datetime="dial.latest_message.time"
+          :auto-update="60"
+        ></timeago>
       </div>
     </div>
   </div>
@@ -33,6 +49,12 @@ export default {
   },
   props: {
     dialogs: { require: true },
+  },
+  data() {
+    return {
+      regex: /\*(.*?)\*/g,
+      regexTo: "",
+    };
   },
 };
 </script>

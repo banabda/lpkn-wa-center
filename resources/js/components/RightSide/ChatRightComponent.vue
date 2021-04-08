@@ -18,8 +18,12 @@
               v-if="regex.test(msg.caption)"
               v-html="msg.caption.replaceAll(regex, regexTo)"
             ></p>
-            <p v-else>{{ msg.caption }}</p>
-            <p>{{ msg.time }}</p>
+            <p v-else class="chat-message">{{ msg.caption }}</p>
+            <timeago
+              class="small text-right"
+              :datetime="msg.time"
+              :auto-update="60"
+            ></timeago>
           </div>
           <div class="type-chat" v-else-if="msg.type == 'chat'">
             <p
@@ -27,8 +31,12 @@
               v-if="regex.test(msg.body)"
               v-html="msg.body.replaceAll(regex, regexTo)"
             ></p>
-            <p v-else>{{ msg.body }}</p>
-            <p>{{ msg.time }}</p>
+            <p v-else class="chat-message">{{ msg.body }}</p>
+            <timeago
+              class="small text-right"
+              :datetime="msg.time"
+              :auto-update="60"
+            ></timeago>
           </div>
         </div>
       </div>
@@ -82,14 +90,15 @@ export default {
     background-color: burlywood;
     max-width: 400px;
     margin: 20px 10px;
-    padding: 10px;
+    padding: 5px;
     .chat-message {
       white-space: pre-line;
+      padding: 5px;
     }
     .type-image {
       .image-preview {
-        width: 380px;
-        height: 380px;
+        width: 390px;
+        height: 390px;
       }
     }
   }

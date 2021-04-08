@@ -39,7 +39,12 @@ export default {
   },
   beforeMount() {
     axios.get("/chat/contact").then((e) => {
-      this.dialogs = e.data;
+      // this.dialogs = _.sortBy(this.dialogs, "name");
+      this.dialogs = _.sortBy(e.data, [
+        function (o) {
+          return o.latest_message.time;
+        },
+      ]).reverse();
       console.log(typeof e.data);
     });
   },

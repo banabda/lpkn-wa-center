@@ -29,7 +29,9 @@ Vue.component(
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
+import VueTimeago from "vue-timeago";
 
+Vue.use(VueTimeago, { locale: "id" });
 const app = new Vue({
     el: "#app"
 });
