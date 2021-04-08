@@ -41,13 +41,13 @@ class GetMessages extends Command
     public function handle()
     {
         $client = new Client();
-        $result = json_decode($client->request('GET', env('WA_URL') . 'messagesHistory' . env('WA_TOKEN') . '&count=100')->getBody()->getContents());
+        $result = json_decode($client->request('GET', env('WA_URL') . 'messagesHistory' . env('WA_TOKEN') . '&count=3000')->getBody()->getContents());
         // Log::info($result->messages);
         foreach ($result->messages as $res) {
             $message = Message::where('id', $res->id);
-            if ($res->chatId == '6289653468001@c.us') {
-                Log::info([$res->time]);
-            }
+            // if ($res->chatId == '6289653468001@c.us') {
+            //     Log::info([$res->time]);
+            // }
             // Log::info([$message->first()]);
             if (!$message->first()) {
                 Message::Create([
@@ -57,6 +57,7 @@ class GetMessages extends Command
                     'from_me' => $res->fromMe,
                     'type' => $res->type,
                     'author' => $res->author,
+                    'caption' => isset($res->caption) ? $res->caption : null,
                     'sender_name' => $res->senderName,
                     'message_number' => $res->messageNumber,
                     'time' => date('Y-m-d H:i:s', $res->time)
