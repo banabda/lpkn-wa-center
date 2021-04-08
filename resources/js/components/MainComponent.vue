@@ -21,7 +21,7 @@ export default {
   components: { MainLeft, MainRight },
   data() {
     return {
-      dialogs: [{ name: "bagas" }],
+      dialogs: [],
     };
   },
   beforeMount() {
