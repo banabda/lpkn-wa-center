@@ -2091,10 +2091,58 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
     messages: {
       require: true
+    }
+  },
+  mounted: function mounted() {},
+  data: function data() {
+    return {
+      regex: /\*(.*?)\*/g,
+      regexTo: "<b>$1</b>"
+    };
+  },
+  watch: {
+    messages: function messages(_messages) {
+      this.$nextTick(function () {
+        var chat = this.$refs.chat;
+        chat.scrollTop = chat.scrollHeight;
+      });
+    }
+  },
+  computed: {
+    reverseItems: function reverseItems() {
+      return this.messages.slice().reverse();
     }
   }
 });
@@ -6810,7 +6858,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "[data-v-5b933d40]::-webkit-scrollbar {\n  width: 8px;\n}\n[data-v-5b933d40]::-webkit-scrollbar-track {\n  background: #f1f1f1;\n}\n[data-v-5b933d40]::-webkit-scrollbar-thumb {\n  background: #888;\n}\n[data-v-5b933d40]::-webkit-scrollbar-thumb:hover {\n  background: #555;\n}\n.chat[data-v-5b933d40] {\n  max-height: 75vh;\n  overflow-y: auto;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "[data-v-5b933d40]::-webkit-scrollbar {\n  width: 8px;\n}\n[data-v-5b933d40]::-webkit-scrollbar-track {\n  background: #f1f1f1;\n}\n[data-v-5b933d40]::-webkit-scrollbar-thumb {\n  background: #888;\n}\n[data-v-5b933d40]::-webkit-scrollbar-thumb:hover {\n  background: #555;\n}\n.chat[data-v-5b933d40] {\n  max-height: 75vh;\n  overflow-y: auto;\n}\n.chat .chat-bubble[data-v-5b933d40] {\n  background-color: burlywood;\n  max-width: 400px;\n  margin: 20px 10px;\n  padding: 10px;\n}\n.chat .chat-bubble .chat-message[data-v-5b933d40] {\n  white-space: pre-line;\n}\n.chat .chat-bubble .type-image .image-preview[data-v-5b933d40] {\n  width: 380px;\n  height: 380px;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -38748,13 +38796,50 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "chat" }, [
+  return _c("div", { ref: "chat", staticClass: "chat" }, [
     _vm.messages
       ? _c(
           "div",
-          _vm._l(_vm.messages, function(msg, index) {
+          _vm._l(_vm.reverseItems, function(msg, index) {
             return _c("div", { key: index, staticClass: "chat-container" }, [
-              _c("p", [_vm._v(_vm._s(msg.body))])
+              _c("div", { staticClass: "chat-bubble" }, [
+                msg.type == "image"
+                  ? _c("div", { staticClass: "type-image" }, [
+                      _c("img", {
+                        staticClass: "image-preview rounded mb-3",
+                        attrs: { src: msg.body, alt: msg.type }
+                      }),
+                      _vm._v(" "),
+                      _vm.regex.test(msg.caption)
+                        ? _c("p", {
+                            staticClass: "chat-message",
+                            domProps: {
+                              innerHTML: _vm._s(
+                                msg.caption.replaceAll(_vm.regex, _vm.regexTo)
+                              )
+                            }
+                          })
+                        : _c("p", [_vm._v(_vm._s(msg.caption))]),
+                      _vm._v(" "),
+                      _c("p", [_vm._v(_vm._s(msg.time))])
+                    ])
+                  : msg.type == "chat"
+                  ? _c("div", { staticClass: "type-chat" }, [
+                      _vm.regex.test(msg.body)
+                        ? _c("p", {
+                            staticClass: "chat-message",
+                            domProps: {
+                              innerHTML: _vm._s(
+                                msg.body.replaceAll(_vm.regex, _vm.regexTo)
+                              )
+                            }
+                          })
+                        : _c("p", [_vm._v(_vm._s(msg.body))]),
+                      _vm._v(" "),
+                      _c("p", [_vm._v(_vm._s(msg.time))])
+                    ])
+                  : _vm._e()
+              ])
             ])
           }),
           0
