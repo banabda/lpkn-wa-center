@@ -19,6 +19,6 @@
             </div>
         </div>
     </div> --}}
-    <main-component></main-component>
+    <main-component :user="{{ auth()->user() }}"></main-component>
 </div>
 @endsection

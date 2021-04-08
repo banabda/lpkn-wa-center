@@ -3,8 +3,8 @@
     <div class="row justify-content-center">
       <div class="col-md-12">
         <div class="card">
-          <div class="card-body d-flex">
-            <MainLeft :dialogs="dialogs" />
+          <div class="card-body p-0 d-flex">
+            <MainLeft :dialogs="dialogs" :user="user" />
             <MainRight />
           </div>
         </div>
@@ -19,6 +19,9 @@ import MainLeft from "./LeftSide/MainLeftComponent";
 import MainRight from "./RightSide/MainRightComponent";
 export default {
   components: { MainLeft, MainRight },
+  props: {
+    user: { require: true },
+  },
   data() {
     return {
       dialogs: [],

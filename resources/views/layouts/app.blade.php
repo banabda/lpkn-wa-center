@@ -18,6 +18,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css">
 </head>
 <body>
     <div id="app">
@@ -75,7 +76,7 @@
             </div>
         </nav>
 
-        <main class="py-4">
+        <main class="pt-4">
             @yield('content')
         </main>
     </div>

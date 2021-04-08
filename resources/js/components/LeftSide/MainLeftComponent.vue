@@ -1,6 +1,6 @@
 <template>
   <div class="main-left">
-    <Header />
+    <Header :user="user" />
     <Contact :dialogs="dialogs" />
   </div>
 </template>
@@ -11,6 +11,7 @@ export default {
   components: { Header, Contact },
   props: {
     dialogs: { require: true },
+    user: { require: true },
   },
 };
 </script>
