@@ -102,7 +102,10 @@ class DialogController extends Controller
     public function latest($chatid)
     {
         $dialog = Dialog::where('id', $chatid)->first();
-        return $dialog->messages;
+
+        return $dialog->messages->groupBy(function ($item) {
+            return $item->time->translatedFormat('Y-m-d');
+        })->reverse();
     }
 
     public function contact()

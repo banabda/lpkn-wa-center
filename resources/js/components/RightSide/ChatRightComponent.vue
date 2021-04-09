@@ -3,40 +3,52 @@
     <div v-if="messages">
       <div
         class="chat-container"
-        v-for="(msg, index) in reverseItems"
+        v-for="(message, index) in messages"
         :key="index"
       >
-        <div class="chat-bubble">
-          <div class="type-image" v-if="msg.type == 'image'">
-            <img
-              class="image-preview rounded mb-3"
-              :src="msg.body"
-              :alt="msg.type"
-            />
-            <p
-              class="chat-message"
-              v-if="regex.test(msg.caption)"
-              v-html="msg.caption.replaceAll(regex, regexTo)"
-            ></p>
-            <p v-else class="chat-message">{{ msg.caption }}</p>
-            <timeago
-              class="small text-right"
-              :datetime="msg.time"
+        <div class="time">
+          <span
+            ><timeago
+              class="small text-center font-weight-bold"
+              :datetime="index"
               :auto-update="60"
-            ></timeago>
-          </div>
-          <div class="type-chat" v-else-if="msg.type == 'chat'">
-            <p
-              class="chat-message"
-              v-if="regex.test(msg.body)"
-              v-html="msg.body.replaceAll(regex, regexTo)"
-            ></p>
-            <p v-else class="chat-message">{{ msg.body }}</p>
-            <timeago
-              class="small text-right"
-              :datetime="msg.time"
-              :auto-update="60"
-            ></timeago>
+            ></timeago
+          ></span>
+        </div>
+        <div
+          class="chat-list"
+          v-for="(msg, ind) in message.slice().reverse()"
+          :class="msg.from_me ? 'send' : ''"
+          :key="ind"
+        >
+          <div class="chat-bubble">
+            <div class="type-image" v-if="msg.type == 'image'">
+              <img
+                class="image-preview rounded mb-3"
+                :src="msg.body"
+                :alt="msg.type"
+              />
+              <div
+                class="chat-message"
+                v-if="regex.test(msg.caption)"
+                v-html="msg.caption.replaceAll(regex, regexTo)"
+              ></div>
+              <div v-else class="chat-message">{{ msg.caption }}</div>
+              <div class="chat-time">
+                {{ new Date(msg.time).toTimeString().substr(0, 5) }}
+              </div>
+            </div>
+            <div class="type-chat" v-else-if="msg.type == 'chat'">
+              <div
+                class="chat-message"
+                v-if="regex.test(msg.body)"
+                v-html="msg.body.replaceAll(regex, regexTo)"
+              ></div>
+              <div v-else class="chat-message">{{ msg.body }}</div>
+              <div class="chat-time">
+                {{ new Date(msg.time).toTimeString().substr(0, 5) }}
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -86,14 +98,42 @@ export default {
 .chat {
   max-height: 75vh;
   overflow-y: auto;
+  padding-top: 10px;
+  .chat-list {
+    &.send {
+      text-align: end;
+      .chat-bubble {
+        background-color: lightcoral;
+        text-align: left;
+      }
+    }
+  }
+  .time {
+    text-align: center;
+    margin: 20px 0;
+    span {
+      padding: 8px;
+      background-color: lightskyblue;
+      border-radius: 10px;
+    }
+  }
+  .chat-time {
+    text-align: right;
+    font-size: 0.6rem;
+    margin-bottom: 0;
+  }
   .chat-bubble {
     background-color: burlywood;
-    max-width: 400px;
-    margin: 20px 10px;
+    border-radius: 8px;
+    max-width: 500px;
+    min-width: 100px;
+    display: inline-block;
+    margin: 2px 10px;
     padding: 5px;
     .chat-message {
       white-space: pre-line;
-      padding: 5px;
+      padding: 0 5px;
+      margin-bottom: 0;
     }
     .type-image {
       .image-preview {

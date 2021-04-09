@@ -12,6 +12,9 @@ class Message extends Model
     protected $guarded = [];
     protected $primaryKey = "id";
     protected $keyType = "string";
+    protected $dates = [
+        'time'
+    ];
 
     public function dialog()
     {

@@ -32,11 +32,35 @@
             <i class="bi bi-file-earmark-image"></i> Photo
           </div>
         </div>
-        <timeago
-          class="small text-right"
-          :datetime="dial.latest_message.time"
-          :auto-update="60"
-        ></timeago>
+        <div class="time">
+          <span
+            class="small text-right"
+            v-if="
+              new Date(dial.latest_message.time).toDateString() ==
+              new Date().toDateString()
+            "
+            >{{
+              new Date(dial.latest_message.time).toTimeString().substr(0, 5)
+            }}</span
+          >
+          <span
+            class="small text-right"
+            v-else-if="
+              new Date(dial.latest_message.time).toDateString() ==
+              tomorrowGen(new Date())
+            "
+            >{{
+              new Date(dial.latest_message.time).toTimeString().substr(0, 5)
+            }}</span
+          >
+          <span v-else>
+            <timeago
+              class="small text-right to-right"
+              :datetime="dial.latest_message.time"
+              :auto-update="60"
+            ></timeago>
+          </span>
+        </div>
       </div>
     </div>
   </div>
@@ -50,8 +74,17 @@ export default {
   props: {
     dialogs: { require: true },
   },
+  mounted() {},
+  methods: {
+    tomorrowGen(date) {
+      var currentDate = new Date(date);
+      currentDate.setDate(currentDate.getDate() - 1);
+      return currentDate.toDateString();
+    },
+  },
   data() {
     return {
+      tomorrow: null,
       regex: /\*(.*?)\*/g,
       regexTo: "",
     };
@@ -74,6 +107,9 @@ export default {
 .contact {
   max-height: 75vh;
   overflow-y: auto;
+  .time {
+    text-align: right !important;
+  }
   .contact-container {
     align-items: center;
     cursor: pointer;

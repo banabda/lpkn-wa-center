@@ -1890,6 +1890,30 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
@@ -1900,8 +1924,17 @@ __webpack_require__.r(__webpack_exports__);
       require: true
     }
   },
+  mounted: function mounted() {},
+  methods: {
+    tomorrowGen: function tomorrowGen(date) {
+      var currentDate = new Date(date);
+      currentDate.setDate(currentDate.getDate() - 1);
+      return currentDate.toDateString();
+    }
+  },
   data: function data() {
     return {
+      tomorrow: null,
       regex: /\*(.*?)\*/g,
       regexTo: ""
     };
@@ -2107,6 +2140,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -6802,7 +6847,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "[data-v-def113a8]::-webkit-scrollbar {\n  width: 8px;\n}\n[data-v-def113a8]::-webkit-scrollbar-track {\n  background: #f1f1f1;\n}\n[data-v-def113a8]::-webkit-scrollbar-thumb {\n  background: #888;\n}\n[data-v-def113a8]::-webkit-scrollbar-thumb:hover {\n  background: #555;\n}\n.contact[data-v-def113a8] {\n  max-height: 75vh;\n  overflow-y: auto;\n}\n.contact .contact-container[data-v-def113a8] {\n  align-items: center;\n  cursor: pointer;\n}\n.contact .contact-container[data-v-def113a8]:hover {\n  background-color: lightcyan;\n}\n.contact-right[data-v-def113a8] {\n  -webkit-touch-callout: none;\n  /* iOS Safari */\n  -webkit-user-select: none;\n  /* Safari */\n  /* Konqueror HTML */\n  -moz-user-select: none;\n  /* Old versions of Firefox */\n  -ms-user-select: none;\n  /* Internet Explorer/Edge */\n  user-select: none;\n  /* Non-prefixed version, currently\n             supported by Chrome, Edge, Opera and Firefox */\n}\n.contact-right .name[data-v-def113a8] {\n  font-weight: bold;\n}\n.contact-right .message[data-v-def113a8] {\n  font-weight: 500;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "[data-v-def113a8]::-webkit-scrollbar {\n  width: 8px;\n}\n[data-v-def113a8]::-webkit-scrollbar-track {\n  background: #f1f1f1;\n}\n[data-v-def113a8]::-webkit-scrollbar-thumb {\n  background: #888;\n}\n[data-v-def113a8]::-webkit-scrollbar-thumb:hover {\n  background: #555;\n}\n.contact[data-v-def113a8] {\n  max-height: 75vh;\n  overflow-y: auto;\n}\n.contact .time[data-v-def113a8] {\n  text-align: right !important;\n}\n.contact .contact-container[data-v-def113a8] {\n  align-items: center;\n  cursor: pointer;\n}\n.contact .contact-container[data-v-def113a8]:hover {\n  background-color: lightcyan;\n}\n.contact-right[data-v-def113a8] {\n  -webkit-touch-callout: none;\n  /* iOS Safari */\n  -webkit-user-select: none;\n  /* Safari */\n  /* Konqueror HTML */\n  -moz-user-select: none;\n  /* Old versions of Firefox */\n  -ms-user-select: none;\n  /* Internet Explorer/Edge */\n  user-select: none;\n  /* Non-prefixed version, currently\n             supported by Chrome, Edge, Opera and Firefox */\n}\n.contact-right .name[data-v-def113a8] {\n  font-weight: bold;\n}\n.contact-right .message[data-v-def113a8] {\n  font-weight: 500;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -6898,7 +6943,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "[data-v-5b933d40]::-webkit-scrollbar {\n  width: 8px;\n}\n[data-v-5b933d40]::-webkit-scrollbar-track {\n  background: #f1f1f1;\n}\n[data-v-5b933d40]::-webkit-scrollbar-thumb {\n  background: #888;\n}\n[data-v-5b933d40]::-webkit-scrollbar-thumb:hover {\n  background: #555;\n}\n.chat[data-v-5b933d40] {\n  max-height: 75vh;\n  overflow-y: auto;\n}\n.chat .chat-bubble[data-v-5b933d40] {\n  background-color: burlywood;\n  max-width: 400px;\n  margin: 20px 10px;\n  padding: 5px;\n}\n.chat .chat-bubble .chat-message[data-v-5b933d40] {\n  white-space: pre-line;\n  padding: 5px;\n}\n.chat .chat-bubble .type-image .image-preview[data-v-5b933d40] {\n  width: 390px;\n  height: 390px;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "[data-v-5b933d40]::-webkit-scrollbar {\n  width: 8px;\n}\n[data-v-5b933d40]::-webkit-scrollbar-track {\n  background: #f1f1f1;\n}\n[data-v-5b933d40]::-webkit-scrollbar-thumb {\n  background: #888;\n}\n[data-v-5b933d40]::-webkit-scrollbar-thumb:hover {\n  background: #555;\n}\n.chat[data-v-5b933d40] {\n  max-height: 75vh;\n  overflow-y: auto;\n  padding-top: 10px;\n}\n.chat .chat-list.send[data-v-5b933d40] {\n  text-align: end;\n}\n.chat .chat-list.send .chat-bubble[data-v-5b933d40] {\n  background-color: lightcoral;\n  text-align: left;\n}\n.chat .time[data-v-5b933d40] {\n  text-align: center;\n  margin: 20px 0;\n}\n.chat .time span[data-v-5b933d40] {\n  padding: 8px;\n  background-color: lightskyblue;\n  border-radius: 10px;\n}\n.chat .chat-time[data-v-5b933d40] {\n  text-align: right;\n  font-size: 0.6rem;\n  margin-bottom: 0;\n}\n.chat .chat-bubble[data-v-5b933d40] {\n  background-color: burlywood;\n  border-radius: 8px;\n  max-width: 500px;\n  min-width: 100px;\n  display: inline-block;\n  margin: 2px 10px;\n  padding: 5px;\n}\n.chat .chat-bubble .chat-message[data-v-5b933d40] {\n  white-space: pre-line;\n  padding: 0 5px;\n  margin-bottom: 0;\n}\n.chat .chat-bubble .type-image .image-preview[data-v-5b933d40] {\n  width: 390px;\n  height: 390px;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -39973,15 +40018,44 @@ var render = function() {
                     : _vm._e()
                 ]),
                 _vm._v(" "),
-                _c("timeago", {
-                  staticClass: "small text-right",
-                  attrs: {
-                    datetime: dial.latest_message.time,
-                    "auto-update": 60
-                  }
-                })
-              ],
-              1
+                _c("div", { staticClass: "time" }, [
+                  new Date(dial.latest_message.time).toDateString() ==
+                  new Date().toDateString()
+                    ? _c("span", { staticClass: "small text-right" }, [
+                        _vm._v(
+                          _vm._s(
+                            new Date(dial.latest_message.time)
+                              .toTimeString()
+                              .substr(0, 5)
+                          )
+                        )
+                      ])
+                    : new Date(dial.latest_message.time).toDateString() ==
+                      _vm.tomorrowGen(new Date())
+                    ? _c("span", { staticClass: "small text-right" }, [
+                        _vm._v(
+                          _vm._s(
+                            new Date(dial.latest_message.time)
+                              .toTimeString()
+                              .substr(0, 5)
+                          )
+                        )
+                      ])
+                    : _c(
+                        "span",
+                        [
+                          _c("timeago", {
+                            staticClass: "small text-right to-right",
+                            attrs: {
+                              datetime: dial.latest_message.time,
+                              "auto-update": 60
+                            }
+                          })
+                        ],
+                        1
+                      )
+                ])
+              ]
             )
           ])
         }),
@@ -40135,67 +40209,107 @@ var render = function() {
     _vm.messages
       ? _c(
           "div",
-          _vm._l(_vm.reverseItems, function(msg, index) {
-            return _c("div", { key: index, staticClass: "chat-container" }, [
-              _c("div", { staticClass: "chat-bubble" }, [
-                msg.type == "image"
-                  ? _c(
-                      "div",
-                      { staticClass: "type-image" },
-                      [
-                        _c("img", {
-                          staticClass: "image-preview rounded mb-3",
-                          attrs: { src: msg.body, alt: msg.type }
-                        }),
-                        _vm._v(" "),
-                        _vm.regex.test(msg.caption)
-                          ? _c("p", {
-                              staticClass: "chat-message",
-                              domProps: {
-                                innerHTML: _vm._s(
-                                  msg.caption.replaceAll(_vm.regex, _vm.regexTo)
+          _vm._l(_vm.messages, function(message, index) {
+            return _c(
+              "div",
+              { key: index, staticClass: "chat-container" },
+              [
+                _c("div", { staticClass: "time" }, [
+                  _c(
+                    "span",
+                    [
+                      _c("timeago", {
+                        staticClass: "small text-center font-weight-bold",
+                        attrs: { datetime: index, "auto-update": 60 }
+                      })
+                    ],
+                    1
+                  )
+                ]),
+                _vm._v(" "),
+                _vm._l(message.slice().reverse(), function(msg, ind) {
+                  return _c(
+                    "div",
+                    {
+                      key: ind,
+                      staticClass: "chat-list",
+                      class: msg.from_me ? "send" : ""
+                    },
+                    [
+                      _c("div", { staticClass: "chat-bubble" }, [
+                        msg.type == "image"
+                          ? _c("div", { staticClass: "type-image" }, [
+                              _c("img", {
+                                staticClass: "image-preview rounded mb-3",
+                                attrs: { src: msg.body, alt: msg.type }
+                              }),
+                              _vm._v(" "),
+                              _vm.regex.test(msg.caption)
+                                ? _c("div", {
+                                    staticClass: "chat-message",
+                                    domProps: {
+                                      innerHTML: _vm._s(
+                                        msg.caption.replaceAll(
+                                          _vm.regex,
+                                          _vm.regexTo
+                                        )
+                                      )
+                                    }
+                                  })
+                                : _c("div", { staticClass: "chat-message" }, [
+                                    _vm._v(_vm._s(msg.caption))
+                                  ]),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "chat-time" }, [
+                                _vm._v(
+                                  "\n              " +
+                                    _vm._s(
+                                      new Date(msg.time)
+                                        .toTimeString()
+                                        .substr(0, 5)
+                                    ) +
+                                    "\n            "
                                 )
-                              }
-                            })
-                          : _c("p", { staticClass: "chat-message" }, [
-                              _vm._v(_vm._s(msg.caption))
-                            ]),
-                        _vm._v(" "),
-                        _c("timeago", {
-                          staticClass: "small text-right",
-                          attrs: { datetime: msg.time, "auto-update": 60 }
-                        })
-                      ],
-                      1
-                    )
-                  : msg.type == "chat"
-                  ? _c(
-                      "div",
-                      { staticClass: "type-chat" },
-                      [
-                        _vm.regex.test(msg.body)
-                          ? _c("p", {
-                              staticClass: "chat-message",
-                              domProps: {
-                                innerHTML: _vm._s(
-                                  msg.body.replaceAll(_vm.regex, _vm.regexTo)
+                              ])
+                            ])
+                          : msg.type == "chat"
+                          ? _c("div", { staticClass: "type-chat" }, [
+                              _vm.regex.test(msg.body)
+                                ? _c("div", {
+                                    staticClass: "chat-message",
+                                    domProps: {
+                                      innerHTML: _vm._s(
+                                        msg.body.replaceAll(
+                                          _vm.regex,
+                                          _vm.regexTo
+                                        )
+                                      )
+                                    }
+                                  })
+                                : _c("div", { staticClass: "chat-message" }, [
+                                    _vm._v(_vm._s(msg.body))
+                                  ]),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "chat-time" }, [
+                                _vm._v(
+                                  "\n              " +
+                                    _vm._s(
+                                      new Date(msg.time)
+                                        .toTimeString()
+                                        .substr(0, 5)
+                                    ) +
+                                    "\n            "
                                 )
-                              }
-                            })
-                          : _c("p", { staticClass: "chat-message" }, [
-                              _vm._v(_vm._s(msg.body))
-                            ]),
-                        _vm._v(" "),
-                        _c("timeago", {
-                          staticClass: "small text-right",
-                          attrs: { datetime: msg.time, "auto-update": 60 }
-                        })
-                      ],
-                      1
-                    )
-                  : _vm._e()
-              ])
-            ])
+                              ])
+                            ])
+                          : _vm._e()
+                      ])
+                    ]
+                  )
+                })
+              ],
+              2
+            )
           }),
           0
         )
