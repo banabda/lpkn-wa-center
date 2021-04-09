@@ -1912,8 +1912,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
@@ -2193,10 +2191,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
     messages: {
@@ -2209,6 +2203,22 @@ __webpack_require__.r(__webpack_exports__);
       regex: /\*(.*?)\*/g,
       regexTo: "<b>$1</b>"
     };
+  },
+  methods: {
+    dateCheck: function dateCheck(date) {
+      if (new Date(date).toDateString() == new Date().toDateString()) {
+        return "today";
+      } else if (new Date(date).toDateString() == this.tomorrowGen(new Date())) {
+        return "yesterday";
+      } else {
+        return new Date(date).toDateString().substr(0, 10);
+      }
+    },
+    tomorrowGen: function tomorrowGen(date) {
+      var currentDate = new Date(date);
+      currentDate.setDate(currentDate.getDate() - 1);
+      return currentDate.toDateString();
+    }
   },
   watch: {
     messages: function messages(_messages) {
@@ -40033,13 +40043,7 @@ var render = function() {
                     : new Date(dial.latest_message.time).toDateString() ==
                       _vm.tomorrowGen(new Date())
                     ? _c("span", { staticClass: "small text-right" }, [
-                        _vm._v(
-                          _vm._s(
-                            new Date(dial.latest_message.time)
-                              .toTimeString()
-                              .substr(0, 5)
-                          )
-                        )
+                        _vm._v("yesterday")
                       ])
                     : _c(
                         "span",
@@ -40154,7 +40158,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "container" }, [
+  return _c("div", { staticClass: "main" }, [
     _c("div", { staticClass: "row justify-content-center" }, [
       _c("div", { staticClass: "col-md-12" }, [
         _c("div", { staticClass: "card" }, [
@@ -40217,13 +40221,14 @@ var render = function() {
                 _c("div", { staticClass: "time" }, [
                   _c(
                     "span",
+                    { staticClass: "small text-center font-weight-bold" },
                     [
-                      _c("timeago", {
-                        staticClass: "small text-center font-weight-bold",
-                        attrs: { datetime: index, "auto-update": 60 }
-                      })
-                    ],
-                    1
+                      _vm._v(
+                        "\n          " +
+                          _vm._s(_vm.dateCheck(index)) +
+                          "\n        "
+                      )
+                    ]
                   )
                 ]),
                 _vm._v(" "),

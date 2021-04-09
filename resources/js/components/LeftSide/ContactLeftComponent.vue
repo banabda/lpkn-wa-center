@@ -49,9 +49,7 @@
               new Date(dial.latest_message.time).toDateString() ==
               tomorrowGen(new Date())
             "
-            >{{
-              new Date(dial.latest_message.time).toTimeString().substr(0, 5)
-            }}</span
+            >yesterday</span
           >
           <span v-else>
             <timeago

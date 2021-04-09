@@ -7,13 +7,9 @@
         :key="index"
       >
         <div class="time">
-          <span
-            ><timeago
-              class="small text-center font-weight-bold"
-              :datetime="index"
-              :auto-update="60"
-            ></timeago
-          ></span>
+          <span class="small text-center font-weight-bold">
+            {{ dateCheck(index) }}
+          </span>
         </div>
         <div
           class="chat-list"
@@ -66,6 +62,24 @@ export default {
       regex: /\*(.*?)\*/g,
       regexTo: "<b>$1</b>",
     };
+  },
+  methods: {
+    dateCheck(date) {
+      if (new Date(date).toDateString() == new Date().toDateString()) {
+        return "today";
+      } else if (
+        new Date(date).toDateString() == this.tomorrowGen(new Date())
+      ) {
+        return "yesterday";
+      } else {
+        return new Date(date).toDateString().substr(0, 10);
+      }
+    },
+    tomorrowGen(date) {
+      var currentDate = new Date(date);
+      currentDate.setDate(currentDate.getDate() - 1);
+      return currentDate.toDateString();
+    },
   },
   watch: {
     messages(messages) {
