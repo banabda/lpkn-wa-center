@@ -13,6 +13,7 @@
               :selectedContact="select_contact"
               :messages="messages"
               @close="close"
+              @send="send"
             />
           </div>
         </div>
@@ -35,6 +36,7 @@ export default {
       dialogs: [],
       messages: null,
       select_contact: null,
+      today: new Date().toISOString().split("T")[0],
     };
   },
   beforeMount() {
@@ -52,6 +54,30 @@ export default {
     console.log("Component mounted.");
   },
   methods: {
+    send(text) {
+      // console.log(text);
+      // {"id":"false_6281311241362@c.us_16E6200DCAEE7C0BB0A37BCD3B2D2F91","user_id":null,"chatId":"6281311241362@c.us","body":"Mohon maaf kuitansi a.n. Sumardi dan Sri Bimo Adhi Yudhono apakah bisa dikirimkan kembali bu? Wa saya hilang semua. Trmksh sebelumnya 🙏🏻","from_me":0,"type":"chat","author":"6281311241362@c.us","caption":null,"sender_name":"Mardi Sumardi","time":"2021-04-08T19:29:47.000000Z","message_number":16153,"created_at":"2021-04-09T02:05:22.000000Z","updated_at":"2021-04-09T02:05:22.000000Z"}
+      let data = {
+        id: "false_6281311241362@c.us_16E6200DCAEE7C0BB0A37BCD3B2D2F91",
+        user_id: null,
+        chatId: "6281311241362@c.us",
+        body: text,
+        from_me: true,
+        type: "chat",
+        author: "6281311241362@c.us",
+        caption: null,
+        sender_name: "Mardi Sumardi",
+        time: new Date(),
+        message_number: 16153,
+        created_at: "2021-04-09T02:05:22.000000Z",
+        updated_at: "2021-04-09T02:05:22.000000Z",
+      };
+      for (let asd in this.messages) {
+        if (asd == this.today) {
+          this.messages[asd].push(data);
+        }
+      }
+    },
     selectedContact(contact) {
       this.select_contact = contact;
       axios.get("/chat/contact/" + contact.id).then((e) => {

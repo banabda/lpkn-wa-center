@@ -105,7 +105,7 @@ class DialogController extends Controller
 
         return $dialog->messages->groupBy(function ($item) {
             return $item->time->translatedFormat('Y-m-d');
-        })->reverse();
+        });
     }
 
     public function contact()

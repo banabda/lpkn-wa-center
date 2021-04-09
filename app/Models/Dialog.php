@@ -15,7 +15,7 @@ class Dialog extends Model
 
     public function messages()
     {
-        return $this->hasMany(Message::class, 'chatId')->orderBy("time", "desc");
+        return $this->hasMany(Message::class, 'chatId')->orderBy("time", "asc");
     }
 
     public function latestMessage()

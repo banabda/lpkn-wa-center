@@ -13,7 +13,7 @@
         </div>
         <div
           class="chat-list"
-          v-for="(msg, ind) in message.slice().reverse()"
+          v-for="(msg, ind) in message"
           :class="msg.from_me ? 'send' : ''"
           :key="ind"
         >
@@ -41,6 +41,20 @@
                 v-html="msg.body.replaceAll(regex, regexTo)"
               ></div>
               <div v-else class="chat-message">{{ msg.body }}</div>
+              <div class="chat-time">
+                {{ new Date(msg.time).toTimeString().substr(0, 5) }}
+              </div>
+            </div>
+            <div class="type-document" v-else-if="msg.type == 'document'">
+              <a :href="msg.body" type="button" target="_blank">
+                {{ msg.caption }}
+              </a>
+              <!-- <div
+                class="chat-message"
+                v-if="regex.test(msg.caption)"
+                v-html="msg.caption.replaceAll(regex, regexTo)"
+              ></div>
+              <div v-else class="chat-message">{{ msg.caption }}</div> -->
               <div class="chat-time">
                 {{ new Date(msg.time).toTimeString().substr(0, 5) }}
               </div>
@@ -80,18 +94,21 @@ export default {
       currentDate.setDate(currentDate.getDate() - 1);
       return currentDate.toDateString();
     },
-  },
-  watch: {
-    messages(messages) {
+    scrollToBottom() {
       this.$nextTick(function () {
         const chat = this.$refs.chat;
         chat.scrollTop = chat.scrollHeight;
       });
     },
   },
+  watch: {
+    messages(messages) {
+      this.scrollToBottom();
+    },
+  },
   computed: {
     reverseItems() {
-      return this.messages.slice().reverse();
+      return (msg) => msg;
     },
   },
 };
@@ -110,7 +127,7 @@ export default {
   background: #555;
 }
 .chat {
-  max-height: 75vh;
+  max-height: 60vh;
   overflow-y: auto;
   padding-top: 10px;
   .chat-list {
