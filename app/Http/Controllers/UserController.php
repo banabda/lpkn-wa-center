@@ -27,4 +27,11 @@ class UserController extends Controller
         $result = $client->request('GET', env('WA_URL') . 'me' . env('WA_TOKEN'))->getBody()->getContents();
         return $result;
     }
+
+    public function getMe()
+    {
+        $user = auth()->user();
+        $user->role = $user->getRoleNames();
+        return $user;
+    }
 }

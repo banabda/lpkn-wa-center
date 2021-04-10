@@ -99,7 +99,7 @@ class DialogController extends Controller
         return $result;
     }
 
-    public function latest($chatid)
+    public function selected($chatid)
     {
         $dialog = Dialog::where('id', $chatid)->first();
 

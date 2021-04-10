@@ -62,6 +62,19 @@ class GetMessages extends Command
                     'message_number' => $res->messageNumber,
                     'time' => date('Y-m-d H:i:s', $res->time)
                 ]);
+            } else {
+                $message->update([
+                    'id' => $res->id,
+                    'chatId' => $res->chatId,
+                    'body' => $res->body,
+                    'from_me' => $res->fromMe,
+                    'type' => $res->type,
+                    'author' => $res->author,
+                    'caption' => isset($res->caption) ? $res->caption : null,
+                    'sender_name' => $res->senderName,
+                    'message_number' => $res->messageNumber,
+                    'time' => date('Y-m-d H:i:s', $res->time)
+                ]);
             }
         }
         Log::info('messages ok');

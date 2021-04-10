@@ -4,17 +4,34 @@
       placeholder="Type something ..."
       autofocus
       v-model="text"
-      @keydown.enter.exact.prevent="send"
+      @keydown.enter.exact.prevent="sendMessage"
     ></textarea>
   </div>
 </template>
 <script>
+import { mapState, mapGetters, mapActions, mapMutations } from "vuex";
 export default {
   methods: {
-    send() {
-      this.$emit("send", this.text);
-      this.text = "";
+    ...mapActions({
+      send: "messages/sendMessage",
+      get: "messages/setMessages",
+    }),
+    sendMessage() {
+      let data = {
+        id: new Date().toString(),
+        time: new Date().toString(),
+        type: "chat",
+        body: this.text,
+      };
+      if (!/^\s+$/.test(this.text) && this.text != "") {
+        this.send(data);
+        this.get(this.cUser.id);
+        this.text = "";
+      }
     },
+  },
+  computed: {
+    ...mapGetters({ cUser: "dialogs/getSelectedDialogs" }),
   },
   data() {
     return {

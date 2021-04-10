@@ -1,9 +1,9 @@
 <template>
   <div class="right-side">
-    <div v-if="selectedContact">
-      <Header :selectedContact="selectedContact" @close="$emit('close')" />
-      <Chat :messages="messages" />
-      <InputRight v-if="messages" @send="(text) => $emit('send', text)" />
+    <div v-if="selected">
+      <Header />
+      <Chat />
+      <InputRight />
     </div>
     <div class="no-contact" v-else>Select contact to start chat</div>
   </div>
@@ -12,11 +12,13 @@
 import Header from "./HeaderRightComponent";
 import Chat from "./ChatRightComponent";
 import InputRight from "./InputRightComponent";
+import { mapState, mapGetters, mapActions, mapMutations } from "vuex";
 export default {
   components: { Header, Chat, InputRight },
-  props: {
-    selectedContact: { require: true },
-    messages: { require: true },
+  computed: {
+    ...mapGetters({
+      selected: "dialogs/getSelectedDialogs",
+    }),
   },
 };
 </script>

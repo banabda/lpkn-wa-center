@@ -3,7 +3,7 @@
     <div v-for="(dial, index) in dialogs" :key="index">
       <div
         class="d-flex contact-container py-2 px-3 mb-1"
-        @click="$emit('selectedContact', dial)"
+        @click="selectedUser(dial)"
       >
         <div class="contact-left w-25">
           <avatar :username="dial.name" :src="dial.image" :size="40"></avatar>
@@ -65,12 +65,16 @@
 </template>
 <script>
 import Avatar from "vue-avatar";
+import { mapState, mapGetters, mapActions, mapMutations } from "vuex";
 export default {
   components: {
     Avatar,
   },
-  props: {
-    dialogs: { require: true },
+  computed: {
+    ...mapGetters({
+      dialogs: "dialogs/getDialogs",
+      selected: "dialogs/getSelectedDialogs",
+    }),
   },
   mounted() {},
   methods: {
@@ -79,6 +83,9 @@ export default {
       currentDate.setDate(currentDate.getDate() - 1);
       return currentDate.toDateString();
     },
+    ...mapActions({
+      selectedUser: "dialogs/setSelectedDialog",
+    }),
   },
   data() {
     return {
@@ -116,13 +123,12 @@ export default {
     }
   }
   &-right {
-    -webkit-touch-callout: none; /* iOS Safari */
-    -webkit-user-select: none; /* Safari */
-    -khtml-user-select: none; /* Konqueror HTML */
-    -moz-user-select: none; /* Old versions of Firefox */
-    -ms-user-select: none; /* Internet Explorer/Edge */
-    user-select: none; /* Non-prefixed version, currently
-                                  supported by Chrome, Edge, Opera and Firefox */
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
     .name {
       font-weight: bold;
     }

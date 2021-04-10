@@ -66,18 +66,33 @@
   </div>
 </template>
 <script>
+import { mapState, mapGetters, mapActions, mapMutations } from "vuex";
 export default {
-  props: {
-    messages: { require: true },
+  beforeMount() {
+    this.getMessages(this.selected.id).then(() => this.scrollToBottom());
   },
-  mounted() {},
   data() {
     return {
       regex: /\*(.*?)\*/g,
       regexTo: "<b>$1</b>",
     };
   },
+  computed: {
+    reverseItems() {
+      return (msg) => msg;
+    },
+    ...mapState({
+      a: "messages/messages",
+    }),
+    ...mapGetters({
+      selected: "dialogs/getSelectedDialogs",
+      messages: "messages/getMessage",
+    }),
+  },
   methods: {
+    ...mapActions({
+      getMessages: "messages/setMessages",
+    }),
     dateCheck(date) {
       if (new Date(date).toDateString() == new Date().toDateString()) {
         return "today";
@@ -102,13 +117,12 @@ export default {
     },
   },
   watch: {
+    selected(selected) {
+      this.getMessages(selected.id).then(() => this.scrollToBottom());
+    },
     messages(messages) {
       this.scrollToBottom();
-    },
-  },
-  computed: {
-    reverseItems() {
-      return (msg) => msg;
+      console.log("scroll");
     },
   },
 };

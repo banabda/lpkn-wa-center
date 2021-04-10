@@ -3,26 +3,21 @@
     <div class="me d-flex px-4">
       <span class="name">{{ user.name }}</span>
 
-      <i class="bi bi-box-arrow-right"></i>
+      <i class="bi bi-box-arrow-right" @click="exitWa"></i>
     </div>
   </div>
 </template>
 <script>
+import { mapState, mapGetters, mapActions, mapMutations } from "vuex";
 export default {
-  props: {
-    user: { require: true },
-  },
-  data() {
-    return {
-      arrayOfObjects: [1, 2, 3],
-      object: {
-        name: "Object Name",
-      },
-    };
+  computed: {
+    ...mapGetters({
+      user: "user/currentUser",
+    }),
   },
   methods: {
-    methodToRunOnSelect(payload) {
-      this.object = payload;
+    exitWa() {
+      console.log("exit wa");
     },
   },
 };
