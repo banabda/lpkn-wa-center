@@ -103,6 +103,7 @@ class MessageController extends Controller
             "body" => $request->url,
             "filename" => $request->filename,
             "chatId" => $request->chatId,
+            'caption' => isset($request->caption) ? $request->caption : null
             // "phone" => "6289653468001"
         ];
         dd($data);

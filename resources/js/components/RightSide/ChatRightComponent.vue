@@ -95,7 +95,7 @@ export default {
       this.$modal.show("image-preview");
     },
     dateCheck(date) {
-      console.log(new Date(date).toDateString(), new Date().toDateString());
+      // console.log(new Date(date).toDateString(), new Date().toDateString());
       if (new Date(date).toDateString() == new Date().toDateString()) {
         return "today";
       } else if (
@@ -127,7 +127,7 @@ export default {
         new Date(message.time).toDateString()
       );
       this.scrollToBottom();
-      console.log("scroll");
+      // console.log("scroll");
     },
   },
 };

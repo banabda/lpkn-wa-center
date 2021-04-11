@@ -26,7 +26,6 @@ const dialogs = {
 
     actions: {
         async setDialogs(state) {
-            console.log("hited");
             await axios.get("/chat/contact").then(e => {
                 const list = _.sortBy(e.data, [
                     function(o) {

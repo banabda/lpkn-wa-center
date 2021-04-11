@@ -7,6 +7,7 @@
       fill="currentColor"
       class="bi bi-paperclip icon-input"
       viewBox="0 0 16 16"
+      @click="showUploadFile"
     >
       <path
         d="M4.5 3a2.5 2.5 0 0 1 5 0v9a1.5 1.5 0 0 1-3 0V5a.5.5 0 0 1 1 0v7a.5.5 0 0 0 1 0V3a1.5 1.5 0 1 0-3 0v9a2.5 2.5 0 0 0 5 0V5a.5.5 0 0 1 1 0v7a3.5 3.5 0 1 1-7 0V3z"
@@ -19,7 +20,7 @@
       fill="currentColor"
       class="bi bi-images icon-input"
       viewBox="0 0 16 16"
-      @click="$modal.show('modal-image')"
+      @click="showUploadImage"
     >
       <path d="M4.502 9a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z" />
       <path
@@ -53,6 +54,7 @@ import EmojiAllData from "@kevinfaguiar/vue-twemoji-picker/emoji-data/en/emoji-a
 import EmojiDataAnimalsNature from "@kevinfaguiar/vue-twemoji-picker/emoji-data/en/emoji-group-animals-nature.json";
 import EmojiDataFoodDrink from "@kevinfaguiar/vue-twemoji-picker/emoji-data/en/emoji-group-food-drink.json";
 import EmojiGroups from "@kevinfaguiar/vue-twemoji-picker/emoji-data/emoji-groups.json";
+import Swal from "sweetalert2";
 export default {
   components: {
     "twemoji-picker": TwemojiPicker,
@@ -65,6 +67,82 @@ export default {
     }),
     emojiUnicodeAdded(a) {
       this.text += a;
+    },
+    async showUploadImage() {
+      this.$modal.show("modal-image");
+      // const { value: file } = await Swal.fire({
+      //   title: "Select image",
+      //   input: "file",
+      //   showConfirmButton: false,
+      //   showCloseButton: true,
+      //   inputAttributes: {
+      //     accept: "image/*",
+      //     "aria-label": "Upload your profile picture",
+      //   },
+      // });
+
+      // if (file) {
+      //   const reader = new FileReader();
+      //   reader.onload = (e) => {
+      //     Swal.fire({
+      //       title: "Your uploaded picture",
+      //       imageUrl: e.target.result,
+      //       imageAlt: "The uploaded picture",
+      //     });
+      //   };
+      //   reader.readAsDataURL(file);
+      // }
+    },
+    async showUploadFile() {
+      const { value: file } = await Swal.fire({
+        title: "Select file",
+        input: "file",
+        showCloseButton: true,
+        inputAttributes: {
+          accept:
+            ".doc, .docx, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/*, text/*",
+          "aria-label": "Upload your profile picture",
+        },
+      });
+
+      if (file) {
+        const formData = new FormData();
+        formData.append("file", file);
+        axios
+          .post("/chat/upload", formData, {
+            headers: { "Content-Type": "multipart/form-data" },
+          })
+          .then((e) => {
+            axios
+              .post("/chat-api/message/file", {
+                url: e.data.url,
+                filename: e.data.name,
+                chatId: this.cUser.id,
+              })
+              .then(() => {
+                let data = {
+                  id: new Date(),
+                  time: new Date(),
+                  type: "document",
+                  caption: e.data.name,
+                  body: e.data.url,
+                  from_me: true,
+                };
+                this.send(data).then(() => {
+                  Swal.fire({
+                    icon: "success",
+                    title: "File sended!",
+                    toast: true,
+                    position: "top-end",
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true,
+                    background: "#FFEDE1",
+                  });
+                });
+              });
+          });
+      }
     },
     sendMessage(e) {
       let data = {

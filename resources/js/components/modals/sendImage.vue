@@ -57,58 +57,71 @@ export default {
       //   _Ufile.name = _file.name;
       //   _Ufile.size = _file.size;
       //   _Ufile.type = _file.type;
-      Swal.fire({
-        title: "Sending Images!",
-        html: "Please kindly to wait :)",
-        didOpen: () => {
-          Swal.showLoading();
-        },
-      });
+      if (this.imagesFiles) {
+        Swal.fire({
+          title: "Sending Images!",
+          html: "Please kindly to wait :)",
+          didOpen: () => {
+            Swal.showLoading();
+          },
+        });
+        const length = this.imagesFiles.length;
+        this.imagesFiles.forEach((el, id) => {
+          const formData = new FormData();
+          formData.append("file", el);
+          //   formData.append("details", this.imagesDetails);
+          axios
+            .post("/chat/upload", formData, {
+              headers: { "Content-Type": "multipart/form-data" },
+            })
+            .then((e) => {
+              axios
+                .post("/chat-api/message/file", {
+                  url: e.data.url,
+                  filename: e.data.name,
+                  chatId: this.selectedContact.id,
+                })
+                .then(() => {
+                  let data = {
+                    id: new Date(),
+                    time: new Date(),
+                    type: "image",
+                    body: e.data.url,
+                    from_me: true,
+                  };
+                  this.send(data);
 
-      this.imagesFiles.forEach((el, id) => {
-        const formData = new FormData();
-        formData.append("file", el);
-        //   formData.append("details", this.imagesDetails);
-        console.log("a");
-        axios
-          .post("/chat/upload", formData, {
-            headers: { "Content-Type": "multipart/form-data" },
-          })
-          .then((e) => {
-            console.log("b");
-            axios
-              .post("/chat-api/message/file", {
-                url: e.data.url,
-                filename: e.data.name,
-                chatId: this.selectedContact.id,
-              })
-              .then(() => {
-                let data = {
-                  id: new Date(),
-                  time: new Date(),
-                  type: "image",
-                  body: e.data.url,
-                  from_me: true,
-                };
-                this.send(data);
-
-                if (id == this.imagesFiles.length - 1) {
-                  Swal.close();
-                  this.$modal.hide("modal-image");
-                  Swal.fire({
-                    icon: "success",
-                    title: "File sended!",
-                    toast: true,
-                    position: "top-end",
-                    showConfirmButton: false,
-                    timer: 2000,
-                    timerProgressBar: true,
-                    background: "#FFEDE1",
-                  });
-                }
-              });
-          });
-      });
+                  if (id == length - 1) {
+                    Swal.close();
+                    this.$modal.hide("modal-image");
+                    Swal.fire({
+                      icon: "success",
+                      title: "File sended!",
+                      toast: true,
+                      position: "top-end",
+                      showConfirmButton: false,
+                      timer: 3000,
+                      timerProgressBar: true,
+                      background: "#FFEDE1",
+                    });
+                  }
+                });
+            });
+        });
+        this.imagesDetails = null;
+        this.imagesFiles = null;
+      } else {
+        Swal.fire({
+          icon: "error",
+          title: "Upload file first!",
+          toast: true,
+          position: "top-end",
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+          background: "#FFEDE1",
+        });
+      }
     },
   },
   data: () => ({

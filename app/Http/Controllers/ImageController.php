@@ -18,7 +18,7 @@ class ImageController extends Controller
     {
         return view('resizeImage');
     }
-  
+
     /**
      * Show the form for creating a new resource.
      *
@@ -26,36 +26,40 @@ class ImageController extends Controller
      */
     public function upload(Request $request)
     {
-        // $this->validate($request, [
-        //     'title' => 'required',
-        //     'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:4192',
-        // ]);
-
-        // $file = $request->all();
         $file = $request->file('file');
 
-        // dd($file->getClientOriginalName());
-  
-        $image = $request->file('file');
-        $input['imagename'] = time().'.'.$image->extension();
-        $destinationPath = storage_path().'/app/public/upload/sendMedia/'.$input['imagename'];
-        // $destinationPath = public_path('thumbnail/'). $input['imagename'];
+        // dd($file->getClientOriginalName(), $file->getClientOriginalExtension(), @is_array(getimagesize($file)));
 
-        $img = Img::make($image->path());
-        $img->resize(500, 500, function ($constraint) {
-            $constraint->aspectRatio();
-        })->save($destinationPath);
-        
+        $image = $request->file('file');
+        $input['imagename'] = time() . '.' . $image->extension();
+        $destinationPath = storage_path() . '/app/public/upload/sendMedia/' . $input['imagename'];
+        // $destinationPath = public_path('thumbnail/'). $input['imagename'];
+        if (@is_array(getimagesize($file))) {
+            $img = Img::make($image->path());
+            $img->resize(500, 500, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save($destinationPath);
+            $url = '/storage/upload/sendMedia/' . $input['imagename'];
+        } else {
+            $path = 'upload/sendMedia';
+            
+            $path = Storage::disk('public')->put(
+                $path,
+                $file
+            );
+            $url = Storage::url($path);
+        }
+
         // $destinationPath = public_path('/images');
         // $image->move($destinationPath, $input['imagename']);
-    
-        $url = '/storage/upload/sendMedia/'.$input['imagename'];
-        
+
+
         $imageDB = Image::create([
             'url' => $url,
-            'name' => $input['imagename']
+            'name' => $input['imagename'],
+            'type' => $file->getClientOriginalExtension()
         ]);
-   
-        return response()->json(['url'=>$url, 'name'=>$imageDB->name]);
+
+        return response()->json(['url' => $url, 'name' => $imageDB->name]);
     }
 }

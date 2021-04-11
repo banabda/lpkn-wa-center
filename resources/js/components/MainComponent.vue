@@ -34,11 +34,11 @@ export default {
     };
   },
   beforeMount() {
-    this.setDialogs().then(() => console.log("dialogs ok"));
-    this.setUser().then(() => console.log("user ok"));
+    this.setDialogs();
+    this.setUser();
   },
   mounted() {
-    console.log("Component mounted.");
+    // console.log("Component mounted.");
   },
   computed: {
     ...mapState({

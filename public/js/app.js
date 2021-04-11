@@ -2227,15 +2227,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     };
   },
   beforeMount: function beforeMount() {
-    this.setDialogs().then(function () {
-      return console.log("dialogs ok");
-    });
-    this.setUser().then(function () {
-      return console.log("user ok");
-    });
+    this.setDialogs();
+    this.setUser();
   },
-  mounted: function mounted() {
-    console.log("Component mounted.");
+  mounted: function mounted() {// console.log("Component mounted.");
   },
   computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_5__.mapState)({
     cn: "count"
@@ -2423,8 +2418,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.$modal.show("image-preview");
     },
     dateCheck: function dateCheck(date) {
-      console.log(new Date(date).toDateString(), new Date().toDateString());
-
+      // console.log(new Date(date).toDateString(), new Date().toDateString());
       if (new Date(date).toDateString() == new Date().toDateString()) {
         return "today";
       } else if (new Date(date).toDateString() == this.tomorrowGen(new Date())) {
@@ -2457,8 +2451,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.localMessages = _.groupBy(_messages, function (message) {
         return new Date(message.time).toDateString();
       });
-      this.scrollToBottom();
-      console.log("scroll");
+      this.scrollToBottom(); // console.log("scroll");
     }
   }
 });
@@ -2531,12 +2524,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
-/* harmony import */ var _kevinfaguiar_vue_twemoji_picker__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @kevinfaguiar/vue-twemoji-picker */ "./node_modules/@kevinfaguiar/vue-twemoji-picker/dist/vue-twemoji-picker.esm.min.js");
-/* harmony import */ var _kevinfaguiar_vue_twemoji_picker_emoji_data_en_emoji_all_groups_json__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @kevinfaguiar/vue-twemoji-picker/emoji-data/en/emoji-all-groups.json */ "./node_modules/@kevinfaguiar/vue-twemoji-picker/emoji-data/en/emoji-all-groups.json");
-/* harmony import */ var _kevinfaguiar_vue_twemoji_picker_emoji_data_en_emoji_group_animals_nature_json__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @kevinfaguiar/vue-twemoji-picker/emoji-data/en/emoji-group-animals-nature.json */ "./node_modules/@kevinfaguiar/vue-twemoji-picker/emoji-data/en/emoji-group-animals-nature.json");
-/* harmony import */ var _kevinfaguiar_vue_twemoji_picker_emoji_data_en_emoji_group_food_drink_json__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @kevinfaguiar/vue-twemoji-picker/emoji-data/en/emoji-group-food-drink.json */ "./node_modules/@kevinfaguiar/vue-twemoji-picker/emoji-data/en/emoji-group-food-drink.json");
-/* harmony import */ var _kevinfaguiar_vue_twemoji_picker_emoji_data_emoji_groups_json__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @kevinfaguiar/vue-twemoji-picker/emoji-data/emoji-groups.json */ "./node_modules/@kevinfaguiar/vue-twemoji-picker/emoji-data/emoji-groups.json");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var _kevinfaguiar_vue_twemoji_picker__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @kevinfaguiar/vue-twemoji-picker */ "./node_modules/@kevinfaguiar/vue-twemoji-picker/dist/vue-twemoji-picker.esm.min.js");
+/* harmony import */ var _kevinfaguiar_vue_twemoji_picker_emoji_data_en_emoji_all_groups_json__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @kevinfaguiar/vue-twemoji-picker/emoji-data/en/emoji-all-groups.json */ "./node_modules/@kevinfaguiar/vue-twemoji-picker/emoji-data/en/emoji-all-groups.json");
+/* harmony import */ var _kevinfaguiar_vue_twemoji_picker_emoji_data_en_emoji_group_animals_nature_json__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @kevinfaguiar/vue-twemoji-picker/emoji-data/en/emoji-group-animals-nature.json */ "./node_modules/@kevinfaguiar/vue-twemoji-picker/emoji-data/en/emoji-group-animals-nature.json");
+/* harmony import */ var _kevinfaguiar_vue_twemoji_picker_emoji_data_en_emoji_group_food_drink_json__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @kevinfaguiar/vue-twemoji-picker/emoji-data/en/emoji-group-food-drink.json */ "./node_modules/@kevinfaguiar/vue-twemoji-picker/emoji-data/en/emoji-group-food-drink.json");
+/* harmony import */ var _kevinfaguiar_vue_twemoji_picker_emoji_data_emoji_groups_json__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @kevinfaguiar/vue-twemoji-picker/emoji-data/emoji-groups.json */ "./node_modules/@kevinfaguiar/vue-twemoji-picker/emoji-data/emoji-groups.json");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_6__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -2590,6 +2593,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+
 
 
 
@@ -2599,15 +2604,125 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
-    "twemoji-picker": _kevinfaguiar_vue_twemoji_picker__WEBPACK_IMPORTED_MODULE_0__.TwemojiPicker,
-    "twemoji-textarea": _kevinfaguiar_vue_twemoji_picker__WEBPACK_IMPORTED_MODULE_0__.TwemojiTextarea
+    "twemoji-picker": _kevinfaguiar_vue_twemoji_picker__WEBPACK_IMPORTED_MODULE_1__.TwemojiPicker,
+    "twemoji-textarea": _kevinfaguiar_vue_twemoji_picker__WEBPACK_IMPORTED_MODULE_1__.TwemojiTextarea
   },
-  methods: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_5__.mapActions)({
+  methods: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_7__.mapActions)({
     send: "messages/sendMessage",
     get: "messages/setMessages"
   })), {}, {
     emojiUnicodeAdded: function emojiUnicodeAdded(a) {
       this.text += a;
+    },
+    showUploadImage: function showUploadImage() {
+      var _this = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _this.$modal.show("modal-image"); // const { value: file } = await Swal.fire({
+                //   title: "Select image",
+                //   input: "file",
+                //   showConfirmButton: false,
+                //   showCloseButton: true,
+                //   inputAttributes: {
+                //     accept: "image/*",
+                //     "aria-label": "Upload your profile picture",
+                //   },
+                // });
+                // if (file) {
+                //   const reader = new FileReader();
+                //   reader.onload = (e) => {
+                //     Swal.fire({
+                //       title: "Your uploaded picture",
+                //       imageUrl: e.target.result,
+                //       imageAlt: "The uploaded picture",
+                //     });
+                //   };
+                //   reader.readAsDataURL(file);
+                // }
+
+
+              case 1:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    },
+    showUploadFile: function showUploadFile() {
+      var _this2 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
+        var _yield$Swal$fire, file, formData;
+
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _context2.next = 2;
+                return sweetalert2__WEBPACK_IMPORTED_MODULE_6___default().fire({
+                  title: "Select file",
+                  input: "file",
+                  showCloseButton: true,
+                  inputAttributes: {
+                    accept: ".doc, .docx, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/*, text/*",
+                    "aria-label": "Upload your profile picture"
+                  }
+                });
+
+              case 2:
+                _yield$Swal$fire = _context2.sent;
+                file = _yield$Swal$fire.value;
+
+                if (file) {
+                  formData = new FormData();
+                  formData.append("file", file);
+                  axios.post("/chat/upload", formData, {
+                    headers: {
+                      "Content-Type": "multipart/form-data"
+                    }
+                  }).then(function (e) {
+                    axios.post("/chat-api/message/file", {
+                      url: e.data.url,
+                      filename: e.data.name,
+                      chatId: _this2.cUser.id
+                    }).then(function () {
+                      var data = {
+                        id: new Date(),
+                        time: new Date(),
+                        type: "document",
+                        caption: e.data.name,
+                        body: e.data.url,
+                        from_me: true
+                      };
+
+                      _this2.send(data).then(function () {
+                        sweetalert2__WEBPACK_IMPORTED_MODULE_6___default().fire({
+                          icon: "success",
+                          title: "File sended!",
+                          toast: true,
+                          position: "top-end",
+                          showConfirmButton: false,
+                          timer: 3000,
+                          timerProgressBar: true,
+                          background: "#FFEDE1"
+                        });
+                      });
+                    });
+                  });
+                }
+
+              case 5:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }))();
     },
     sendMessage: function sendMessage(e) {
       var data = {
@@ -2625,14 +2740,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
     }
   }),
-  computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_5__.mapGetters)({
+  computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_7__.mapGetters)({
     cUser: "dialogs/getSelectedDialogs"
   })), {}, {
     emojiDataAll: function emojiDataAll() {
-      return _kevinfaguiar_vue_twemoji_picker_emoji_data_en_emoji_all_groups_json__WEBPACK_IMPORTED_MODULE_1__;
+      return _kevinfaguiar_vue_twemoji_picker_emoji_data_en_emoji_all_groups_json__WEBPACK_IMPORTED_MODULE_2__;
     },
     emojiGroups: function emojiGroups() {
-      return _kevinfaguiar_vue_twemoji_picker_emoji_data_emoji_groups_json__WEBPACK_IMPORTED_MODULE_4__;
+      return _kevinfaguiar_vue_twemoji_picker_emoji_data_emoji_groups_json__WEBPACK_IMPORTED_MODULE_5__;
     }
   }),
   data: function data() {
@@ -2822,58 +2937,72 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       //   _Ufile.name = _file.name;
       //   _Ufile.size = _file.size;
       //   _Ufile.type = _file.type;
-      sweetalert2__WEBPACK_IMPORTED_MODULE_1___default().fire({
-        title: "Sending Images!",
-        html: "Please kindly to wait :)",
-        didOpen: function didOpen() {
-          sweetalert2__WEBPACK_IMPORTED_MODULE_1___default().showLoading();
-        }
-      });
-      this.imagesFiles.forEach(function (el, id) {
-        var formData = new FormData();
-        formData.append("file", el); //   formData.append("details", this.imagesDetails);
-
-        console.log("a");
-        axios__WEBPACK_IMPORTED_MODULE_2___default().post("/chat/upload", formData, {
-          headers: {
-            "Content-Type": "multipart/form-data"
+      if (this.imagesFiles) {
+        sweetalert2__WEBPACK_IMPORTED_MODULE_1___default().fire({
+          title: "Sending Images!",
+          html: "Please kindly to wait :)",
+          didOpen: function didOpen() {
+            sweetalert2__WEBPACK_IMPORTED_MODULE_1___default().showLoading();
           }
-        }).then(function (e) {
-          console.log("b");
-          axios__WEBPACK_IMPORTED_MODULE_2___default().post("/chat-api/message/file", {
-            url: e.data.url,
-            filename: e.data.name,
-            chatId: _this.selectedContact.id
-          }).then(function () {
-            var data = {
-              id: new Date(),
-              time: new Date(),
-              type: "image",
-              body: e.data.url,
-              from_me: true
-            };
+        });
+        var length = this.imagesFiles.length;
+        this.imagesFiles.forEach(function (el, id) {
+          var formData = new FormData();
+          formData.append("file", el); //   formData.append("details", this.imagesDetails);
 
-            _this.send(data);
-
-            if (id == _this.imagesFiles.length - 1) {
-              sweetalert2__WEBPACK_IMPORTED_MODULE_1___default().close();
-
-              _this.$modal.hide("modal-image");
-
-              sweetalert2__WEBPACK_IMPORTED_MODULE_1___default().fire({
-                icon: "success",
-                title: "File sended!",
-                toast: true,
-                position: "top-end",
-                showConfirmButton: false,
-                timer: 2000,
-                timerProgressBar: true,
-                background: "#FFEDE1"
-              });
+          axios__WEBPACK_IMPORTED_MODULE_2___default().post("/chat/upload", formData, {
+            headers: {
+              "Content-Type": "multipart/form-data"
             }
+          }).then(function (e) {
+            axios__WEBPACK_IMPORTED_MODULE_2___default().post("/chat-api/message/file", {
+              url: e.data.url,
+              filename: e.data.name,
+              chatId: _this.selectedContact.id
+            }).then(function () {
+              var data = {
+                id: new Date(),
+                time: new Date(),
+                type: "image",
+                body: e.data.url,
+                from_me: true
+              };
+
+              _this.send(data);
+
+              if (id == length - 1) {
+                sweetalert2__WEBPACK_IMPORTED_MODULE_1___default().close();
+
+                _this.$modal.hide("modal-image");
+
+                sweetalert2__WEBPACK_IMPORTED_MODULE_1___default().fire({
+                  icon: "success",
+                  title: "File sended!",
+                  toast: true,
+                  position: "top-end",
+                  showConfirmButton: false,
+                  timer: 3000,
+                  timerProgressBar: true,
+                  background: "#FFEDE1"
+                });
+              }
+            });
           });
         });
-      });
+        this.imagesDetails = null;
+        this.imagesFiles = null;
+      } else {
+        sweetalert2__WEBPACK_IMPORTED_MODULE_1___default().fire({
+          icon: "error",
+          title: "Upload file first!",
+          toast: true,
+          position: "top-end",
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+          background: "#FFEDE1"
+        });
+      }
     }
   }),
   data: function data() {
@@ -3147,8 +3276,7 @@ var dialogs = {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                console.log("hited");
-                _context.next = 3;
+                _context.next = 2;
                 return axios.get("/chat/contact").then(function (e) {
                   var list = _.sortBy(e.data, [function (o) {
                     return o.latest_message.time;
@@ -3157,7 +3285,7 @@ var dialogs = {
                   state.commit("setDialogs", list);
                 });
 
-              case 3:
+              case 2:
               case "end":
                 return _context.stop();
             }
@@ -46860,7 +46988,8 @@ var render = function() {
             height: "32",
             fill: "currentColor",
             viewBox: "0 0 16 16"
-          }
+          },
+          on: { click: _vm.showUploadFile }
         },
         [
           _c("path", {
@@ -46883,11 +47012,7 @@ var render = function() {
             fill: "currentColor",
             viewBox: "0 0 16 16"
           },
-          on: {
-            click: function($event) {
-              return _vm.$modal.show("modal-image")
-            }
-          }
+          on: { click: _vm.showUploadImage }
         },
         [
           _c("path", {
