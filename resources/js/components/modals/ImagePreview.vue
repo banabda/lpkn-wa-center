@@ -4,7 +4,6 @@
     classes="cute-image-preview-photo"
     transition="scale"
     height="auto"
-    width="80%"
   >
     <div
       slot="top-right"

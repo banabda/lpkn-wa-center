@@ -2849,7 +2849,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapGetters)({
@@ -47162,8 +47161,7 @@ var render = function() {
         name: "image-preview",
         classes: "cute-image-preview-photo",
         transition: "scale",
-        height: "auto",
-        width: "80%"
+        height: "auto"
       }
     },
     [
