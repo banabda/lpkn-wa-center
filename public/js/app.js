@@ -2622,7 +2622,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         this.send(data); // this.get(this.cUser.id);
 
         this.text = "";
-        this.$refs.taEmoji.cleanText();
       }
     }
   }),
@@ -2754,6 +2753,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -2778,6 +2784,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 
 
 
@@ -2785,7 +2792,12 @@ __webpack_require__.r(__webpack_exports__);
   components: {
     UploadImages: vue_upload_drop_images__WEBPACK_IMPORTED_MODULE_0__.default
   },
-  methods: {
+  computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_3__.mapGetters)({
+    selectedContact: "dialogs/getSelectedDialogs"
+  })),
+  methods: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_3__.mapActions)({
+    send: "messages/sendMessage"
+  })), {}, {
     handleImages: function handleImages(files) {
       var _imgsDetails = [];
       var _imgsFiles = [];
@@ -2803,6 +2815,8 @@ __webpack_require__.r(__webpack_exports__);
       this.imagesFiles = _imgsFiles;
     },
     sendImages: function sendImages() {
+      var _this = this;
+
       //   var _file = event.target.files[0];
       //   var _Ufile = {};
       //   _Ufile.name = _file.name;
@@ -2815,23 +2829,53 @@ __webpack_require__.r(__webpack_exports__);
           sweetalert2__WEBPACK_IMPORTED_MODULE_1___default().showLoading();
         }
       });
-      this.imagesFiles.forEach(function (el) {
+      this.imagesFiles.forEach(function (el, id) {
         var formData = new FormData();
         formData.append("file", el); //   formData.append("details", this.imagesDetails);
-        // console.log(el, ind);
 
+        console.log("a");
         axios__WEBPACK_IMPORTED_MODULE_2___default().post("/chat/upload", formData, {
           headers: {
             "Content-Type": "multipart/form-data"
           }
         }).then(function (e) {
-          return console.log(e.data);
+          console.log("b");
+          axios__WEBPACK_IMPORTED_MODULE_2___default().post("/chat-api/message/file", {
+            url: e.data.url,
+            filename: e.data.name,
+            chatId: _this.selectedContact.id
+          }).then(function () {
+            var data = {
+              id: new Date(),
+              time: new Date(),
+              type: "image",
+              body: e.data.url,
+              from_me: true
+            };
+
+            _this.send(data);
+
+            if (id == _this.imagesFiles.length - 1) {
+              sweetalert2__WEBPACK_IMPORTED_MODULE_1___default().close();
+
+              _this.$modal.hide("modal-image");
+
+              sweetalert2__WEBPACK_IMPORTED_MODULE_1___default().fire({
+                icon: "success",
+                title: "File sended!",
+                toast: true,
+                position: "top-end",
+                showConfirmButton: false,
+                timer: 2000,
+                timerProgressBar: true,
+                background: "#FFEDE1"
+              });
+            }
+          });
         });
       });
-      console.log("ok");
-      sweetalert2__WEBPACK_IMPORTED_MODULE_1___default().close();
     }
-  },
+  }),
   data: function data() {
     return {
       imagesDetails: null,

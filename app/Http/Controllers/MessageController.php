@@ -100,11 +100,12 @@ class MessageController extends Controller
     {
         $client = new Client();
         $data = [
-            "body" => "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.w3schools.com%2Fw3css%2Fw3css_images.asp&psig=AOvVaw0_HT2EOH3eICNfu6k0I6jg&ust=1617871710978000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCJikzfbf6-8CFQAAAAAdAAAAABAD",
-            "filename" => "image test",
-            "chatId" => "6289653468001@c.us",
+            "body" => $request->url,
+            "filename" => $request->filename,
+            "chatId" => $request->chatId,
             // "phone" => "6289653468001"
         ];
+        dd($data);
         $result = $client->request('POST', env('WA_URL') . 'status' . env('WA_TOKEN'), ['form_params' => $data])->getBody()->getContents();
         return $result;
     }

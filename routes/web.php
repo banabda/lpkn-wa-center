@@ -42,7 +42,7 @@ Route::group(['middleware' => 'auth'], function () {
             Route::get('/', [MessageController::class, 'messages']);
             Route::get('/latest', [MessageController::class, 'latest']);
             Route::get('/text', [MessageController::class, 'sendText']);
-            Route::get('/file', [MessageController::class, 'sendFile']);
+            Route::post('/file', [MessageController::class, 'sendFile']);
             Route::get('/delete', [MessageController::class, 'delete']);
         });
 

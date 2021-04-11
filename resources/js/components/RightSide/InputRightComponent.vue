@@ -78,7 +78,6 @@ export default {
         this.send(data);
         // this.get(this.cUser.id);
         this.text = "";
-        this.$refs.taEmoji.cleanText();
       }
     },
   },

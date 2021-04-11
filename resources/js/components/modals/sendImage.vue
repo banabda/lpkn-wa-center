@@ -26,9 +26,16 @@
 import UploadImages from "vue-upload-drop-images";
 import Swal from "sweetalert2";
 import axios from "axios";
+import { mapState, mapGetters, mapActions, mapMutations } from "vuex";
 export default {
   components: { UploadImages },
+  computed: {
+    ...mapGetters({ selectedContact: "dialogs/getSelectedDialogs" }),
+  },
   methods: {
+    ...mapActions({
+      send: "messages/sendMessage",
+    }),
     handleImages(files) {
       let _imgsDetails = [];
       let _imgsFiles = [];
@@ -58,20 +65,50 @@ export default {
         },
       });
 
-      this.imagesFiles.forEach((el) => {
+      this.imagesFiles.forEach((el, id) => {
         const formData = new FormData();
         formData.append("file", el);
         //   formData.append("details", this.imagesDetails);
-        // console.log(el, ind);
+        console.log("a");
         axios
           .post("/chat/upload", formData, {
             headers: { "Content-Type": "multipart/form-data" },
           })
-          .then((e) => console.log(e.data));
-      });
+          .then((e) => {
+            console.log("b");
+            axios
+              .post("/chat-api/message/file", {
+                url: e.data.url,
+                filename: e.data.name,
+                chatId: this.selectedContact.id,
+              })
+              .then(() => {
+                let data = {
+                  id: new Date(),
+                  time: new Date(),
+                  type: "image",
+                  body: e.data.url,
+                  from_me: true,
+                };
+                this.send(data);
 
-      console.log("ok");
-      Swal.close();
+                if (id == this.imagesFiles.length - 1) {
+                  Swal.close();
+                  this.$modal.hide("modal-image");
+                  Swal.fire({
+                    icon: "success",
+                    title: "File sended!",
+                    toast: true,
+                    position: "top-end",
+                    showConfirmButton: false,
+                    timer: 2000,
+                    timerProgressBar: true,
+                    background: "#FFEDE1",
+                  });
+                }
+              });
+          });
+      });
     },
   },
   data: () => ({

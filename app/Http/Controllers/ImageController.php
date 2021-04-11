@@ -52,9 +52,10 @@ class ImageController extends Controller
         $url = '/storage/upload/sendMedia/'.$input['imagename'];
         
         $imageDB = Image::create([
-            'url' => $url
+            'url' => $url,
+            'name' => $input['imagename']
         ]);
    
-        return response()->json(['url'=>$url, 'image'=>$imageDB]);
+        return response()->json(['url'=>$url, 'name'=>$imageDB->name]);
     }
 }
