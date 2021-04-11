@@ -62,6 +62,7 @@
 </template>
 <script>
 import { mapState, mapGetters, mapActions, mapMutations } from "vuex";
+import Swal from "sweetalert2";
 export default {
   beforeMount() {
     this.getMessages(this.selected.id).then(() => this.scrollToBottom());
@@ -92,7 +93,11 @@ export default {
     }),
     showImage(url) {
       this.setUrl(url);
-      this.$modal.show("image-preview");
+      // this.$modal.show("image-preview");
+      Swal.fire({
+        imageUrl: url,
+        imageAlt: "Preview picture",
+      });
     },
     dateCheck(date) {
       // console.log(new Date(date).toDateString(), new Date().toDateString());
@@ -189,6 +194,7 @@ export default {
       .image-preview {
         width: 390px;
         height: 390px;
+        cursor: pointer;
       }
     }
   }

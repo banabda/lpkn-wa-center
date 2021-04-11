@@ -19,9 +19,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('resizeImage', [ImageController::class, 'resizeImage']);
-Route::post('resizeImagePost', [ImageController::class, 'resizeImagePost'])->name('resizeImagePost');
-
 Route::get('/', function () {
     return view('welcome');
 });
