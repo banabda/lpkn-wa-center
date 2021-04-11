@@ -10,13 +10,7 @@ const messages = {
             state.messages = payload;
         },
         sendMessage(state, payload) {
-            for (let _msg in state.messages) {
-                if (
-                    new Date(_msg).toDateString() == new Date().toDateString()
-                ) {
-                    state.messages[_msg].push(payload);
-                }
-            }
+            state.messages.push(payload);
         }
     },
 

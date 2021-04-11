@@ -2256,12 +2256,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   beforeMount: function beforeMount() {
@@ -2274,7 +2268,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   data: function data() {
     return {
       regex: /\*(.*?)\*/g,
-      regexTo: "<b>$1</b>"
+      regexTo: "<b>$1</b>",
+      localMessages: null
     };
   },
   computed: _objectSpread(_objectSpread({
@@ -2293,6 +2288,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     getMessages: "messages/setMessages"
   })), {}, {
     dateCheck: function dateCheck(date) {
+      console.log(new Date(date).toDateString(), new Date().toDateString());
+
       if (new Date(date).toDateString() == new Date().toDateString()) {
         return "today";
       } else if (new Date(date).toDateString() == this.tomorrowGen(new Date())) {
@@ -2322,6 +2319,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       });
     },
     messages: function messages(_messages) {
+      this.localMessages = _.groupBy(_messages, function (message) {
+        return new Date(message.time).toDateString();
+      });
       this.scrollToBottom();
       console.log("scroll");
     }
@@ -2421,15 +2421,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   })), {}, {
     sendMessage: function sendMessage() {
       var data = {
-        id: new Date().toString(),
-        time: new Date().toString(),
+        id: new Date(),
+        time: new Date(),
         type: "chat",
-        body: this.text
+        body: this.text,
+        from_me: true
       };
 
       if (!/^\s+$/.test(this.text) && this.text != "") {
-        this.send(data);
-        this.get(this.cUser.id);
+        this.send(data); // this.get(this.cUser.id);
+
         this.text = "";
       }
     }
@@ -2810,11 +2811,7 @@ var messages = {
       state.messages = payload;
     },
     sendMessage: function sendMessage(state, payload) {
-      for (var _msg in state.messages) {
-        if (new Date(_msg).toDateString() == new Date().toDateString()) {
-          state.messages[_msg].push(payload);
-        }
-      }
+      state.messages.push(payload);
     }
   },
   actions: {
@@ -7513,7 +7510,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "[data-v-5b933d40]::-webkit-scrollbar {\n  width: 8px;\n}\n[data-v-5b933d40]::-webkit-scrollbar-track {\n  background: #f1f1f1;\n}\n[data-v-5b933d40]::-webkit-scrollbar-thumb {\n  background: #888;\n}\n[data-v-5b933d40]::-webkit-scrollbar-thumb:hover {\n  background: #555;\n}\n.chat[data-v-5b933d40] {\n  max-height: 60vh;\n  overflow-y: auto;\n  padding-top: 10px;\n}\n.chat .chat-list.send[data-v-5b933d40] {\n  text-align: end;\n}\n.chat .chat-list.send .chat-bubble[data-v-5b933d40] {\n  background-color: lightcoral;\n  text-align: left;\n}\n.chat .time[data-v-5b933d40] {\n  text-align: center;\n  margin: 20px 0;\n}\n.chat .time span[data-v-5b933d40] {\n  padding: 8px;\n  background-color: lightskyblue;\n  border-radius: 10px;\n}\n.chat .chat-time[data-v-5b933d40] {\n  text-align: right;\n  font-size: 0.6rem;\n  margin-bottom: 0;\n}\n.chat .chat-bubble[data-v-5b933d40] {\n  background-color: burlywood;\n  border-radius: 8px;\n  max-width: 500px;\n  min-width: 100px;\n  display: inline-block;\n  margin: 2px 10px;\n  padding: 5px;\n}\n.chat .chat-bubble .chat-message[data-v-5b933d40] {\n  white-space: pre-line;\n  padding: 0 5px;\n  margin-bottom: 0;\n}\n.chat .chat-bubble .type-image .image-preview[data-v-5b933d40] {\n  width: 390px;\n  height: 390px;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "[data-v-5b933d40]::-webkit-scrollbar {\n  width: 8px;\n}\n[data-v-5b933d40]::-webkit-scrollbar-track {\n  background: #f1f1f1;\n}\n[data-v-5b933d40]::-webkit-scrollbar-thumb {\n  background: #888;\n}\n[data-v-5b933d40]::-webkit-scrollbar-thumb:hover {\n  background: #555;\n}\n.chat[data-v-5b933d40] {\n  height: 63vh;\n  overflow-y: auto;\n  padding-top: 10px;\n}\n.chat .chat-list.send[data-v-5b933d40] {\n  text-align: end;\n}\n.chat .chat-list.send .chat-bubble[data-v-5b933d40] {\n  background-color: lightcoral;\n  text-align: left;\n}\n.chat .time[data-v-5b933d40] {\n  text-align: center;\n  margin: 20px 0;\n}\n.chat .time span[data-v-5b933d40] {\n  padding: 8px;\n  background-color: lightskyblue;\n  border-radius: 10px;\n}\n.chat .chat-time[data-v-5b933d40] {\n  text-align: right;\n  font-size: 0.6rem;\n  margin-bottom: 0;\n}\n.chat .chat-bubble[data-v-5b933d40] {\n  background-color: burlywood;\n  border-radius: 8px;\n  max-width: 500px;\n  min-width: 100px;\n  display: inline-block;\n  margin: 2px 10px;\n  padding: 5px;\n}\n.chat .chat-bubble .chat-message[data-v-5b933d40] {\n  white-space: pre-line;\n  padding: 0 5px;\n  margin-bottom: 0;\n}\n.chat .chat-bubble .type-image .image-preview[data-v-5b933d40] {\n  width: 390px;\n  height: 390px;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -7561,7 +7558,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "[data-v-a9904f98]::-webkit-scrollbar {\n  width: 8px;\n}\n[data-v-a9904f98]::-webkit-scrollbar-track {\n  background: #f1f1f1;\n}\n[data-v-a9904f98]::-webkit-scrollbar-thumb {\n  background: #888;\n}\n[data-v-a9904f98]::-webkit-scrollbar-thumb:hover {\n  background: #555;\n}\n.input-right[data-v-a9904f98] {\n  height: 15vh;\n}\n.input-right textarea[data-v-a9904f98] {\n  width: 60vw;\n  margin: 10px;\n  margin-right: 0;\n  resize: none;\n  border-radius: 6px;\n  border: 1px solid lightgray;\n  padding: 10px;\n  overflow-y: scroll;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "[data-v-a9904f98]::-webkit-scrollbar {\n  width: 8px;\n}\n[data-v-a9904f98]::-webkit-scrollbar-track {\n  background: #f1f1f1;\n}\n[data-v-a9904f98]::-webkit-scrollbar-thumb {\n  background: #888;\n}\n[data-v-a9904f98]::-webkit-scrollbar-thumb:hover {\n  background: #555;\n}\n.input-right[data-v-a9904f98] {\n  height: 12vh;\n}\n.input-right textarea[data-v-a9904f98] {\n  width: 60vw;\n  margin: 10px;\n  margin-right: 0;\n  resize: none;\n  border-radius: 6px;\n  border: 1px solid lightgray;\n  padding: 10px;\n  overflow-y: scroll;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -41626,10 +41623,10 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { ref: "chat", staticClass: "chat" }, [
-    _vm.messages
+    _vm.localMessages
       ? _c(
           "div",
-          _vm._l(_vm.messages, function(message, index) {
+          _vm._l(_vm.localMessages, function(message, index) {
             return _c(
               "div",
               { key: index, staticClass: "chat-container" },
@@ -41803,7 +41800,7 @@ var render = function() {
             attrs: {
               username: _vm.selected.name,
               src: _vm.selected.image,
-              size: 60
+              size: 50
             }
           }),
           _vm._v(" "),

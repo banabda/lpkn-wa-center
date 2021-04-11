@@ -18,14 +18,15 @@ export default {
     }),
     sendMessage() {
       let data = {
-        id: new Date().toString(),
-        time: new Date().toString(),
+        id: new Date(),
+        time: new Date(),
         type: "chat",
         body: this.text,
+        from_me: true,
       };
       if (!/^\s+$/.test(this.text) && this.text != "") {
         this.send(data);
-        this.get(this.cUser.id);
+        // this.get(this.cUser.id);
         this.text = "";
       }
     },
@@ -54,7 +55,7 @@ export default {
   background: #555;
 }
 .input-right {
-  height: 15vh;
+  height: 12vh;
   textarea {
     width: 60vw;
     margin: 10px;

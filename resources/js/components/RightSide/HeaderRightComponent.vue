@@ -5,7 +5,7 @@
         <avatar
           :username="selected.name"
           :src="selected.image"
-          :size="60"
+          :size="50"
           class="mr-3"
         ></avatar>
         <div class="name-container">

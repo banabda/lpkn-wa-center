@@ -102,10 +102,10 @@ class DialogController extends Controller
     public function selected($chatid)
     {
         $dialog = Dialog::where('id', $chatid)->first();
-
-        return $dialog->messages->groupBy(function ($item) {
-            return $item->time->translatedFormat('Y-m-d');
-        });
+        return $dialog->messages;
+        // return $dialog->messages->groupBy(function ($item) {
+        //     return $item->time->translatedFormat('Y-m-d');
+        // });
     }
 
     public function contact()

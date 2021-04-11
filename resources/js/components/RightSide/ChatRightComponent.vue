@@ -1,9 +1,9 @@
 <template>
   <div class="chat" ref="chat">
-    <div v-if="messages">
+    <div v-if="localMessages">
       <div
         class="chat-container"
-        v-for="(message, index) in messages"
+        v-for="(message, index) in localMessages"
         :key="index"
       >
         <div class="time">
@@ -49,12 +49,6 @@
               <a :href="msg.body" type="button" target="_blank">
                 {{ msg.caption }}
               </a>
-              <!-- <div
-                class="chat-message"
-                v-if="regex.test(msg.caption)"
-                v-html="msg.caption.replaceAll(regex, regexTo)"
-              ></div>
-              <div v-else class="chat-message">{{ msg.caption }}</div> -->
               <div class="chat-time">
                 {{ new Date(msg.time).toTimeString().substr(0, 5) }}
               </div>
@@ -75,6 +69,7 @@ export default {
     return {
       regex: /\*(.*?)\*/g,
       regexTo: "<b>$1</b>",
+      localMessages: null,
     };
   },
   computed: {
@@ -94,6 +89,7 @@ export default {
       getMessages: "messages/setMessages",
     }),
     dateCheck(date) {
+      console.log(new Date(date).toDateString(), new Date().toDateString());
       if (new Date(date).toDateString() == new Date().toDateString()) {
         return "today";
       } else if (
@@ -121,6 +117,9 @@ export default {
       this.getMessages(selected.id).then(() => this.scrollToBottom());
     },
     messages(messages) {
+      this.localMessages = _.groupBy(messages, (message) =>
+        new Date(message.time).toDateString()
+      );
       this.scrollToBottom();
       console.log("scroll");
     },
@@ -141,7 +140,7 @@ export default {
   background: #555;
 }
 .chat {
-  max-height: 60vh;
+  height: 63vh;
   overflow-y: auto;
   padding-top: 10px;
   .chat-list {
