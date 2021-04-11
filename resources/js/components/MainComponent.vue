@@ -1,6 +1,7 @@
 <template>
   <div class="main">
     <ImagePreview />
+    <SendImage />
     <div class="row justify-content-center">
       <div class="col-md-12">
         <div class="card">
@@ -21,9 +22,10 @@ import axios from "axios";
 import MainLeft from "./LeftSide/MainLeftComponent";
 import MainRight from "./RightSide/MainRightComponent";
 import ImagePreview from "./modals/ImagePreview";
+import SendImage from "./modals/sendImage";
 import { mapState, mapGetters, mapActions, mapMutations } from "vuex";
 export default {
-  components: { MainLeft, MainRight, ImagePreview },
+  components: { MainLeft, MainRight, ImagePreview, SendImage },
   data() {
     return {
       messages: null,
