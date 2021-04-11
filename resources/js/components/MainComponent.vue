@@ -22,9 +22,6 @@ import MainRight from "./RightSide/MainRightComponent";
 import { mapState, mapGetters, mapActions, mapMutations } from "vuex";
 export default {
   components: { MainLeft, MainRight },
-  props: {
-    user: { require: true },
-  },
   data() {
     return {
       messages: null,

@@ -32,7 +32,9 @@ import Vue from "vue";
  */
 import VueTimeago from "vue-timeago";
 import store from "./store";
+import InfiniteLoading from "vue-infinite-loading";
 
+Vue.use(InfiniteLoading);
 Vue.use(VueTimeago, { locale: "id" });
 
 const app = new Vue({

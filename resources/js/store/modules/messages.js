@@ -21,9 +21,16 @@ const messages = {
                 state.commit("setMessages", msg);
             });
         },
+        async getMessageByPage(state, page) {
+            await axios.get("/chat/contact/" + page).then(e => {
+                const msg = e.data;
+                state.commit("setMessages", msg);
+            });
+        },
         sendMessage(state, payload) {
-            // await axios.get("/chat/contact/" + id).then(e => {
+            // await axios.get("/chat-api/message/text").then(e => {
             //     const msg = e.data;
+            //      payload.id = e.data.id
             // });
             state.commit("sendMessage", payload);
         }

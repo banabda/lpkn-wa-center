@@ -1,6 +1,6 @@
 <template>
-  <div class="contact" v-if="dialogs">
-    <div v-for="(dial, index) in dialogs" :key="index">
+  <div class="contact" v-if="true">
+    <div v-for="(dial, index) in localDialogs" :key="index">
       <div
         class="d-flex contact-container py-2 px-3 mb-1"
         @click="selectedUser(dial)"
@@ -61,6 +61,7 @@
         </div>
       </div>
     </div>
+    <infinite-loading @infinite="infiniteHandler"></infinite-loading>
   </div>
 </template>
 <script>
@@ -86,14 +87,28 @@ export default {
     ...mapActions({
       selectedUser: "dialogs/setSelectedDialog",
     }),
+    infiniteHandler($state) {
+      axios.get("/chat/contact/page/" + this.page).then(({ data }) => {
+        if (data.length) {
+          this.localDialogs.push(...data);
+          this.page += 1;
+          $state.loaded();
+        } else {
+          $state.complete();
+        }
+      });
+    },
   },
   data() {
     return {
       tomorrow: null,
       regex: /\*(.*?)\*/g,
       regexTo: "",
+      localDialogs: [],
+      page: 0,
     };
   },
+  watch: {},
 };
 </script>
 <style lang="scss" scoped>

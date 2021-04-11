@@ -24,37 +24,49 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::group(['prefix' => 'chat-api'], function () {
+Route::group(['middleware' => 'auth'], function () {
+
+    Route::group(['prefix' => 'chat-api'], function () {
+
+        Route::group(['prefix' => 'user'], function () {
+            Route::get('/', [UserController::class, 'me']);
+            Route::get('/status', [UserController::class, 'status']);
+            Route::get('/qrcode', [UserController::class, 'qrCode']);
+        });
+
+        Route::group(['prefix' => 'message'], function () {
+            Route::get('/', [MessageController::class, 'messages']);
+            Route::get('/latest', [MessageController::class, 'latest']);
+            Route::get('/text', [MessageController::class, 'sendText']);
+            Route::get('/file', [MessageController::class, 'sendFile']);
+            Route::get('/delete', [MessageController::class, 'delete']);
+        });
+
+        Route::group(['prefix' => 'dialog'], function () {
+            Route::get('/', [DialogController::class, 'dialogs']);
+            Route::get('/{chatId}', [DialogController::class, 'dialog']);
+        });
+
+    });
+
+    Route::group(['prefix' => 'chat'], function () {
+
+        Route::group(['prefix' => 'contact'], function () {
+            Route::get('/', [DialogController::class, 'contact']);
+            Route::get('/{chatid}', [DialogController::class, 'selected']);
+            Route::get('/page/{page}', [DialogController::class, 'contactPerPage']);
+        });
+
+    });
+
     Route::group(['prefix' => 'user'], function () {
-        Route::get('/', [UserController::class, 'me']);
-        Route::get('/status', [UserController::class, 'status']);
-        Route::get('/qrcode', [UserController::class, 'qrCode']);
+        Route::get('/me', [UserController::class, 'getMe']);
+        Route::get('/role', [UserController::class, 'getRole']);
     });
 
-    Route::group(['prefix' => 'message'], function () {
-        Route::get('/', [MessageController::class, 'messages']);
-        Route::get('/latest', [MessageController::class, 'latest']);
-        Route::get('/text', [MessageController::class, 'sendText']);
-        Route::get('/file', [MessageController::class, 'sendFile']);
-        Route::get('/delete', [MessageController::class, 'delete']);
-    });
-    Route::group(['prefix' => 'dialog'], function () {
-        Route::get('/', [DialogController::class, 'dialogs']);
-        Route::get('/{chatId}', [DialogController::class, 'dialog']);
-    });
 });
-
-Route::group(['prefix' => 'chat'], function () {
-    Route::group(['prefix' => 'contact'], function () {
-        Route::get('/', [DialogController::class, 'contact']);
-        Route::get('/{chatid}', [DialogController::class, 'selected']);
-    });
-});
-
-Route::group(['prefix' => 'user'], function () {
-    Route::get('/me', [UserController::class, 'getMe']);
-    Route::get('/role', [UserController::class, 'getRole']);
-});
-
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
+
+
+
