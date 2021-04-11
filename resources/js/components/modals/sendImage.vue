@@ -8,7 +8,9 @@
         :max="5"
         maxError="Max files exceed"
       />
-      <button type="button" class="btn btn-outline-primary">Send</button>
+      <button type="button" class="btn btn-outline-primary" @click="sendImages">
+        Send
+      </button>
     </div>
     <div
       slot="top-right"
@@ -22,6 +24,8 @@
 
 <script>
 import UploadImages from "vue-upload-drop-images";
+import Swal from "sweetalert2";
+import axios from "axios";
 export default {
   components: { UploadImages },
   methods: {
@@ -39,6 +43,35 @@ export default {
       });
       this.imagesDetails = _imgsDetails;
       this.imagesFiles = _imgsFiles;
+    },
+    sendImages() {
+      //   var _file = event.target.files[0];
+      //   var _Ufile = {};
+      //   _Ufile.name = _file.name;
+      //   _Ufile.size = _file.size;
+      //   _Ufile.type = _file.type;
+      Swal.fire({
+        title: "Sending Images!",
+        html: "Please kindly to wait :)",
+        didOpen: () => {
+          Swal.showLoading();
+        },
+      });
+
+      this.imagesFiles.forEach((el) => {
+        const formData = new FormData();
+        formData.append("file", el);
+        //   formData.append("details", this.imagesDetails);
+        // console.log(el, ind);
+        axios
+          .post("/chat/upload", formData, {
+            headers: { "Content-Type": "multipart/form-data" },
+          })
+          .then((e) => console.log(e.data));
+      });
+
+      console.log("ok");
+      Swal.close();
     },
   },
   data: () => ({

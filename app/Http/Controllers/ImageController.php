@@ -26,12 +26,17 @@ class ImageController extends Controller
      */
     public function upload(Request $request)
     {
-        $this->validate($request, [
-            'title' => 'required',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:4192',
-        ]);
+        // $this->validate($request, [
+        //     'title' => 'required',
+        //     'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:4192',
+        // ]);
+
+        // $file = $request->all();
+        $file = $request->file('file');
+
+        // dd($file->getClientOriginalName());
   
-        $image = $request->file('image');
+        $image = $request->file('file');
         $input['imagename'] = time().'.'.$image->extension();
         $destinationPath = storage_path().'/app/public/upload/sendMedia/'.$input['imagename'];
         // $destinationPath = public_path('thumbnail/'). $input['imagename'];
@@ -50,6 +55,6 @@ class ImageController extends Controller
             'url' => $url
         ]);
    
-        return $url;
+        return response()->json(['url'=>$url, 'image'=>$imageDB]);
     }
 }
