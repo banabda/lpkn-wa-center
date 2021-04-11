@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\DialogController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ImageController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
@@ -17,6 +18,9 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::get('resizeImage', [ImageController::class, 'resizeImage']);
+Route::post('resizeImagePost', [ImageController::class, 'resizeImagePost'])->name('resizeImagePost');
 
 Route::get('/', function () {
     return view('welcome');
@@ -57,6 +61,8 @@ Route::group(['middleware' => 'auth'], function () {
             Route::get('/page/{page}', [DialogController::class, 'contactPerPage']);
         });
 
+        Route::post('/upload', [ImageController::class, 'upload']);
+        
     });
 
     Route::group(['prefix' => 'user'], function () {

@@ -115,6 +115,7 @@ class DialogController extends Controller
 
     public function contactPerPage($page)
     {
+        $page = $page*20;
         return Dialog::has('messages')->with('latestMessage')->orderBy("last_time", "desc")->skip($page)->limit(20)->get();
     }
 }

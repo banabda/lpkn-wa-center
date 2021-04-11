@@ -33,7 +33,9 @@ import Vue from "vue";
 import VueTimeago from "vue-timeago";
 import store from "./store";
 import InfiniteLoading from "vue-infinite-loading";
+import vmodal from "vue-js-modal";
 
+Vue.use(vmodal);
 Vue.use(InfiniteLoading);
 Vue.use(VueTimeago, { locale: "id" });
 

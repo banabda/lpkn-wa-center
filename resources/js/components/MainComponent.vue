@@ -1,5 +1,6 @@
 <template>
   <div class="main">
+    <ImagePreview />
     <div class="row justify-content-center">
       <div class="col-md-12">
         <div class="card">
@@ -7,7 +8,7 @@
             <MainLeft />
             <MainRight />
             <!-- <button @click="handleinc">{{ aGet }}</button> -->
-            <!-- <button @click="handleinc2">{{ cn }}</button> -->
+            <!-- <button @click="$modal.show('image-preview')">show</button> -->
           </div>
         </div>
       </div>
@@ -19,9 +20,10 @@
 import axios from "axios";
 import MainLeft from "./LeftSide/MainLeftComponent";
 import MainRight from "./RightSide/MainRightComponent";
+import ImagePreview from "./modals/ImagePreview";
 import { mapState, mapGetters, mapActions, mapMutations } from "vuex";
 export default {
-  components: { MainLeft, MainRight },
+  components: { MainLeft, MainRight, ImagePreview },
   data() {
     return {
       messages: null,

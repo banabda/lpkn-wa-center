@@ -41,7 +41,7 @@ class GetDialogs extends Command
     public function handle()
     {
         $client = new Client();
-        $result = json_decode($client->request('GET', env('WA_URL') . 'dialogs' . env('WA_TOKEN') . '&limit=1000')->getBody()->getContents());
+        $result = json_decode($client->request('GET', env('WA_URL') . 'dialogs' . env('WA_TOKEN') . '&limit=2000')->getBody()->getContents());
         // Log::info($result->dialogs);
         foreach ($result->dialogs as $res) {
             $dialog = Dialog::where('id', $res->id);

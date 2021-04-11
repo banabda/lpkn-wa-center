@@ -23,6 +23,7 @@
                 class="image-preview rounded mb-3"
                 :src="msg.body"
                 :alt="msg.type"
+                @click="showImage(msg.body)"
               />
               <div
                 class="chat-message"
@@ -87,7 +88,12 @@ export default {
   methods: {
     ...mapActions({
       getMessages: "messages/setMessages",
+      setUrl: "image/setUrl",
     }),
+    showImage(url) {
+      this.setUrl(url);
+      this.$modal.show("image-preview");
+    },
     dateCheck(date) {
       console.log(new Date(date).toDateString(), new Date().toDateString());
       if (new Date(date).toDateString() == new Date().toDateString()) {

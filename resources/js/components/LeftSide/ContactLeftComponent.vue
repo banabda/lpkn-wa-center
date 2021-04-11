@@ -29,7 +29,33 @@
             </span>
           </div>
           <div class="message" v-else-if="dial.latest_message.type == 'image'">
-            <i class="bi bi-file-earmark-image"></i> Photo
+            <i class="bi bi-file-earmark-image"></i>
+            <span v-if="dial.latest_message.caption">
+              {{
+                dial.latest_message.caption.length > 25
+                  ? dial.latest_message.caption.substr(0, 21) + "..."
+                  : dial.latest_message.caption
+              }}
+            </span>
+            <span v-else>photo</span>
+          </div>
+          <div class="message" v-else>
+            <span v-if="regex.test(dial.latest_message.body)">
+              {{
+                dial.latest_message.body.length > 25
+                  ? dial.latest_message.body
+                      .replaceAll(regex, regexTo)
+                      .substr(0, 21) + "..."
+                  : dial.latest_message.body.replaceAll(regex, regexTo)
+              }}
+            </span>
+            <span v-else>
+              {{
+                dial.latest_message.body.length > 25
+                  ? dial.latest_message.body.substr(0, 21) + "..."
+                  : dial.latest_message.body
+              }}
+            </span>
           </div>
         </div>
         <div class="time">
