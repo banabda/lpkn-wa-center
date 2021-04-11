@@ -1,22 +1,46 @@
 <template>
-  <div class="input-right">
+  <div class="input-right d-flex">
     <textarea
+      id="area"
       placeholder="Type something ..."
-      autofocus
       v-model="text"
       @keydown.enter.exact.prevent="sendMessage"
     ></textarea>
+    <twemoji-picker
+      pickerWidth="#area"
+      :emojiData="emojiDataAll"
+      :emojiGroups="emojiGroups"
+      :skinsSelection="false"
+      :searchEmojisFeat="true"
+      searchEmojiPlaceholder="Search here."
+      searchEmojiNotFound="Emojis not found."
+      isLoadingLabel="Loading..."
+      @emojiUnicodeAdded="emojiUnicodeAdded"
+    ></twemoji-picker>
   </div>
 </template>
 <script>
 import { mapState, mapGetters, mapActions, mapMutations } from "vuex";
+import { TwemojiTextarea } from "@kevinfaguiar/vue-twemoji-picker";
+import { TwemojiPicker } from "@kevinfaguiar/vue-twemoji-picker";
+import EmojiAllData from "@kevinfaguiar/vue-twemoji-picker/emoji-data/en/emoji-all-groups.json";
+import EmojiDataAnimalsNature from "@kevinfaguiar/vue-twemoji-picker/emoji-data/en/emoji-group-animals-nature.json";
+import EmojiDataFoodDrink from "@kevinfaguiar/vue-twemoji-picker/emoji-data/en/emoji-group-food-drink.json";
+import EmojiGroups from "@kevinfaguiar/vue-twemoji-picker/emoji-data/emoji-groups.json";
 export default {
+  components: {
+    "twemoji-picker": TwemojiPicker,
+    "twemoji-textarea": TwemojiTextarea,
+  },
   methods: {
     ...mapActions({
       send: "messages/sendMessage",
       get: "messages/setMessages",
     }),
-    sendMessage() {
+    emojiUnicodeAdded(a) {
+      this.text += a;
+    },
+    sendMessage(e) {
       let data = {
         id: new Date(),
         time: new Date(),
@@ -28,11 +52,18 @@ export default {
         this.send(data);
         // this.get(this.cUser.id);
         this.text = "";
+        this.$refs.taEmoji.cleanText();
       }
     },
   },
   computed: {
     ...mapGetters({ cUser: "dialogs/getSelectedDialogs" }),
+    emojiDataAll() {
+      return EmojiAllData;
+    },
+    emojiGroups() {
+      return EmojiGroups;
+    },
   },
   data() {
     return {
@@ -56,6 +87,7 @@ export default {
 }
 .input-right {
   height: 12vh;
+  align-items: center;
   textarea {
     width: 60vw;
     margin: 10px;

@@ -25,6 +25,7 @@
         "vue-template-compiler": "^2.6.10"
     },
     "dependencies": {
+        "@kevinfaguiar/vue-twemoji-picker": "^5.7.4",
         "vue-avatar": "^2.3.3",
         "vue-infinite-loading": "^2.4.5",
         "vue-timeago": "^5.1.3",
