@@ -2229,9 +2229,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   beforeMount: function beforeMount() {
     this.setDialogs();
     this.setUser();
+    this.setCred();
   },
-  mounted: function mounted() {// console.log("Component mounted.");
-  },
+  mounted: function mounted() {},
   computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_5__.mapState)({
     cn: "count"
   })), (0,vuex__WEBPACK_IMPORTED_MODULE_5__.mapGetters)({
@@ -2245,7 +2245,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   methods: _objectSpread(_objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_5__.mapActions)({
     inc: "increment",
     setUser: "user/setUser",
-    setDialogs: "dialogs/setDialogs"
+    setDialogs: "dialogs/setDialogs",
+    setCred: "cred/setCred"
   })), (0,vuex__WEBPACK_IMPORTED_MODULE_5__.mapMutations)({
     minc: "increment",
     mincA: "a/increment"
@@ -2257,43 +2258,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     handleinc2: function handleinc2() {
       this.inc();
       console.log("count : ", this.cn);
-    },
-    send: function send(text) {
-      // console.log(text);
-      // {"id":"false_6281311241362@c.us_16E6200DCAEE7C0BB0A37BCD3B2D2F91","user_id":null,"chatId":"6281311241362@c.us","body":"Mohon maaf kuitansi a.n. Sumardi dan Sri Bimo Adhi Yudhono apakah bisa dikirimkan kembali bu? Wa saya hilang semua. Trmksh sebelumnya 🙏🏻","from_me":0,"type":"chat","author":"6281311241362@c.us","caption":null,"sender_name":"Mardi Sumardi","time":"2021-04-08T19:29:47.000000Z","message_number":16153,"created_at":"2021-04-09T02:05:22.000000Z","updated_at":"2021-04-09T02:05:22.000000Z"}
-      var data = {
-        id: "false_6281311241362@c.us_16E6200DCAEE7C0BB0A37BCD3B2D2F91",
-        user_id: null,
-        chatId: "6281311241362@c.us",
-        body: text,
-        from_me: true,
-        type: "chat",
-        author: "6281311241362@c.us",
-        caption: null,
-        sender_name: "Mardi Sumardi",
-        time: new Date(),
-        message_number: 16153,
-        created_at: "2021-04-09T02:05:22.000000Z",
-        updated_at: "2021-04-09T02:05:22.000000Z"
-      };
-
-      for (var asd in this.messages) {
-        if (asd == this.today) {
-          this.messages[asd].push(data);
-        }
-      }
-    },
-    selectedContact: function selectedContact(contact) {
-      var _this = this;
-
-      this.select_contact = contact;
-      axios__WEBPACK_IMPORTED_MODULE_0___default().get("/chat/contact/" + contact.id).then(function (e) {
-        _this.messages = e.data;
-      });
-    },
-    close: function close() {
-      this.select_contact = null;
-      this.messages = null;
     }
   }),
   watch: {}
@@ -3133,13 +3097,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 /* harmony import */ var _modules_moduleA__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modules/moduleA */ "./resources/js/store/modules/moduleA.js");
 /* harmony import */ var _modules_user__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/user */ "./resources/js/store/modules/user.js");
 /* harmony import */ var _modules_dialogs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/dialogs */ "./resources/js/store/modules/dialogs.js");
 /* harmony import */ var _modules_messages__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/messages */ "./resources/js/store/modules/messages.js");
 /* harmony import */ var _modules_modal_image__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modules/modal/image */ "./resources/js/store/modules/modal/image.js");
+/* harmony import */ var _modules_cred__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./modules/cred */ "./resources/js/store/modules/cred.js");
 
 
 
@@ -3147,14 +3112,16 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-vue__WEBPACK_IMPORTED_MODULE_5__.default.use(vuex__WEBPACK_IMPORTED_MODULE_6__.default);
-var store = new vuex__WEBPACK_IMPORTED_MODULE_6__.default.Store({
+
+vue__WEBPACK_IMPORTED_MODULE_6__.default.use(vuex__WEBPACK_IMPORTED_MODULE_7__.default);
+var store = new vuex__WEBPACK_IMPORTED_MODULE_7__.default.Store({
   modules: {
     a: _modules_moduleA__WEBPACK_IMPORTED_MODULE_0__.default,
     user: _modules_user__WEBPACK_IMPORTED_MODULE_1__.default,
     dialogs: _modules_dialogs__WEBPACK_IMPORTED_MODULE_2__.default,
     messages: _modules_messages__WEBPACK_IMPORTED_MODULE_3__.default,
-    image: _modules_modal_image__WEBPACK_IMPORTED_MODULE_4__.default
+    image: _modules_modal_image__WEBPACK_IMPORTED_MODULE_4__.default,
+    cred: _modules_cred__WEBPACK_IMPORTED_MODULE_5__.default
   },
   state: {
     count: 0,
@@ -3228,6 +3195,76 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_6__.default.Store({
   }
 });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (store);
+
+/***/ }),
+
+/***/ "./resources/js/store/modules/cred.js":
+/*!********************************************!*\
+  !*** ./resources/js/store/modules/cred.js ***!
+  \********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+var cred = {
+  namespaced: true,
+  state: function state() {
+    return {
+      name: null,
+      phone: null,
+      chatId: null,
+      instance: null,
+      token: null
+    };
+  },
+  mutations: {
+    setCred: function setCred(state, payload) {
+      state.name = payload.name;
+      state.phone = payload.phone;
+      state.chatId = payload.chatId;
+      state.instance = payload.instance;
+      state.token = payload.token;
+    }
+  },
+  actions: {
+    setCred: function setCred(state) {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.next = 2;
+                return axios.get("/credential/getcred").then(function (e) {
+                  state.commit("setCred", e.data.credential);
+                });
+
+              case 2:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    }
+  },
+  getters: {
+    getCred: function getCred(state) {
+      return state;
+    }
+  }
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (cred);
 
 /***/ }),
 
@@ -48068,8 +48105,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /*!
- * Vue.js v2.6.11
- * (c) 2014-2019 Evan You
+ * Vue.js v2.6.12
+ * (c) 2014-2020 Evan You
  * Released under the MIT License.
  */
 /*  */
@@ -53517,7 +53554,7 @@ Object.defineProperty(Vue, 'FunctionalRenderContext', {
   value: FunctionalRenderContext
 });
 
-Vue.version = '2.6.11';
+Vue.version = '2.6.12';
 
 /*  */
 
@@ -55725,7 +55762,7 @@ function updateDOMProps (oldVnode, vnode) {
       // skip the update if old and new VDOM state is the same.
       // `value` is handled separately because the DOM value may be temporarily
       // out of sync with VDOM state due to focus, composition and modifiers.
-      // This  #4521 by skipping the unnecesarry `checked` update.
+      // This  #4521 by skipping the unnecessary `checked` update.
       cur !== oldProps[key]
     ) {
       // some property updates can throw
@@ -57975,7 +58012,7 @@ function parse (
       }
     },
     comment: function comment (text, start, end) {
-      // adding anyting as a sibling to the root node is forbidden
+      // adding anything as a sibling to the root node is forbidden
       // comments should still be allowed, but ignored
       if (currentParent) {
         var child = {
