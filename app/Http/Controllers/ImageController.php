@@ -42,7 +42,7 @@ class ImageController extends Controller
             $url = '/storage/upload/sendMedia/' . $input['imagename'];
         } else {
             $path = 'upload/sendMedia';
-            
+
             $path = Storage::disk('public')->put(
                 $path,
                 $file
@@ -60,6 +60,6 @@ class ImageController extends Controller
             'type' => $file->getClientOriginalExtension()
         ]);
 
-        return response()->json(['url' => $url, 'name' => $imageDB->name]);
+        return response()->json(['url' => $url, 'name' => $imageDB->name, 'type' => $file->getClientOriginalExtension()]);
     }
 }

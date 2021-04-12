@@ -1,14 +1,16 @@
 <template>
   <div class="main-left">
     <Header />
+    <SearchLeftComponent />
     <Contact />
   </div>
 </template>
 <script>
 import Header from "./HeaderleftComponent";
 import Contact from "./ContactLeftComponent";
+import SearchLeftComponent from "./SearchLeftComponent.vue";
 export default {
-  components: { Header, Contact },
+  components: { Header, Contact, SearchLeftComponent },
   methods: {
     selectedContact(contact) {
       this.$emit("selectedContact", contact);

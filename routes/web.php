@@ -1,10 +1,13 @@
 <?php
 
+use App\Http\Controllers\CredentialController;
 use App\Http\Controllers\DialogController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\UserController;
+use App\Models\User;
+use App\Models\UserCred;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -38,7 +41,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::group(['prefix' => 'message'], function () {
             Route::get('/', [MessageController::class, 'messages']);
             Route::get('/latest', [MessageController::class, 'latest']);
-            Route::get('/text', [MessageController::class, 'sendText']);
+            Route::post('/text', [MessageController::class, 'sendText']);
             Route::post('/file', [MessageController::class, 'sendFile']);
             Route::get('/delete', [MessageController::class, 'delete']);
         });
@@ -47,7 +50,13 @@ Route::group(['middleware' => 'auth'], function () {
             Route::get('/', [DialogController::class, 'dialogs']);
             Route::get('/{chatId}', [DialogController::class, 'dialog']);
         });
+    });
 
+    Route::group(['prefix' => 'credential'], function () {
+        Route::get('/getcred', function () {
+            return UserCred::with('user', 'credential')->where('user_id', auth()->id())->first();
+        });
+        Route::get('/{credential}', [CredentialController::class, 'show']);
     });
 
     Route::group(['prefix' => 'chat'], function () {
@@ -56,20 +65,16 @@ Route::group(['middleware' => 'auth'], function () {
             Route::get('/', [DialogController::class, 'contact']);
             Route::get('/{chatid}', [DialogController::class, 'selected']);
             Route::get('/page/{page}', [DialogController::class, 'contactPerPage']);
+            Route::get('/search/{name}', [DialogController::class, 'searchContact']);
         });
 
         Route::post('/upload', [ImageController::class, 'upload']);
-        
     });
 
     Route::group(['prefix' => 'user'], function () {
         Route::get('/me', [UserController::class, 'getMe']);
         Route::get('/role', [UserController::class, 'getRole']);
     });
-
 });
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
-
-
-

@@ -5,6 +5,7 @@ import user from "./modules/user";
 import dialogs from "./modules/dialogs";
 import messages from "./modules/messages";
 import images from "./modules/modal/image";
+import cred from "./modules/cred";
 Vue.use(Vuex);
 
 const store = new Vuex.Store({
@@ -13,7 +14,8 @@ const store = new Vuex.Store({
         user: user,
         dialogs: dialogs,
         messages: messages,
-        image: images
+        image: images,
+        cred: cred
     },
     state: {
         count: 0,

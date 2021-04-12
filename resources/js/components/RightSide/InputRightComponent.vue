@@ -62,8 +62,9 @@ export default {
   },
   methods: {
     ...mapActions({
-      send: "messages/sendMessage",
+      sendText: "messages/sendMessage",
       get: "messages/setMessages",
+      sendFile: "messages/sendFile",
     }),
     emojiUnicodeAdded(a) {
       this.text += a;
@@ -113,54 +114,55 @@ export default {
             headers: { "Content-Type": "multipart/form-data" },
           })
           .then((e) => {
-            axios
-              .post("/chat-api/message/file", {
-                url: e.data.url,
-                filename: e.data.name,
-                chatId: this.cUser.id,
-              })
-              .then(() => {
-                let data = {
-                  id: new Date(),
-                  time: new Date(),
-                  type: "document",
-                  caption: e.data.name,
-                  body: e.data.url,
-                  from_me: true,
-                };
-                this.send(data).then(() => {
-                  Swal.fire({
-                    icon: "success",
-                    title: "File sended!",
-                    toast: true,
-                    position: "top-end",
-                    showConfirmButton: false,
-                    timer: 3000,
-                    timerProgressBar: true,
-                    background: "#FFEDE1",
-                  });
-                });
+            console.log(e.data.name, e.data.type);
+            const data = {};
+            data.chatId = this.cUser.id;
+            data.filename = e.data.name + e.data.type;
+            data.url = e.data.url;
+            data.id = new Date();
+            data.time = new Date();
+            data.type = "document";
+            data.body = e.data.url;
+            data.from_me = true;
+            data.instance = this.cred.instance;
+            data.token = this.cred.token;
+            this.sendFile(data).then(() => {
+              Swal.fire({
+                icon: "success",
+                title: "File sended!",
+                toast: true,
+                position: "top-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                background: "#FFEDE1",
               });
+            });
           });
       }
     },
     sendMessage(e) {
-      let data = {
-        id: new Date(),
-        time: new Date(),
-        type: "chat",
-        body: this.text,
-        from_me: true,
-      };
       if (!/^\s+$/.test(this.text) && this.text != "") {
-        this.send(data);
+        const data = {};
+        data.chatId = this.cUser.id;
+        data.id = new Date();
+        data.time = new Date();
+        data.type = "chat";
+        data.body = this.text;
+        data.from_me = true;
+        data.instance = this.cred.instance;
+        data.token = this.cred.token;
+        this.sendText(data);
         // this.get(this.cUser.id);
         this.text = "";
       }
     },
   },
   computed: {
-    ...mapGetters({ cUser: "dialogs/getSelectedDialogs" }),
+    ...mapGetters({
+      cUser: "dialogs/getSelectedDialogs",
+      cred: "cred/getCred",
+    }),
     emojiDataAll() {
       return EmojiAllData;
     },

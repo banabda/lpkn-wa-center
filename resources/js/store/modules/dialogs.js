@@ -1,14 +1,27 @@
+import axios from "axios";
+
 const dialogs = {
     namespaced: true,
 
     state: () => ({
         dialog_list: null,
+        search_list: null,
+        search: "",
         selectedDialog: null
     }),
 
     mutations: {
         setDialogs(state, payload) {
             state.dialog_list = payload;
+        },
+        searchDialog(state, payload) {
+            state.search_list = payload;
+        },
+        setSearch(state, payload) {
+            state.search = payload;
+        },
+        setSearchList(state, payload) {
+            state.search_list = payload;
         },
         setSelectedDialog(state, payload) {
             if (payload == null) {
@@ -37,12 +50,24 @@ const dialogs = {
         },
         setSelectedDialog(state, user) {
             state.commit("setSelectedDialog", user);
+        },
+        searchDialog(state, key) {
+            if (key != "" && !/^\s+$/.test(key)) {
+                axios.get("/chat/contact/search/" + key).then(e => {
+                    state.commit("searchDialog", e.data);
+                });
+            } else {
+                state.commit("searchDialog", null);
+            }
         }
     },
 
     getters: {
         getDialogs(state) {
             return state.dialog_list;
+        },
+        getSearchedDialogs(state) {
+            return state.search_list;
         },
         getSelectedDialogs(state) {
             return state.selectedDialog;

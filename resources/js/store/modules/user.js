@@ -6,12 +6,13 @@ const user = {
     state: () => ({
         email: "",
         name: "",
-        role: ""
+        role: "",
+        status: null
     }),
 
     mutations: {
-        increment(state) {
-            // state.count++;
+        setStatus(state, payload) {
+            state.status = payload;
         },
         setUser(state, payload) {
             state.email = payload.email;
@@ -31,6 +32,9 @@ const user = {
             await axios.get("/user/me").then(e => {
                 state.commit("setUser", e.data);
             });
+        },
+        setStatus(state, payload) {
+            state.commit("setStatus", payload);
         }
     }
 };

@@ -88,11 +88,11 @@ class MessageController extends Controller
     {
         $client = new Client();
         $data = [
-            "body" => "message testing",
-            "chatId" => "6289653468001@c.us",
-            // "phone" => "6289653468001"
+            "body" => $request->body,
+            "chatId" => $request->chatId,
         ];
-        $result = $client->request('POST', env('WA_URL') . 'status' . env('WA_TOKEN'), ['form_params' => $data])->getBody()->getContents();
+        // dd($data);
+        $result = $client->request('POST', $request->instance . 'sendMessage?token=' . $request->token, ['form_params' => $data])->getBody()->getContents();
         return $result;
     }
 
@@ -103,11 +103,10 @@ class MessageController extends Controller
             "body" => $request->url,
             "filename" => $request->filename,
             "chatId" => $request->chatId,
-            'caption' => isset($request->caption) ? $request->caption : null
-            // "phone" => "6289653468001"
+            "caption" => isset($request->caption) ? $request->caption : null
         ];
         dd($data);
-        $result = $client->request('POST', env('WA_URL') . 'status' . env('WA_TOKEN'), ['form_params' => $data])->getBody()->getContents();
+        $result = $client->request('POST', $request->instance . 'sendFile?token=' . $request->token, ['form_params' => $data])->getBody()->getContents();
         return $result;
     }
 

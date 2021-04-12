@@ -1,5 +1,5 @@
 <template>
-  <div class="contact" v-if="true">
+  <div class="contact" v-if="!searched">
     <div v-for="(dial, index) in localDialogs" :key="index">
       <div
         class="d-flex contact-container py-2 px-3 mb-1"
@@ -89,6 +89,95 @@
     </div>
     <infinite-loading @infinite="infiniteHandler"></infinite-loading>
   </div>
+  <div class="contact" v-else>
+    <div v-for="(dial, index) in searched" :key="index">
+      <div
+        class="d-flex contact-container py-2 px-3 mb-1"
+        @click="selectedUser(dial)"
+      >
+        <div class="contact-left w-25">
+          <avatar :username="dial.name" :src="dial.image" :size="40"></avatar>
+        </div>
+        <div class="contact-right w-75">
+          <div class="name">{{ dial.name }}</div>
+          <div class="message" v-if="dial.latest_message.type == 'chat'">
+            <span v-if="regex.test(dial.latest_message.body)">
+              {{
+                dial.latest_message.body.length > 25
+                  ? dial.latest_message.body
+                      .replaceAll(regex, regexTo)
+                      .substr(0, 21) + "..."
+                  : dial.latest_message.body.replaceAll(regex, regexTo)
+              }}
+            </span>
+            <span v-else>
+              {{
+                dial.latest_message.body.length > 25
+                  ? dial.latest_message.body.substr(0, 21) + "..."
+                  : dial.latest_message.body
+              }}
+            </span>
+          </div>
+          <div class="message" v-else-if="dial.latest_message.type == 'image'">
+            <i class="bi bi-file-earmark-image"></i>
+            <span v-if="dial.latest_message.caption">
+              {{
+                dial.latest_message.caption.length > 25
+                  ? dial.latest_message.caption.substr(0, 21) + "..."
+                  : dial.latest_message.caption
+              }}
+            </span>
+            <span v-else>photo</span>
+          </div>
+          <div class="message" v-else>
+            <span v-if="regex.test(dial.latest_message.body)">
+              {{
+                dial.latest_message.body.length > 25
+                  ? dial.latest_message.body
+                      .replaceAll(regex, regexTo)
+                      .substr(0, 21) + "..."
+                  : dial.latest_message.body.replaceAll(regex, regexTo)
+              }}
+            </span>
+            <span v-else>
+              {{
+                dial.latest_message.body.length > 25
+                  ? dial.latest_message.body.substr(0, 21) + "..."
+                  : dial.latest_message.body
+              }}
+            </span>
+          </div>
+        </div>
+        <div class="time">
+          <span
+            class="small text-right"
+            v-if="
+              new Date(dial.latest_message.time).toDateString() ==
+              new Date().toDateString()
+            "
+            >{{
+              new Date(dial.latest_message.time).toTimeString().substr(0, 5)
+            }}</span
+          >
+          <span
+            class="small text-right"
+            v-else-if="
+              new Date(dial.latest_message.time).toDateString() ==
+              tomorrowGen(new Date())
+            "
+            >yesterday</span
+          >
+          <span v-else>
+            <timeago
+              class="small text-right to-right"
+              :datetime="dial.latest_message.time"
+              :auto-update="60"
+            ></timeago>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 <script>
 import Avatar from "vue-avatar";
@@ -100,6 +189,7 @@ export default {
   computed: {
     ...mapGetters({
       dialogs: "dialogs/getDialogs",
+      searched: "dialogs/getSearchedDialogs",
       selected: "dialogs/getSelectedDialogs",
     }),
   },
@@ -134,7 +224,11 @@ export default {
       page: 0,
     };
   },
-  watch: {},
+  watch: {
+    searched(searched) {
+      // console.log(searched);
+    },
+  },
 };
 </script>
 <style lang="scss" scoped>
@@ -151,7 +245,7 @@ export default {
   background: #555;
 }
 .contact {
-  max-height: 75vh;
+  max-height: 65vh;
   overflow-y: auto;
   .time {
     text-align: right !important;
