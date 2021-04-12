@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Models\Credential;
 use App\Models\Dialog;
 use GuzzleHttp\Client;
 use Illuminate\Console\Command;
@@ -41,26 +42,37 @@ class GetDialogs extends Command
     public function handle()
     {
         $client = new Client();
-        $result = json_decode($client->request('GET', env('WA_URL') . 'dialogs' . env('WA_TOKEN') . '&limit=2000')->getBody()->getContents());
-        // Log::info($result->dialogs);
-        foreach ($result->dialogs as $res) {
-            $dialog = Dialog::where('id', $res->id);
-            // Log::info([$res->metadata->isGroup]);
-            // Log::info([$dialog->first()]);
-            if ($dialog->first()) {
-                $dialog->update([
-                    'name' => $res->name,
-                    'image' => $res->image,
-                    'last_time' => date('Y-m-d H:i:s', $res->last_time)
-                ]);
-            } else {
-                Dialog::Create([
-                    'id' => $res->id,
-                    'name' => $res->name,
-                    'image' => $res->image,
-                    'is_group' => $res->metadata->isGroup,
-                    'last_time' => date('Y-m-d H:i:s', $res->last_time)
-                ]);
+        $credentials = Credential::all();
+        foreach ($credentials as $cred) {
+
+            $result = json_decode($client->request('GET', $cred->instance . 'dialogs?token=' . $cred->token . '&limit=2000')
+                ->getBody()
+                ->getContents());
+
+            foreach ($result->dialogs as $key => $res) {
+                $dialog = Dialog::where('id', $res->id);
+                // Log::info([$res->metadata->isGroup]);
+                if (!@getimagesize($res->image)) {
+                    $res->image = 'https://avatars.dicebear.com/api/initials/' . $res->name . '.svg';
+                    // Log::info([$key, $res->image]);
+                }
+                if ($dialog->first()) {
+                    $dialog->update([
+                        'credential_id' => $cred->id,
+                        'name' => $res->name,
+                        'image' => $res->image,
+                        'last_time' => date('Y-m-d H:i:s', $res->last_time)
+                    ]);
+                } else {
+                    Dialog::Create([
+                        'id' => $res->id,
+                        'credential_id' => $cred->id,
+                        'name' => $res->name,
+                        'image' => $res->image,
+                        'is_group' => $res->metadata->isGroup,
+                        'last_time' => date('Y-m-d H:i:s', $res->last_time)
+                    ]);
+                }
             }
         }
         Log::info('dialogs ok');
