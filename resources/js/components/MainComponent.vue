@@ -5,7 +5,7 @@
       :can-cancel="false"
       :is-full-page="true"
     />
-    <div class="main" v-if="status">
+    <div class="main" v-if="cUser.status == 'authenticated'">
       <ImagePreview />
       <SendImage />
       <div class="row justify-content-center">
@@ -40,14 +40,14 @@ export default {
     return {
       messages: null,
       select_contact: null,
-      status: false,
+      status: null,
       today: new Date().toISOString().split("T")[0],
       isLoading: false,
     };
   },
   beforeMount() {
     this.isLoading = true;
-    this.setDialogs();
+    // this.setDialogs();
     this.setUser();
     this.setCred().then(() => {
       axios
@@ -55,7 +55,8 @@ export default {
         .then((e) => {
           if (e.data.accountStatus == "authenticated") {
             console.log("ok");
-            this.status = true;
+            // this.status = e.data.accountStatus;
+            this.setUserStatus(e.data.accountStatus);
           } else {
             console.log("not ok");
           }
@@ -69,10 +70,10 @@ export default {
       cn: "count",
     }),
     ...mapGetters({
-      done: "doneTodos",
-      doneCount: "doneTodosCount",
-      doneId: "getTodoById",
-      aGet: "a/doubleCount",
+      // done: "doneTodos",
+      // doneCount: "doneTodosCount",
+      // doneId: "getTodoById",
+      // aGet: "a/doubleCount",
       cUser: "user/currentUser",
       userCred: "cred/getCred",
       gDialogs: "dialogs/getDialogs",
@@ -82,6 +83,7 @@ export default {
     ...mapActions({
       inc: "increment",
       setUser: "user/setUser",
+      setUserStatus: "user/setStatus",
       setDialogs: "dialogs/setDialogs",
       setCred: "cred/setCred",
     }),

@@ -8,16 +8,27 @@
   </div>
 </template>
 <script>
+import axios from "axios";
 import { mapState, mapGetters, mapActions, mapMutations } from "vuex";
 export default {
   computed: {
     ...mapGetters({
       user: "user/currentUser",
+      userCred: "cred/getCred",
     }),
   },
   methods: {
+    ...mapActions({
+      setUserStatus: "user/setStatus",
+    }),
     exitWa() {
-      console.log("exit wa");
+      // console.log(this.userCred);
+      this.setUserStatus(null);
+      // axios
+      //   .post(this.userCred.instance + "logout?token=" + this.userCred.token)
+      //   .then(() => {
+      //     console.log("exit wa");
+      //   });
     },
   },
 };

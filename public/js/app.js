@@ -2191,7 +2191,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -2208,15 +2210,24 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapGetters)({
-    user: "user/currentUser"
+  computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapGetters)({
+    user: "user/currentUser",
+    userCred: "cred/getCred"
   })),
-  methods: {
+  methods: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapActions)({
+    setUserStatus: "user/setStatus"
+  })), {}, {
     exitWa: function exitWa() {
-      console.log("exit wa");
+      // console.log(this.userCred);
+      this.setUserStatus(null); // axios
+      //   .post(this.userCred.instance + "logout?token=" + this.userCred.token)
+      //   .then(() => {
+      //     console.log("exit wa");
+      //   });
     }
-  }
+  })
 });
 
 /***/ }),
@@ -2398,7 +2409,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     return {
       messages: null,
       select_contact: null,
-      status: false,
+      status: null,
       today: new Date().toISOString().split("T")[0],
       isLoading: false
     };
@@ -2406,14 +2417,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   beforeMount: function beforeMount() {
     var _this = this;
 
-    this.isLoading = true;
-    this.setDialogs();
+    this.isLoading = true; // this.setDialogs();
+
     this.setUser();
     this.setCred().then(function () {
       axios__WEBPACK_IMPORTED_MODULE_0___default().get(_this.userCred.instance + "status?token=" + _this.userCred.token).then(function (e) {
         if (e.data.accountStatus == "authenticated") {
-          console.log("ok");
-          _this.status = true;
+          console.log("ok"); // this.status = e.data.accountStatus;
+
+          _this.setUserStatus(e.data.accountStatus);
         } else {
           console.log("not ok");
         }
@@ -2426,10 +2438,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_7__.mapState)({
     cn: "count"
   })), (0,vuex__WEBPACK_IMPORTED_MODULE_7__.mapGetters)({
-    done: "doneTodos",
-    doneCount: "doneTodosCount",
-    doneId: "getTodoById",
-    aGet: "a/doubleCount",
+    // done: "doneTodos",
+    // doneCount: "doneTodosCount",
+    // doneId: "getTodoById",
+    // aGet: "a/doubleCount",
     cUser: "user/currentUser",
     userCred: "cred/getCred",
     gDialogs: "dialogs/getDialogs"
@@ -2437,6 +2449,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   methods: _objectSpread(_objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_7__.mapActions)({
     inc: "increment",
     setUser: "user/setUser",
+    setUserStatus: "user/setStatus",
     setDialogs: "dialogs/setDialogs",
     setCred: "cred/setCred"
   })), (0,vuex__WEBPACK_IMPORTED_MODULE_7__.mapMutations)({
@@ -3812,11 +3825,13 @@ var user = {
     return {
       email: "",
       name: "",
-      role: ""
+      role: "",
+      status: null
     };
   },
   mutations: {
-    increment: function increment(state) {// state.count++;
+    setStatus: function setStatus(state, payload) {
+      state.status = payload;
     },
     setUser: function setUser(state, payload) {
       state.email = payload.email;
@@ -3848,6 +3863,9 @@ var user = {
           }
         }, _callee);
       }))();
+    },
+    setStatus: function setStatus(state, payload) {
+      state.commit("setStatus", payload);
     }
   }
 };
@@ -47368,7 +47386,7 @@ var render = function() {
         }
       }),
       _vm._v(" "),
-      _vm.status
+      _vm.cUser.status == "authenticated"
         ? _c(
             "div",
             { staticClass: "main" },
