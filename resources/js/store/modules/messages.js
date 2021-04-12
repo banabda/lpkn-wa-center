@@ -52,7 +52,7 @@ const messages = {
             await axios
                 .post("/chat-api/message/file", {
                     url: payload.url,
-                    filename: payload.name,
+                    filename: payload.filename,
                     chatId: payload.chatId,
                     instance: payload.instance,
                     token: payload.token

@@ -91,7 +91,7 @@ class MessageController extends Controller
             "body" => $request->body,
             "chatId" => $request->chatId,
         ];
-        dd($data);
+        // dd($data);
         $result = $client->request('POST', $request->instance . 'sendMessage?token=' . $request->token, ['form_params' => $data])->getBody()->getContents();
         return $result;
     }

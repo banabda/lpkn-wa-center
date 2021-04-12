@@ -72,6 +72,7 @@ export default {
               headers: { "Content-Type": "multipart/form-data" },
             })
             .then((e) => {
+              // console.log(e.data.name, e.data.type);
               const data = {};
               data.chatId = this.selectedContact.id;
               data.filename = e.data.name;

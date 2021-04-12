@@ -121,6 +121,6 @@ class DialogController extends Controller
 
     public function searchContact($name)
     {
-        return Dialog::where('name', 'LIKE', '%' . $name . '%')->get();
+        return Dialog::has('messages')->with('latestMessage')->orderBy("last_time", "desc")->where('name', 'LIKE', '%' . $name . '%')->get();
     }
 }

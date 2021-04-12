@@ -114,9 +114,10 @@ export default {
             headers: { "Content-Type": "multipart/form-data" },
           })
           .then((e) => {
+            console.log(e.data.name, e.data.type);
             const data = {};
             data.chatId = this.cUser.id;
-            data.filename = e.data.name;
+            data.filename = e.data.name + e.data.type;
             data.url = e.data.url;
             data.id = new Date();
             data.time = new Date();
