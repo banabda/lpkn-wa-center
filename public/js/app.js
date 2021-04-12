@@ -2579,8 +2579,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     "twemoji-textarea": _kevinfaguiar_vue_twemoji_picker__WEBPACK_IMPORTED_MODULE_1__.TwemojiTextarea
   },
   methods: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_7__.mapActions)({
-    send: "messages/sendMessage",
-    get: "messages/setMessages"
+    sendText: "messages/sendMessage",
+    get: "messages/setMessages",
+    sendFile: "messages/sendFile"
   })), {}, {
     emojiUnicodeAdded: function emojiUnicodeAdded(a) {
       this.text += a;
@@ -2657,31 +2658,28 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                       "Content-Type": "multipart/form-data"
                     }
                   }).then(function (e) {
-                    axios.post("/chat-api/message/file", {
-                      url: e.data.url,
-                      filename: e.data.name,
-                      chatId: _this2.cUser.id
-                    }).then(function () {
-                      var data = {
-                        id: new Date(),
-                        time: new Date(),
-                        type: "document",
-                        caption: e.data.name,
-                        body: e.data.url,
-                        from_me: true
-                      };
+                    var data = {};
+                    data.chatId = _this2.cUser.id;
+                    data.filename = e.data.name;
+                    data.url = e.data.url;
+                    data.id = new Date();
+                    data.time = new Date();
+                    data.type = "document";
+                    data.body = e.data.url;
+                    data.from_me = true;
+                    data.instance = _this2.cred.instance;
+                    data.token = _this2.cred.token;
 
-                      _this2.send(data).then(function () {
-                        sweetalert2__WEBPACK_IMPORTED_MODULE_6___default().fire({
-                          icon: "success",
-                          title: "File sended!",
-                          toast: true,
-                          position: "top-end",
-                          showConfirmButton: false,
-                          timer: 3000,
-                          timerProgressBar: true,
-                          background: "#FFEDE1"
-                        });
+                    _this2.sendFile(data).then(function () {
+                      sweetalert2__WEBPACK_IMPORTED_MODULE_6___default().fire({
+                        icon: "success",
+                        title: "File sended!",
+                        toast: true,
+                        position: "top-end",
+                        showConfirmButton: false,
+                        timer: 3000,
+                        timerProgressBar: true,
+                        background: "#FFEDE1"
                       });
                     });
                   });
@@ -2696,23 +2694,25 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }))();
     },
     sendMessage: function sendMessage(e) {
-      var data = {
-        id: new Date(),
-        time: new Date(),
-        type: "chat",
-        body: this.text,
-        from_me: true
-      };
-
       if (!/^\s+$/.test(this.text) && this.text != "") {
-        this.send(data); // this.get(this.cUser.id);
+        var data = {};
+        data.chatId = this.cUser.id;
+        data.id = new Date();
+        data.time = new Date();
+        data.type = "chat";
+        data.body = this.text;
+        data.from_me = true;
+        data.instance = this.cred.instance;
+        data.token = this.cred.token;
+        this.sendText(data); // this.get(this.cUser.id);
 
         this.text = "";
       }
     }
   }),
   computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_7__.mapGetters)({
-    cUser: "dialogs/getSelectedDialogs"
+    cUser: "dialogs/getSelectedDialogs",
+    cred: "cred/getCred"
   })), {}, {
     emojiDataAll: function emojiDataAll() {
       return _kevinfaguiar_vue_twemoji_picker_emoji_data_en_emoji_all_groups_json__WEBPACK_IMPORTED_MODULE_2__;
@@ -2878,10 +2878,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     UploadImages: vue_upload_drop_images__WEBPACK_IMPORTED_MODULE_0__.default
   },
   computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_3__.mapGetters)({
-    selectedContact: "dialogs/getSelectedDialogs"
+    selectedContact: "dialogs/getSelectedDialogs",
+    cred: "cred/getCred"
   })),
   methods: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_3__.mapActions)({
-    send: "messages/sendMessage"
+    sendFile: "messages/sendFile"
   })), {}, {
     handleImages: function handleImages(files) {
       var _imgsDetails = [];
@@ -2902,11 +2903,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     sendImages: function sendImages() {
       var _this = this;
 
-      //   var _file = event.target.files[0];
-      //   var _Ufile = {};
-      //   _Ufile.name = _file.name;
-      //   _Ufile.size = _file.size;
-      //   _Ufile.type = _file.type;
       if (this.imagesFiles) {
         sweetalert2__WEBPACK_IMPORTED_MODULE_1___default().fire({
           title: "Sending Images!",
@@ -2918,28 +2914,25 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         var length = this.imagesFiles.length;
         this.imagesFiles.forEach(function (el, id) {
           var formData = new FormData();
-          formData.append("file", el); //   formData.append("details", this.imagesDetails);
-
+          formData.append("file", el);
           axios__WEBPACK_IMPORTED_MODULE_2___default().post("/chat/upload", formData, {
             headers: {
               "Content-Type": "multipart/form-data"
             }
           }).then(function (e) {
-            axios__WEBPACK_IMPORTED_MODULE_2___default().post("/chat-api/message/file", {
-              url: e.data.url,
-              filename: e.data.name,
-              chatId: _this.selectedContact.id
-            }).then(function () {
-              var data = {
-                id: new Date(),
-                time: new Date(),
-                type: "image",
-                body: e.data.url,
-                from_me: true
-              };
+            var data = {};
+            data.chatId = _this.selectedContact.id;
+            data.filename = e.data.name;
+            data.url = e.data.url;
+            data.id = new Date();
+            data.time = new Date();
+            data.type = "image";
+            data.body = e.data.url;
+            data.from_me = true;
+            data.instance = _this.cred.instance;
+            data.token = _this.cred.token;
 
-              _this.send(data);
-
+            _this.sendFile(data).then(function () {
               if (id == length - 1) {
                 sweetalert2__WEBPACK_IMPORTED_MODULE_1___default().close();
 
@@ -3376,7 +3369,15 @@ var messages = {
   namespaced: true,
   state: function state() {
     return {
-      messages: null
+      messages: null,
+      id: new Date(),
+      time: new Date(),
+      type: "document",
+      caption: null,
+      body: null,
+      from_me: true,
+      filename: null,
+      chatId: null
     };
   },
   mutations: {
@@ -3429,11 +3430,57 @@ var messages = {
       }))();
     },
     sendMessage: function sendMessage(state, payload) {
-      // await axios.get("/chat-api/message/text").then(e => {
-      //     const msg = e.data;
-      //      payload.id = e.data.id
-      // });
-      state.commit("sendMessage", payload);
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                _context3.next = 2;
+                return axios.post("/chat-api/message/text", {
+                  body: payload.body,
+                  chatId: payload.chatId,
+                  instance: payload.instance,
+                  token: payload.token
+                }).then(function (e) {// payload.id = e.data.id;
+                });
+
+              case 2:
+                state.commit("sendMessage", payload);
+
+              case 3:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
+      }))();
+    },
+    sendFile: function sendFile(state, payload) {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee4$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
+                _context4.next = 2;
+                return axios.post("/chat-api/message/file", {
+                  url: payload.url,
+                  filename: payload.name,
+                  chatId: payload.chatId,
+                  instance: payload.instance,
+                  token: payload.token
+                }).then(function (e) {// payload.id = e.data.id;
+                });
+
+              case 2:
+                state.commit("sendMessage", payload);
+
+              case 3:
+              case "end":
+                return _context4.stop();
+            }
+          }
+        }, _callee4);
+      }))();
     }
   },
   getters: {

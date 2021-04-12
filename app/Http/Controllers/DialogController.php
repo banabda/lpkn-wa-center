@@ -86,7 +86,7 @@ class DialogController extends Controller
 
     public function dialogs()
     {
-    $client = new Client();
+        $client = new Client();
         $result = $client->request('GET', env('WA_URL') . 'dialogs' . env('WA_TOKEN') . '&limit=200')->getBody()->getContents();
         return $result;
     }
@@ -115,7 +115,12 @@ class DialogController extends Controller
 
     public function contactPerPage($page)
     {
-        $page = $page*20;
+        $page = $page * 20;
         return Dialog::has('messages')->with('latestMessage')->orderBy("last_time", "desc")->skip($page)->limit(20)->get();
+    }
+
+    public function searchContact($name)
+    {
+        return Dialog::where('name', 'LIKE', '%' . $name . '%')->get();
     }
 }

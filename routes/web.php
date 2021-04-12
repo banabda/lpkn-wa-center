@@ -41,7 +41,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::group(['prefix' => 'message'], function () {
             Route::get('/', [MessageController::class, 'messages']);
             Route::get('/latest', [MessageController::class, 'latest']);
-            Route::get('/text', [MessageController::class, 'sendText']);
+            Route::post('/text', [MessageController::class, 'sendText']);
             Route::post('/file', [MessageController::class, 'sendFile']);
             Route::get('/delete', [MessageController::class, 'delete']);
         });
@@ -65,6 +65,7 @@ Route::group(['middleware' => 'auth'], function () {
             Route::get('/', [DialogController::class, 'contact']);
             Route::get('/{chatid}', [DialogController::class, 'selected']);
             Route::get('/page/{page}', [DialogController::class, 'contactPerPage']);
+            Route::get('/search/{name}', [DialogController::class, 'searchContact']);
         });
 
         Route::post('/upload', [ImageController::class, 'upload']);

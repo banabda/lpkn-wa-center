@@ -2,7 +2,15 @@ const messages = {
     namespaced: true,
 
     state: () => ({
-        messages: null
+        messages: null,
+        id: new Date(),
+        time: new Date(),
+        type: "document",
+        caption: null,
+        body: null,
+        from_me: true,
+        filename: null,
+        chatId: null
     }),
 
     mutations: {
@@ -27,11 +35,31 @@ const messages = {
                 state.commit("setMessages", msg);
             });
         },
-        sendMessage(state, payload) {
-            // await axios.get("/chat-api/message/text").then(e => {
-            //     const msg = e.data;
-            //      payload.id = e.data.id
-            // });
+        async sendMessage(state, payload) {
+            await axios
+                .post("/chat-api/message/text", {
+                    body: payload.body,
+                    chatId: payload.chatId,
+                    instance: payload.instance,
+                    token: payload.token
+                })
+                .then(e => {
+                    // payload.id = e.data.id;
+                });
+            state.commit("sendMessage", payload);
+        },
+        async sendFile(state, payload) {
+            await axios
+                .post("/chat-api/message/file", {
+                    url: payload.url,
+                    filename: payload.name,
+                    chatId: payload.chatId,
+                    instance: payload.instance,
+                    token: payload.token
+                })
+                .then(e => {
+                    // payload.id = e.data.id;
+                });
             state.commit("sendMessage", payload);
         }
     },

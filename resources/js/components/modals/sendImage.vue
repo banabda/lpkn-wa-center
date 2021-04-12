@@ -30,11 +30,14 @@ import { mapState, mapGetters, mapActions, mapMutations } from "vuex";
 export default {
   components: { UploadImages },
   computed: {
-    ...mapGetters({ selectedContact: "dialogs/getSelectedDialogs" }),
+    ...mapGetters({
+      selectedContact: "dialogs/getSelectedDialogs",
+      cred: "cred/getCred",
+    }),
   },
   methods: {
     ...mapActions({
-      send: "messages/sendMessage",
+      sendFile: "messages/sendFile",
     }),
     handleImages(files) {
       let _imgsDetails = [];
@@ -52,11 +55,6 @@ export default {
       this.imagesFiles = _imgsFiles;
     },
     sendImages() {
-      //   var _file = event.target.files[0];
-      //   var _Ufile = {};
-      //   _Ufile.name = _file.name;
-      //   _Ufile.size = _file.size;
-      //   _Ufile.type = _file.type;
       if (this.imagesFiles) {
         Swal.fire({
           title: "Sending Images!",
@@ -69,43 +67,38 @@ export default {
         this.imagesFiles.forEach((el, id) => {
           const formData = new FormData();
           formData.append("file", el);
-          //   formData.append("details", this.imagesDetails);
           axios
             .post("/chat/upload", formData, {
               headers: { "Content-Type": "multipart/form-data" },
             })
             .then((e) => {
-              axios
-                .post("/chat-api/message/file", {
-                  url: e.data.url,
-                  filename: e.data.name,
-                  chatId: this.selectedContact.id,
-                })
-                .then(() => {
-                  let data = {
-                    id: new Date(),
-                    time: new Date(),
-                    type: "image",
-                    body: e.data.url,
-                    from_me: true,
-                  };
-                  this.send(data);
-
-                  if (id == length - 1) {
-                    Swal.close();
-                    this.$modal.hide("modal-image");
-                    Swal.fire({
-                      icon: "success",
-                      title: "File sended!",
-                      toast: true,
-                      position: "top-end",
-                      showConfirmButton: false,
-                      timer: 3000,
-                      timerProgressBar: true,
-                      background: "#FFEDE1",
-                    });
-                  }
-                });
+              const data = {};
+              data.chatId = this.selectedContact.id;
+              data.filename = e.data.name;
+              data.url = e.data.url;
+              data.id = new Date();
+              data.time = new Date();
+              data.type = "image";
+              data.body = e.data.url;
+              data.from_me = true;
+              data.instance = this.cred.instance;
+              data.token = this.cred.token;
+              this.sendFile(data).then(() => {
+                if (id == length - 1) {
+                  Swal.close();
+                  this.$modal.hide("modal-image");
+                  Swal.fire({
+                    icon: "success",
+                    title: "File sended!",
+                    toast: true,
+                    position: "top-end",
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true,
+                    background: "#FFEDE1",
+                  });
+                }
+              });
             });
         });
         this.imagesDetails = null;
