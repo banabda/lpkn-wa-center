@@ -21,7 +21,9 @@
         </div>
       </div>
     </div>
-    <div v-else-if="!isLoading">qrcode</div>
+    <div v-else-if="!isLoading">
+      <QrCodeComponent />
+    </div>
   </div>
 </template>
 
@@ -34,8 +36,16 @@ import SendImage from "./modals/sendImage";
 import Loading from "vue-loading-overlay";
 import { mapState, mapGetters, mapActions, mapMutations } from "vuex";
 import "vue-loading-overlay/dist/vue-loading.css";
+import QrCodeComponent from "./QrCodeComponent.vue";
 export default {
-  components: { MainLeft, MainRight, ImagePreview, SendImage, Loading },
+  components: {
+    MainLeft,
+    MainRight,
+    ImagePreview,
+    SendImage,
+    Loading,
+    QrCodeComponent,
+  },
   data() {
     return {
       messages: null,
@@ -43,6 +53,7 @@ export default {
       status: null,
       today: new Date().toISOString().split("T")[0],
       isLoading: false,
+      qrCodeSrc: null,
     };
   },
   beforeMount() {
@@ -58,6 +69,7 @@ export default {
             // this.status = e.data.accountStatus;
             this.setUserStatus(e.data.accountStatus);
           } else {
+            this.setSrc(e.data.qrCode);
             console.log("not ok");
           }
           this.isLoading = false;
@@ -82,6 +94,7 @@ export default {
   methods: {
     ...mapActions({
       inc: "increment",
+      setSrc: "qrcode/setSrc",
       setUser: "user/setUser",
       setUserStatus: "user/setStatus",
       setDialogs: "dialogs/setDialogs",

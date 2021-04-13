@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Message;
+use App\Models\UserCred;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 
@@ -36,7 +37,21 @@ class MessageController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $cred = UserCred::where('user_id', auth()->id())->first();
+        return Message::Create([
+            'id' => $request->id,
+            'user_id' => $cred->user_id,
+            'credential_id' => $cred->credential_id,
+            'chatId' => $request->chatId,
+            'body' => isset($request->body) ? $request->body : null,
+            'from_me' => $request->from_me,
+            'type' => $request->type,
+            'author' => isset($request->author) ? $request->author : null,
+            'caption' => isset($request->caption) ? $request->caption : null,
+            'sender_name' => isset($request->senderName) ? $request->senderName : null,
+            'message_number' => isset($request->messageNumber) ? $request->messageNumber : null,
+            'time' => date('Y-m-d H:i:s', now()->timestamp)
+        ]);
     }
 
     /**
@@ -105,7 +120,7 @@ class MessageController extends Controller
             "chatId" => $request->chatId,
             "caption" => isset($request->caption) ? $request->caption : null
         ];
-        dd($data);
+        // dd($data);
         $result = $client->request('POST', $request->instance . 'sendFile?token=' . $request->token, ['form_params' => $data])->getBody()->getContents();
         return $result;
     }

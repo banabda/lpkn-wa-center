@@ -3,6 +3,8 @@
 namespace App\Console;
 
 use App\Http\Controllers\DialogController;
+use App\Models\Dialog;
+use App\Models\Message;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -25,8 +27,13 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('dialogs')->everyMinute();
-        $schedule->command('messages')->everyMinute();
+        if (count(Dialog::all()) == 0 && count(Message::all()) == 0) {
+            $schedule->command('dialogs:first')->everyMinute();
+            $schedule->command('messages:first')->everyMinute();
+        } else {
+            $schedule->command('dialogs')->everyMinute();
+            $schedule->command('messages')->everyMinute();
+        }
     }
 
     /**

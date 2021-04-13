@@ -8,14 +8,14 @@ use GuzzleHttp\Client;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log;
 
-class GetMessages extends Command
+class GetMessageFirst extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'messages';
+    protected $signature = 'messages:first';
 
     /**
      * The console command description.
@@ -45,7 +45,7 @@ class GetMessages extends Command
         $credentials = Credential::all();
         foreach ($credentials as $cred) {
 
-            $result = json_decode($client->request('GET', $cred->instance . 'messagesHistory?token=' . $cred->token . '&count=200')
+            $result = json_decode($client->request('GET', $cred->instance . 'messagesHistory?token=' . $cred->token . '&count=3000')
                 ->getBody()
                 ->getContents());
 

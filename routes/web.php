@@ -52,6 +52,10 @@ Route::group(['middleware' => 'auth'], function () {
         });
     });
 
+    Route::group(['prefix' => 'db'], function () {
+        Route::post('/message', [MessageController::class, 'store']);
+    });
+
     Route::group(['prefix' => 'credential'], function () {
         Route::get('/getcred', function () {
             return UserCred::with('user', 'credential')->where('user_id', auth()->id())->first();
@@ -64,7 +68,9 @@ Route::group(['middleware' => 'auth'], function () {
         Route::group(['prefix' => 'contact'], function () {
             Route::get('/', [DialogController::class, 'contact']);
             Route::get('/{chatid}', [DialogController::class, 'selected']);
+            Route::get('/cred/{id}', [DialogController::class, 'contactWithCred']);
             Route::get('/page/{page}', [DialogController::class, 'contactPerPage']);
+            Route::get('/page/{page}/cred/{cred}', [DialogController::class, 'contactPerPageWithCred']);
             Route::get('/search/{name}', [DialogController::class, 'searchContact']);
         });
 

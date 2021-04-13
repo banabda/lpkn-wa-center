@@ -8,14 +8,14 @@ use GuzzleHttp\Client;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log;
 
-class GetDialogs extends Command
+class GetDialogsFirst extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'dialogs';
+    protected $signature = 'dialogs:first';
 
     /**
      * The console command description.
@@ -45,7 +45,7 @@ class GetDialogs extends Command
         $credentials = Credential::all();
         foreach ($credentials as $cred) {
 
-            $result = json_decode($client->request('GET', $cred->instance . 'dialogs?token=' . $cred->token . '&limit=50')
+            $result = json_decode($client->request('GET', $cred->instance . 'dialogs?token=' . $cred->token . '&limit=2000')
                 ->getBody()
                 ->getContents());
 
