@@ -11,7 +11,7 @@ class ProcessWebhookJob extends SpatieProcessWebhookJob
     {
         $data = json_decode($this->webhookCall, true);
 
-        Log::channel('cron')->info('Starting webhook');
-        Log::channel('cron')->info($data);
+        Log::channel('webhook')->info('Starting webhook');
+        Log::channel('webhook')->info($data);
     }
 }
