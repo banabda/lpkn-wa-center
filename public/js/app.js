@@ -2132,7 +2132,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapGetters)({
     dialogs: "dialogs/getDialogs",
     searched: "dialogs/getSearchedDialogs",
-    selected: "dialogs/getSelectedDialogs"
+    selected: "dialogs/getSelectedDialogs",
+    userCred: "cred/getCred"
   })),
   mounted: function mounted() {},
   methods: _objectSpread(_objectSpread({
@@ -2147,7 +2148,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     infiniteHandler: function infiniteHandler($state) {
       var _this = this;
 
-      axios.get("/chat/contact/page/" + this.page).then(function (_ref) {
+      axios.get("/chat/contact/page/" + this.page + "/cred/" + this.userCred.credential_id).then(function (_ref) {
         var data = _ref.data;
 
         if (data.length) {
@@ -3658,11 +3659,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_1__);
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 
 var messages = {
   namespaced: true,
@@ -3684,6 +3688,25 @@ var messages = {
       state.messages = payload;
     },
     sendMessage: function sendMessage(state, payload) {
+      var body = payload.body ? payload.body : null;
+      var author = payload.author ? payload.author : null;
+      var caption = payload.caption ? payload.caption : null;
+      var senderName = payload.senderName ? payload.senderName : null;
+      var messageNumber = payload.messageNumber ? payload.messageNumber : null;
+      axios.post("/db/message/", {
+        id: payload.id,
+        chatId: payload.chatId,
+        body: body,
+        from_me: payload.from_me,
+        type: payload.type,
+        author: author,
+        caption: caption,
+        sender_name: senderName,
+        message_number: messageNumber,
+        time: payload.time
+      }).then(function (e) {
+        console.log(e.data);
+      });
       state.messages.push(payload);
     }
   },
@@ -3740,7 +3763,18 @@ var messages = {
                   chatId: payload.chatId,
                   instance: payload.instance,
                   token: payload.token
-                }).then(function (e) {// payload.id = e.data.id;
+                }).then(function (e) {
+                  payload.id = e.data.id;
+                  sweetalert2__WEBPACK_IMPORTED_MODULE_1___default().fire({
+                    icon: "success",
+                    title: "Message sended!",
+                    toast: true,
+                    position: "top-end",
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true,
+                    background: "#FFEDE1"
+                  });
                 });
 
               case 2:
@@ -3767,7 +3801,8 @@ var messages = {
                   chatId: payload.chatId,
                   instance: payload.instance,
                   token: payload.token
-                }).then(function (e) {// payload.id = e.data.id;
+                }).then(function (e) {
+                  payload.id = e.data.id;
                 });
 
               case 2:

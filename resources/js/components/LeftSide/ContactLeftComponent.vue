@@ -191,6 +191,7 @@ export default {
       dialogs: "dialogs/getDialogs",
       searched: "dialogs/getSearchedDialogs",
       selected: "dialogs/getSelectedDialogs",
+      userCred: "cred/getCred",
     }),
   },
   mounted() {},
@@ -204,15 +205,22 @@ export default {
       selectedUser: "dialogs/setSelectedDialog",
     }),
     infiniteHandler($state) {
-      axios.get("/chat/contact/page/" + this.page).then(({ data }) => {
-        if (data.length) {
-          this.localDialogs.push(...data);
-          this.page += 1;
-          $state.loaded();
-        } else {
-          $state.complete();
-        }
-      });
+      axios
+        .get(
+          "/chat/contact/page/" +
+            this.page +
+            "/cred/" +
+            this.userCred.credential_id
+        )
+        .then(({ data }) => {
+          if (data.length) {
+            this.localDialogs.push(...data);
+            this.page += 1;
+            $state.loaded();
+          } else {
+            $state.complete();
+          }
+        });
     },
   },
   data() {

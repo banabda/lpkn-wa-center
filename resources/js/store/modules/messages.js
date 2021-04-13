@@ -1,3 +1,4 @@
+import Swal from "sweetalert2";
 const messages = {
     namespaced: true,
 
@@ -18,6 +19,29 @@ const messages = {
             state.messages = payload;
         },
         sendMessage(state, payload) {
+            const body = payload.body ? payload.body : null;
+            const author = payload.author ? payload.author : null;
+            const caption = payload.caption ? payload.caption : null;
+            const senderName = payload.senderName ? payload.senderName : null;
+            const messageNumber = payload.messageNumber
+                ? payload.messageNumber
+                : null;
+            axios
+                .post("/db/message/", {
+                    id: payload.id,
+                    chatId: payload.chatId,
+                    body: body,
+                    from_me: payload.from_me,
+                    type: payload.type,
+                    author: author,
+                    caption: caption,
+                    sender_name: senderName,
+                    message_number: messageNumber,
+                    time: payload.time
+                })
+                .then(e => {
+                    console.log(e.data);
+                });
             state.messages.push(payload);
         }
     },
@@ -44,7 +68,17 @@ const messages = {
                     token: payload.token
                 })
                 .then(e => {
-                    // payload.id = e.data.id;
+                    payload.id = e.data.id;
+                    Swal.fire({
+                        icon: "success",
+                        title: "Message sended!",
+                        toast: true,
+                        position: "top-end",
+                        showConfirmButton: false,
+                        timer: 3000,
+                        timerProgressBar: true,
+                        background: "#FFEDE1"
+                    });
                 });
             state.commit("sendMessage", payload);
         },
@@ -58,7 +92,7 @@ const messages = {
                     token: payload.token
                 })
                 .then(e => {
-                    // payload.id = e.data.id;
+                    payload.id = e.data.id;
                 });
             state.commit("sendMessage", payload);
         }

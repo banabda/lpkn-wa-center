@@ -52,6 +52,10 @@ Route::group(['middleware' => 'auth'], function () {
         });
     });
 
+    Route::group(['prefix' => 'db'], function () {
+        Route::post('/message', [MessageController::class, 'store']);
+    });
+
     Route::group(['prefix' => 'credential'], function () {
         Route::get('/getcred', function () {
             return UserCred::with('user', 'credential')->where('user_id', auth()->id())->first();
