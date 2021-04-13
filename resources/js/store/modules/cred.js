@@ -3,6 +3,9 @@ const cred = {
 
     state: () => ({
         name: null,
+        user_id: null,
+        credential_id: null,
+        active: null,
         phone: null,
         chatId: null,
         instance: null,
@@ -11,18 +14,21 @@ const cred = {
 
     mutations: {
         setCred(state, payload) {
-            state.name = payload.name;
-            state.phone = payload.phone;
-            state.chatId = payload.chatId;
-            state.instance = payload.instance;
-            state.token = payload.token;
+            state.name = payload.credential.name;
+            state.phone = payload.credential.phone;
+            state.chatId = payload.credential.chatId;
+            state.instance = payload.credential.instance;
+            state.token = payload.credential.token;
+            state.user_id = payload.user_id;
+            state.credential_id = payload.credential_id;
+            state.active = payload.active;
         }
     },
 
     actions: {
         async setCred(state) {
             await axios.get("/credential/getcred").then(e => {
-                state.commit("setCred", e.data.credential);
+                state.commit("setCred", e.data);
             });
         }
     },

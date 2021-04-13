@@ -3482,6 +3482,9 @@ var cred = {
   state: function state() {
     return {
       name: null,
+      user_id: null,
+      credential_id: null,
+      active: null,
       phone: null,
       chatId: null,
       instance: null,
@@ -3490,11 +3493,14 @@ var cred = {
   },
   mutations: {
     setCred: function setCred(state, payload) {
-      state.name = payload.name;
-      state.phone = payload.phone;
-      state.chatId = payload.chatId;
-      state.instance = payload.instance;
-      state.token = payload.token;
+      state.name = payload.credential.name;
+      state.phone = payload.credential.phone;
+      state.chatId = payload.credential.chatId;
+      state.instance = payload.credential.instance;
+      state.token = payload.credential.token;
+      state.user_id = payload.user_id;
+      state.credential_id = payload.credential_id;
+      state.active = payload.active;
     }
   },
   actions: {
@@ -3506,7 +3512,7 @@ var cred = {
               case 0:
                 _context.next = 2;
                 return axios.get("/credential/getcred").then(function (e) {
-                  state.commit("setCred", e.data.credential);
+                  state.commit("setCred", e.data);
                 });
 
               case 2:
@@ -3587,14 +3593,14 @@ var dialogs = {
     }
   },
   actions: {
-    setDialogs: function setDialogs(state) {
+    setDialogs: function setDialogs(state, id) {
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
                 _context.next = 2;
-                return axios__WEBPACK_IMPORTED_MODULE_1___default().get("/chat/contact").then(function (e) {
+                return axios__WEBPACK_IMPORTED_MODULE_1___default().get("/chat/contact/cred" + id).then(function (e) {
                   var list = _.sortBy(e.data, [function (o) {
                     return o.latest_message.time;
                   }]).reverse();

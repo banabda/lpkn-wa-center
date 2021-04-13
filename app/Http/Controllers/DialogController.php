@@ -113,10 +113,21 @@ class DialogController extends Controller
         return Dialog::has('messages')->with('latestMessage')->get();
     }
 
+    public function contactWithCred($id)
+    {
+        return Dialog::has('messages')->with('latestMessage')->where('credential_id', $id)->get();
+    }
+
     public function contactPerPage($page)
     {
         $page = $page * 20;
         return Dialog::has('messages')->with('latestMessage')->orderBy("last_time", "desc")->skip($page)->limit(20)->get();
+    }
+
+    public function contactPerPageWithCred($page, $cred)
+    {
+        $page = $page * 20;
+        return Dialog::where('credential_id', $cred)->has('messages')->with('latestMessage')->orderBy("last_time", "desc")->skip($page)->limit(20)->get();
     }
 
     public function searchContact($name)

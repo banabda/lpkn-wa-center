@@ -64,7 +64,9 @@ Route::group(['middleware' => 'auth'], function () {
         Route::group(['prefix' => 'contact'], function () {
             Route::get('/', [DialogController::class, 'contact']);
             Route::get('/{chatid}', [DialogController::class, 'selected']);
+            Route::get('/cred/{id}', [DialogController::class, 'contactWithCred']);
             Route::get('/page/{page}', [DialogController::class, 'contactPerPage']);
+            Route::get('/page/{page}/cred/{cred}', [DialogController::class, 'contactPerPageWithCred']);
             Route::get('/search/{name}', [DialogController::class, 'searchContact']);
         });
 

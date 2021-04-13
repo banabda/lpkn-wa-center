@@ -38,8 +38,8 @@ const dialogs = {
     },
 
     actions: {
-        async setDialogs(state) {
-            await axios.get("/chat/contact").then(e => {
+        async setDialogs(state, id) {
+            await axios.get("/chat/contact/cred" + id).then(e => {
                 const list = _.sortBy(e.data, [
                     function(o) {
                         return o.latest_message.time;
