@@ -89,6 +89,7 @@ export default {
       cUser: "user/currentUser",
       userCred: "cred/getCred",
       gDialogs: "dialogs/getDialogs",
+      selectedDialogs: "dialogs/getSelectedDialogs",
     }),
   },
   methods: {
@@ -110,7 +111,19 @@ export default {
       console.log("count : ", this.cn);
     },
   },
-  watch: {},
+  watch: {
+    selectedDialogs(selectedDialogs) {
+      if (selectedDialogs) {
+        this.select_contact = selectedDialogs;
+        Echo.private("chat." + selectedDialogs.id).listen("NewMessage", (e) => {
+          console.log(e);
+        });
+      } else {
+        Echo.leave(`chat.${this.select_contact.id}`);
+        this.select_contact = null;
+      }
+    },
+  },
 };
 </script>
 <style lang="scss" scoped>

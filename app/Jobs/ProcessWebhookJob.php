@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Events\NewMessage;
 use Illuminate\Support\Facades\Log;
 use \Spatie\WebhookClient\ProcessWebhookJob as SpatieProcessWebhookJob;
 
@@ -13,5 +14,7 @@ class ProcessWebhookJob extends SpatieProcessWebhookJob
 
         Log::channel('cron')->info('Starting webhook');
         Log::channel('cron')->info($data);
+
+        broadcast(new NewMessage($data));
     }
 }
