@@ -23,12 +23,12 @@ export default {
     }),
     exitWa() {
       // console.log(this.userCred);
-      this.setUserStatus(null);
-      // axios
-      //   .post(this.userCred.instance + "logout?token=" + this.userCred.token)
-      //   .then(() => {
-      //     console.log("exit wa");
-      //   });
+      axios
+        .post(this.userCred.instance + "logout?token=" + this.userCred.token)
+        .then(() => {
+          this.setUserStatus(null);
+          console.log("exit wa");
+        });
     },
   },
 };

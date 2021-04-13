@@ -6,6 +6,7 @@ import dialogs from "./modules/dialogs";
 import messages from "./modules/messages";
 import images from "./modules/modal/image";
 import cred from "./modules/cred";
+import qrcode from "./modules/qrcode";
 Vue.use(Vuex);
 
 const store = new Vuex.Store({
@@ -15,7 +16,8 @@ const store = new Vuex.Store({
         dialogs: dialogs,
         messages: messages,
         image: images,
-        cred: cred
+        cred: cred,
+        qrcode: qrcode
     },
     state: {
         count: 0,
