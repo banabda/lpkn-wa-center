@@ -25,7 +25,11 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-
+Route::get('/fire', function () {
+    $data = array('msg' => 'hello world asdsadsasda');
+    event(new \App\Events\TestEvent($data));
+    return 'ok';
+});
 Auth::routes();
 
 Route::group(['middleware' => 'auth'], function () {

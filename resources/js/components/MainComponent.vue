@@ -76,7 +76,15 @@ export default {
         });
     });
   },
-  mounted() {},
+  mounted() {
+    console.log("e.data");
+    Echo.private("test").listen("TestEvent", (e) => {
+      console.log(e.data);
+    });
+    // Echo.private("chat").listen("NewMessage", (e) => {
+    //   console.log(e);
+    // });
+  },
   computed: {
     ...mapState({
       cn: "count",
@@ -114,12 +122,11 @@ export default {
   watch: {
     selectedDialogs(selectedDialogs) {
       if (selectedDialogs) {
+        console.log("entered");
         this.select_contact = selectedDialogs;
-        Echo.private("chat." + selectedDialogs.id).listen("NewMessage", (e) => {
-          console.log(e);
-        });
+        console.log(this.select_contact.id);
       } else {
-        Echo.leave(`chat.${this.select_contact.id}`);
+        // Echo.leave(`chat.${this.select_contact.id}`);
         this.select_contact = null;
       }
     },

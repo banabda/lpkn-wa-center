@@ -135,6 +135,11 @@ export default {
       // console.log("scroll");
     },
   },
+  mounted() {
+    Echo.private("message." + selectedDialogs.id).listen("NewMessage", (e) => {
+      console.log(e);
+    });
+  },
 };
 </script>
 <style lang="scss" scoped>

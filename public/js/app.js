@@ -2522,7 +2522,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       });
     });
   },
-  mounted: function mounted() {},
+  mounted: function mounted() {
+    console.log("e.data");
+    Echo["private"]("test").listen("TestEvent", function (e) {
+      console.log(e.data);
+    });
+  },
   computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_8__.mapState)({
     cn: "count"
   })), (0,vuex__WEBPACK_IMPORTED_MODULE_8__.mapGetters)({
@@ -2558,7 +2563,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   watch: {
     selectedDialogs: function selectedDialogs(_selectedDialogs) {
       if (_selectedDialogs) {
+        console.log("entered");
         this.select_contact = _selectedDialogs;
+        console.log(this.select_contact.id);
         Echo["private"]("chat." + _selectedDialogs.id).listen("NewMessage", function (e) {
           console.log(e);
         });
