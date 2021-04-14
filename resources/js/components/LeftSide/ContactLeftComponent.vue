@@ -1,11 +1,13 @@
 <template>
   <div class="contact" v-if="!searched">
+    <!-- <button @click="addDummy">add</button> -->
     <div v-for="(dial, index) in localDialogs" :key="index">
       <div
         class="d-flex contact-container py-2 px-3 mb-1"
         @click="selectedUser(dial)"
       >
         <div class="contact-left w-25">
+          <!-- {{ index }} -->
           <avatar :username="dial.name" :src="dial.image" :size="40"></avatar>
         </div>
         <div class="contact-right w-75">
@@ -201,28 +203,40 @@ export default {
     });
   },
   methods: {
+    addDummy() {
+      var index = _.findIndex(this.localDialogs, { id: this.dummy.id });
+      console.log(index);
+      if (index !== false) {
+        _.remove(this.localDialogs, { id: this.dummy.id });
+        console.log("removed");
+      }
+      this.localDialogs.splice(0, 0, this.dummy);
+    },
     tomorrowGen(date) {
       var currentDate = new Date(date);
       currentDate.setDate(currentDate.getDate() - 1);
       return currentDate.toDateString();
     },
+    ...mapMutations({
+      limitPush: "dialogs/setDialogsLimitPush",
+    }),
     ...mapActions({
       selectedUser: "dialogs/setSelectedDialog",
       setLimit: "dialogs/setDialogsLimit",
     }),
     infiniteHandler($state) {
-      if (this.dialogsLimit.length) {
-        this.setLimit({
-          page: this.page,
-          credential_id: this.userCred.credential_id,
-        }).then(() => {
-          this.localDialogs.push(...this.dialogsLimit);
+      this.setLimit({
+        page: this.page,
+        credential_id: this.userCred.credential_id,
+      }).then(() => {
+        this.localDialogs.push(...this.dialogsLimit);
+        if (this.dialogsLimit.length) {
           this.page += 1;
           $state.loaded();
-        });
-      } else {
-        $state.complete();
-      }
+        } else {
+          $state.complete();
+        }
+      });
     },
   },
   data() {
@@ -232,13 +246,36 @@ export default {
       regexTo: "",
       localDialogs: [],
       page: 0,
+      dummy: {
+        id: "6281221601998@c.us",
+        name: "+62 812-2160-1998",
+        image:
+          "https://pps.whatsapp.net/v/t61.24694-24/56721798_2223368147728904_7273999364610064384_n.jpg?oh=8e464602d5ac4d2ba29edb15e5916497&oe=60796FF4",
+        is_group: 0,
+        last_time: "2021-04-13 15:52:34",
+        created_at: "2021-04-13T08:53:19.000000Z",
+        updated_at: "2021-04-13T09:59:19.000000Z",
+        credential_id: 1,
+        latest_message: {
+          id: "false_6281221601998@c.us_3EB0A3F1B06D5C85C827",
+          user_id: null,
+          chatId: "6281221601998@c.us",
+          body: "ok",
+          from_me: 0,
+          type: "chat",
+          author: "6281221601998@c.us",
+          caption: null,
+          sender_name: "Andika Wijaya",
+          time: "2021-04-13T08:52:34.000000Z",
+          message_number: 17762,
+          created_at: "2021-04-13T08:53:23.000000Z",
+          updated_at: "2021-04-13T09:59:25.000000Z",
+          credential_id: 1,
+        },
+      },
     };
   },
-  watch: {
-    searched(searched) {
-      // console.log(searched);
-    },
-  },
+  watch: {},
 };
 </script>
 <style lang="scss" scoped>

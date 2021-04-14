@@ -23,6 +23,7 @@ class NewChat implements ShouldBroadcast
     public function __construct($data)
     {
         $this->data = $data;
+        Log::channel('webhook')->info(['Dialog' => Dialog::with('latestMessage')->find($this->data['chatId']), 'message' => $this->data]);
     }
 
     /**
