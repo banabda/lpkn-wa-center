@@ -22,3 +22,6 @@ Broadcast::channel('message.{id}', function ($user, $id) {
 Broadcast::channel('test', function ($user) {
     return true;
 });
+Broadcast::channel('chat', function ($user) {
+    return true;
+});

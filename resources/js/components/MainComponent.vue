@@ -81,9 +81,6 @@ export default {
     Echo.private("test").listen("TestEvent", (e) => {
       console.log(e.data);
     });
-    // Echo.private("chat").listen("NewMessage", (e) => {
-    //   console.log(e);
-    // });
   },
   computed: {
     ...mapState({

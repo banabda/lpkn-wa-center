@@ -191,10 +191,15 @@ export default {
       dialogs: "dialogs/getDialogs",
       searched: "dialogs/getSearchedDialogs",
       selected: "dialogs/getSelectedDialogs",
+      dialogsLimit: "dialogs/getDialogsLimit",
       userCred: "cred/getCred",
     }),
   },
-  mounted() {},
+  mounted() {
+    Echo.private("chat").listen("NewChat", (e) => {
+      console.log(e);
+    });
+  },
   methods: {
     tomorrowGen(date) {
       var currentDate = new Date(date);
@@ -203,24 +208,21 @@ export default {
     },
     ...mapActions({
       selectedUser: "dialogs/setSelectedDialog",
+      setLimit: "dialogs/setDialogsLimit",
     }),
     infiniteHandler($state) {
-      axios
-        .get(
-          "/chat/contact/page/" +
-            this.page +
-            "/cred/" +
-            this.userCred.credential_id
-        )
-        .then(({ data }) => {
-          if (data.length) {
-            this.localDialogs.push(...data);
-            this.page += 1;
-            $state.loaded();
-          } else {
-            $state.complete();
-          }
+      if (this.dialogsLimit.length) {
+        this.setLimit({
+          page: this.page,
+          credential_id: this.userCred.credential_id,
+        }).then(() => {
+          this.localDialogs.push(...this.dialogsLimit);
+          this.page += 1;
+          $state.loaded();
         });
+      } else {
+        $state.complete();
+      }
     },
   },
   data() {
