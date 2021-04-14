@@ -10,6 +10,7 @@ use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Log;
 
 class NewChat implements ShouldBroadcast
 {
@@ -38,6 +39,8 @@ class NewChat implements ShouldBroadcast
 
     public function broadcastWith()
     {
-        return ['Dialog' => Dialog::with('latestMessage')->find($this->data['chatId']), 'message' => $this->data];
+        $dialog = Dialog::find($this->data['chatId']);
+        $dialog->latest_message = $this->data;
+        return ['dialog' => $dialog];
     }
 }

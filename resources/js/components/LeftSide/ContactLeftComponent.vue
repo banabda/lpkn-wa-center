@@ -200,6 +200,14 @@ export default {
   mounted() {
     Echo.private("chat").listen("NewChat", (e) => {
       console.log(e);
+      const data = e.dialog;
+      var index = _.findIndex(this.localDialogs, { id: data.id });
+      if (index !== false) {
+        _.remove(this.localDialogs, { id: data.id });
+        console.log("removed");
+      }
+      this.localDialogs.splice(0, 0, data);
+      console.log(this.localDialogs);
     });
   },
   methods: {
