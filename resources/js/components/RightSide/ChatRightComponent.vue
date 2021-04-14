@@ -136,7 +136,7 @@ export default {
     },
   },
   mounted() {
-    Echo.private("message." + selectedDialogs.id).listen("NewMessage", (e) => {
+    Echo.private("message." + this.selected.id).listen("NewMessage", (e) => {
       console.log(e);
     });
   },

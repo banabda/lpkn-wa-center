@@ -25,3 +25,6 @@ Broadcast::channel('test', function ($user) {
 Broadcast::channel('chat', function ($user) {
     return true;
 });
+Broadcast::channel('status', function ($user) {
+    return true;
+});

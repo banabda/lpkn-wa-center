@@ -5,7 +5,7 @@
       :can-cancel="false"
       :is-full-page="true"
     />
-    <div class="main" v-if="cUser.status == 'authenticated'">
+    <div class="main" v-if="gStatus == 'authenticated'">
       <ImagePreview />
       <SendImage />
       <div class="row justify-content-center">
@@ -65,21 +65,21 @@ export default {
         .get(this.userCred.instance + "status?token=" + this.userCred.token)
         .then((e) => {
           if (e.data.accountStatus == "authenticated") {
-            console.log("ok");
-            // this.status = e.data.accountStatus;
             this.setUserStatus(e.data.accountStatus);
           } else {
             this.setSrc(e.data.qrCode);
-            console.log("not ok");
           }
           this.isLoading = false;
         });
     });
   },
   mounted() {
-    console.log("e.data");
     Echo.private("test").listen("TestEvent", (e) => {
+      this.setUserStatus(null);
       console.log(e.data);
+    });
+    Echo.private("status").listen("StatusChange", (e) => {
+      if (e.status == "authenticated") this.setUserStatus("authenticated");
     });
   },
   computed: {
@@ -92,6 +92,7 @@ export default {
       // doneId: "getTodoById",
       // aGet: "a/doubleCount",
       cUser: "user/currentUser",
+      gStatus: "user/getStatus",
       userCred: "cred/getCred",
       gDialogs: "dialogs/getDialogs",
       selectedDialogs: "dialogs/getSelectedDialogs",
@@ -119,12 +120,25 @@ export default {
   watch: {
     selectedDialogs(selectedDialogs) {
       if (selectedDialogs) {
-        console.log("entered");
         this.select_contact = selectedDialogs;
-        console.log(this.select_contact.id);
       } else {
         // Echo.leave(`chat.${this.select_contact.id}`);
         this.select_contact = null;
+      }
+    },
+    gStatus(gStatus) {
+      if (!gStatus) {
+        axios
+          .get(this.userCred.instance + "status?token=" + this.userCred.token)
+          .then((e) => {
+            if (e.data.accountStatus == "authenticated") {
+              // this.status = e.data.accountStatus;
+              this.setUserStatus(e.data.accountStatus);
+            } else {
+              this.setSrc(e.data.qrCode);
+            }
+            this.isLoading = false;
+          });
       }
     },
   },
