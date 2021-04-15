@@ -6,7 +6,7 @@
           :username="selected.name"
           :src="selected.image"
           :size="50"
-          class="mr-3"
+          class="me-3"
         ></avatar>
         <div class="name-container">
           <div class="name" v-if="selected">{{ selected.name }}</div>

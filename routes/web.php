@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CredentialController;
 use App\Http\Controllers\DialogController;
 use App\Http\Controllers\HomeController;
@@ -32,8 +33,20 @@ Route::get('/fire', function () {
 });
 Auth::routes();
 
+Route::group(['middleware' => ['role:admin']], function () {
+    Route::get('/approval', function () {
+        return view('userApproval');
+    })->name('approval');
+
+    Route::group(['prefix' => 'assign'], function () {
+        Route::get('/', [AdminController::class, 'userApproval']);
+        Route::post('/', [AdminController::class, 'assignUser']);
+    });
+});
+
 Route::group(['middleware' => 'auth'], function () {
 
+    Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::group(['prefix' => 'chat-api'], function () {
 
         Route::group(['prefix' => 'user'], function () {
@@ -86,5 +99,3 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/role', [UserController::class, 'getRole']);
     });
 });
-
-Route::get('/home', [HomeController::class, 'index'])->name('home');

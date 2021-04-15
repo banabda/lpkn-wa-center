@@ -23,6 +23,10 @@ Vue.component(
     "main-component",
     require("./components/MainComponent.vue").default
 );
+Vue.component(
+    "assign-component",
+    require("./components/AssignComponent.vue").default
+);
 
 import Vue from "vue";
 /**
