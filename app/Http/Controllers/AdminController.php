@@ -30,8 +30,15 @@ class AdminController extends Controller
             "user_id" => $request->user
         ], [
             "credential_id" => $request->cred,
-            "active" => $request->active
+            "active" => false
         ]);
         return response($user, 201);
+    }
+
+    public function activeUser($id)
+    {
+        $user = UserCred::where('user_id', $id)->first();
+        $user->update(['active' => !$user->active]);
+        return response($user, 200);
     }
 }

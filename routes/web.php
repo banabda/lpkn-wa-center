@@ -41,6 +41,7 @@ Route::group(['middleware' => ['role:admin']], function () {
     Route::group(['prefix' => 'assign'], function () {
         Route::get('/', [AdminController::class, 'userApproval']);
         Route::post('/', [AdminController::class, 'assignUser']);
+        Route::get('/active/{id}', [AdminController::class, 'activeUser']);
     });
 });
 

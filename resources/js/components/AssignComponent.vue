@@ -5,7 +5,7 @@
       <div class="table-responsive">
         <table class="table table-striped table-hover">
           <thead>
-            <tr>
+            <tr class="text-center">
               <th scope="col">#</th>
               <th scope="col">Name</th>
               <th scope="col">Email</th>
@@ -16,23 +16,37 @@
           <tbody>
             <tr v-for="(usr, inx) in users" :key="inx">
               <th scope="row">{{ inx + 1 }}</th>
-              <td>name</td>
-              <td>email</td>
+              <td>{{ usr.name }}</td>
+              <td>{{ usr.email }}</td>
               <td>
                 <select
                   style="min-width: 150px"
                   class="form-select"
-                  aria-label="Default select example"
+                  v-model="credByUser[inx]"
                 >
-                  <option selected>Open this select menu</option>
-                  <option value="1">One</option>
-                  <option value="2">Two</option>
-                  <option value="3">Three</option>
+                  <option disabled :value="null">Select Credential</option>
+                  <option v-for="cred in creds" :key="cred.id" :value="cred.id">
+                    {{ cred.name }}
+                  </option>
                 </select>
               </td>
               <td class="d-flex action-container">
-                <button class="btn btn-outline-primary">Assign</button>
-                <button class="btn btn-outline-success">Active</button>
+                <button
+                  class="btn btn-outline-primary"
+                  @click="assign(usr, inx)"
+                >
+                  Assign
+                </button>
+                <button
+                  @click="active(usr)"
+                  class="btn"
+                  :class="[
+                    usr.active ? 'btn-outline-success' : 'btn-outline-danger',
+                    usr.cred ? '' : 'disabled',
+                  ]"
+                >
+                  {{ usr.active ? "Active" : "Inactive" }}
+                </button>
               </td>
             </tr>
           </tbody>
@@ -46,24 +60,40 @@ export default {
   data: () => ({
     users: null,
     creds: null,
+    credByUser: [],
   }),
   methods: {
-    assign() {
+    active(user) {
+      axios.get("/assign/active/" + user.id).then(() => {
+        const index = _.findIndex(this.users, function (o) {
+          return o.id == user.id;
+        });
+        this.users[index].active = !user.active;
+      });
+    },
+    assign(user, index) {
+      console.log(this.users[index].id, this.credByUser[index]);
       axios
         .post("/assign", {
-          user: 1,
-          cred: 1,
-          active: true,
+          user: this.users[index].id,
+          cred: this.credByUser[index],
+          active: false,
         })
-        .then((e) => {});
+        .then(() => {
+          const index = _.findIndex(this.users, function (o) {
+            return o.id == user.id;
+          });
+          this.users[index].cred = this.credByUser[index];
+        });
     },
   },
   beforeMount() {
     axios.get("/assign").then((e) => {
-      //   this.users = e.data;
-      console.log(e.data);
       this.users = e.data.users;
       this.creds = e.data.creds;
+      this.users.forEach((usr) => {
+        this.credByUser.push(usr.cred);
+      });
     });
   },
 };

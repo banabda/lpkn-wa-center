@@ -5145,30 +5145,67 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
       users: null,
-      creds: null
+      creds: null,
+      credByUser: []
     };
   },
   methods: {
-    assign: function assign() {
+    active: function active(user) {
+      var _this = this;
+
+      axios.get("/assign/active/" + user.id).then(function () {
+        var index = _.findIndex(_this.users, function (o) {
+          return o.id == user.id;
+        });
+
+        _this.users[index].active = !user.active;
+      });
+    },
+    assign: function assign(user, index) {
+      var _this2 = this;
+
+      console.log(this.users[index].id, this.credByUser[index]);
       axios.post("/assign", {
-        user: 1,
-        cred: 1,
-        active: true
-      }).then(function (e) {});
+        user: this.users[index].id,
+        cred: this.credByUser[index],
+        active: false
+      }).then(function () {
+        var index = _.findIndex(_this2.users, function (o) {
+          return o.id == user.id;
+        });
+
+        _this2.users[index].cred = _this2.credByUser[index];
+      });
     }
   },
   beforeMount: function beforeMount() {
-    var _this = this;
+    var _this3 = this;
 
     axios.get("/assign").then(function (e) {
-      //   this.users = e.data;
-      console.log(e.data);
-      _this.users = e.data.users;
-      _this.creds = e.data.creds;
+      _this3.users = e.data.users;
+      _this3.creds = e.data.creds;
+
+      _this3.users.forEach(function (usr) {
+        _this3.credByUser.push(usr.cred);
+      });
     });
   }
 });
@@ -62541,13 +62578,108 @@ var render = function() {
                   _vm._v(_vm._s(inx + 1))
                 ]),
                 _vm._v(" "),
-                _c("td", [_vm._v("name")]),
+                _c("td", [_vm._v(_vm._s(usr.name))]),
                 _vm._v(" "),
-                _c("td", [_vm._v("email")]),
+                _c("td", [_vm._v(_vm._s(usr.email))]),
                 _vm._v(" "),
-                _vm._m(1, true),
+                _c("td", [
+                  _c(
+                    "select",
+                    {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.credByUser[inx],
+                          expression: "credByUser[inx]"
+                        }
+                      ],
+                      staticClass: "form-select",
+                      staticStyle: { "min-width": "150px" },
+                      on: {
+                        change: function($event) {
+                          var $$selectedVal = Array.prototype.filter
+                            .call($event.target.options, function(o) {
+                              return o.selected
+                            })
+                            .map(function(o) {
+                              var val = "_value" in o ? o._value : o.value
+                              return val
+                            })
+                          _vm.$set(
+                            _vm.credByUser,
+                            inx,
+                            $event.target.multiple
+                              ? $$selectedVal
+                              : $$selectedVal[0]
+                          )
+                        }
+                      }
+                    },
+                    [
+                      _c(
+                        "option",
+                        { attrs: { disabled: "" }, domProps: { value: null } },
+                        [_vm._v("Select Credential")]
+                      ),
+                      _vm._v(" "),
+                      _vm._l(_vm.creds, function(cred) {
+                        return _c(
+                          "option",
+                          { key: cred.id, domProps: { value: cred.id } },
+                          [
+                            _vm._v(
+                              "\n                  " +
+                                _vm._s(cred.name) +
+                                "\n                "
+                            )
+                          ]
+                        )
+                      })
+                    ],
+                    2
+                  )
+                ]),
                 _vm._v(" "),
-                _vm._m(2, true)
+                _c("td", { staticClass: "d-flex action-container" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-outline-primary",
+                      on: {
+                        click: function($event) {
+                          return _vm.assign(usr, inx)
+                        }
+                      }
+                    },
+                    [_vm._v("\n                Assign\n              ")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn",
+                      class: [
+                        usr.active
+                          ? "btn-outline-success"
+                          : "btn-outline-danger",
+                        usr.cred ? "" : "disabled"
+                      ],
+                      on: {
+                        click: function($event) {
+                          return _vm.active(usr)
+                        }
+                      }
+                    },
+                    [
+                      _vm._v(
+                        "\n                " +
+                          _vm._s(usr.active ? "Active" : "Inactive") +
+                          "\n              "
+                      )
+                    ]
+                  )
+                ])
               ])
             }),
             0
@@ -62563,7 +62695,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("thead", [
-      _c("tr", [
+      _c("tr", { staticClass: "text-center" }, [
         _c("th", { attrs: { scope: "col" } }, [_vm._v("#")]),
         _vm._v(" "),
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Name")]),
@@ -62573,46 +62705,6 @@ var staticRenderFns = [
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Credential")]),
         _vm._v(" "),
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Action")])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", [
-      _c(
-        "select",
-        {
-          staticClass: "form-select",
-          staticStyle: { "min-width": "150px" },
-          attrs: { "aria-label": "Default select example" }
-        },
-        [
-          _c("option", { attrs: { selected: "" } }, [
-            _vm._v("Open this select menu")
-          ]),
-          _vm._v(" "),
-          _c("option", { attrs: { value: "1" } }, [_vm._v("One")]),
-          _vm._v(" "),
-          _c("option", { attrs: { value: "2" } }, [_vm._v("Two")]),
-          _vm._v(" "),
-          _c("option", { attrs: { value: "3" } }, [_vm._v("Three")])
-        ]
-      )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", { staticClass: "d-flex action-container" }, [
-      _c("button", { staticClass: "btn btn-outline-primary" }, [
-        _vm._v("Assign")
-      ]),
-      _vm._v(" "),
-      _c("button", { staticClass: "btn btn-outline-success" }, [
-        _vm._v("Active")
       ])
     ])
   }

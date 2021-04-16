@@ -19,8 +19,9 @@
             </div>
         </div>
     </div> --}}
-        @if (App\Models\UserCred::where('user_id', auth()->id())->first())
-            <main-component :user="{{ auth()->user() }}"></main-component>
+        <?php $user = App\Models\UserCred::where('user_id', auth()->id())->first(); ?>
+        @if ($user->active)
+            <main-component></main-component>
         @else
             <div class="container">
                 <div class="card">
