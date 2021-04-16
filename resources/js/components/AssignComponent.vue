@@ -5,7 +5,7 @@
       <div class="table-responsive">
         <table class="table table-striped table-hover">
           <thead>
-            <tr>
+            <tr class="text-center">
               <th scope="col">#</th>
               <th scope="col">Name</th>
               <th scope="col">Email</th>
@@ -16,18 +16,22 @@
           <tbody>
             <tr v-for="(usr, inx) in users" :key="inx">
               <th scope="row">{{ inx + 1 }}</th>
-              <td>name</td>
-              <td>email</td>
+              <td>{{ usr.name }}</td>
+              <td>{{ usr.email }}</td>
               <td>
                 <select
                   style="min-width: 150px"
                   class="form-select"
                   aria-label="Default select example"
+                  :key="inx"
                 >
-                  <option selected>Open this select menu</option>
-                  <option value="1">One</option>
-                  <option value="2">Two</option>
-                  <option value="3">Three</option>
+                  <option selected>Select Credential</option>
+                  <option selected :value="cred.id">
+                    {{ cred }}
+                  </option>
+                  <option :value="cred.id" v-for="cred in creds" :key="cred.id">
+                    {{ cred.name }}
+                  </option>
                 </select>
               </td>
               <td class="d-flex action-container">
@@ -46,8 +50,17 @@ export default {
   data: () => ({
     users: null,
     creds: null,
+    selectedVal: {
+      parent_id: [],
+    },
   }),
   methods: {
+    updateCountry(person, country) {
+      person.country = country;
+    },
+    getValue(e) {
+      console.log(e);
+    },
     assign() {
       axios
         .post("/assign", {

@@ -5145,14 +5145,27 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
       users: null,
-      creds: null
+      creds: null,
+      selectedVal: {
+        parent_id: []
+      }
     };
   },
   methods: {
+    updateCountry: function updateCountry(person, country) {
+      person.country = country;
+    },
+    getValue: function getValue(e) {
+      console.log(e);
+    },
     assign: function assign() {
       axios.post("/assign", {
         user: 1,
@@ -62541,13 +62554,58 @@ var render = function() {
                   _vm._v(_vm._s(inx + 1))
                 ]),
                 _vm._v(" "),
-                _c("td", [_vm._v("name")]),
+                _c("td", [_vm._v(_vm._s(usr.name))]),
                 _vm._v(" "),
-                _c("td", [_vm._v("email")]),
+                _c("td", [_vm._v(_vm._s(usr.email))]),
                 _vm._v(" "),
-                _vm._m(1, true),
+                _c("td", [
+                  _c(
+                    "select",
+                    {
+                      key: inx,
+                      staticClass: "form-select",
+                      staticStyle: { "min-width": "150px" },
+                      attrs: { "aria-label": "Default select example" }
+                    },
+                    [
+                      _c("option", { attrs: { selected: "" } }, [
+                        _vm._v("Select Credential")
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "option",
+                        {
+                          attrs: { selected: "" },
+                          domProps: { value: _vm.cred.id }
+                        },
+                        [
+                          _vm._v(
+                            "\n                  " +
+                              _vm._s(_vm.cred) +
+                              "\n                "
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _vm._l(_vm.creds, function(cred) {
+                        return _c(
+                          "option",
+                          { key: cred.id, domProps: { value: cred.id } },
+                          [
+                            _vm._v(
+                              "\n                  " +
+                                _vm._s(cred.name) +
+                                "\n                "
+                            )
+                          ]
+                        )
+                      })
+                    ],
+                    2
+                  )
+                ]),
                 _vm._v(" "),
-                _vm._m(2, true)
+                _vm._m(1, true)
               ])
             }),
             0
@@ -62563,7 +62621,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("thead", [
-      _c("tr", [
+      _c("tr", { staticClass: "text-center" }, [
         _c("th", { attrs: { scope: "col" } }, [_vm._v("#")]),
         _vm._v(" "),
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Name")]),
@@ -62574,32 +62632,6 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Action")])
       ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", [
-      _c(
-        "select",
-        {
-          staticClass: "form-select",
-          staticStyle: { "min-width": "150px" },
-          attrs: { "aria-label": "Default select example" }
-        },
-        [
-          _c("option", { attrs: { selected: "" } }, [
-            _vm._v("Open this select menu")
-          ]),
-          _vm._v(" "),
-          _c("option", { attrs: { value: "1" } }, [_vm._v("One")]),
-          _vm._v(" "),
-          _c("option", { attrs: { value: "2" } }, [_vm._v("Two")]),
-          _vm._v(" "),
-          _c("option", { attrs: { value: "3" } }, [_vm._v("Three")])
-        ]
-      )
     ])
   },
   function() {
