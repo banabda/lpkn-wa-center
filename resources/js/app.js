@@ -27,6 +27,10 @@ Vue.component(
     "assign-component",
     require("./components/AssignComponent.vue").default
 );
+Vue.component(
+    "credential-component",
+    require("./components/CredentialComponent.vue").default
+);
 
 import Vue from "vue";
 /**

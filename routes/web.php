@@ -43,6 +43,11 @@ Route::group(['middleware' => ['role:admin']], function () {
         Route::post('/', [AdminController::class, 'assignUser']);
         Route::get('/active/{id}', [AdminController::class, 'activeUser']);
     });
+    Route::group(['prefix' => 'credential'], function () {
+        Route::get('/', [CredentialController::class, 'index'])->name('credential');
+        Route::post('/', [AdminController::class, 'assignUser']);
+        Route::get('/active/{id}', [AdminController::class, 'activeUser']);
+    });
 });
 
 Route::group(['middleware' => 'auth'], function () {

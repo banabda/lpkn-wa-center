@@ -50,12 +50,15 @@
                                 </li>
                             @endif
                         @else
-                            <li class="nav-item dropdown">
-                                @role('admin')
-                                <a class="nav-link" href="{{ route('approval') }}" role="button">Manage User</a>
-                                @endrole
+                            @role('admin')
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('credential') }}" role="button">Manage Credential</a>
                             </li>
-                            <li class="nav-item dropdown">
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('approval') }}" role="button">Manage User</a>
+                            </li>
+                            @endrole
+                            <li class="nav-item">
                                 <a class="nav-link" href="{{ route('home') }}" role="button">Chat</a>
                             </li>
                             <li class="nav-item dropdown">
