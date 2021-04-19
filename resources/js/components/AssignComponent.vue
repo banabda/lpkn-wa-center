@@ -56,6 +56,7 @@
   </div>
 </template>
 <script>
+import Swal from "sweetalert2";
 export default {
   data: () => ({
     users: null,
@@ -68,7 +69,14 @@ export default {
         const index = _.findIndex(this.users, function (o) {
           return o.id == user.id;
         });
+        let icon = "warning";
+        let title = "Credential Deactived!";
         this.users[index].active = !user.active;
+        if (this.users[index].active) {
+          icon = "success";
+          title = "Credential Actived!";
+        }
+        this.swalToast(icon, title);
       });
     },
     assign(user, index) {
@@ -84,7 +92,19 @@ export default {
             return o.id == user.id;
           });
           this.users[index].cred = this.credByUser[index];
+          this.swalToast("success", "Success assign credential!");
         });
+    },
+    swalToast(icon, title) {
+      Swal.fire({
+        icon: icon,
+        title: title,
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+      });
     },
   },
   beforeMount() {

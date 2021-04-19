@@ -5102,6 +5102,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_0__);
 //
 //
 //
@@ -5149,7 +5151,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-<<<<<<< HEAD
 //
 //
 //
@@ -5160,14 +5161,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-=======
->>>>>>> 2486559e2e3717bbdc6a2ae57990ac3f2f74b964
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
       users: null,
       creds: null,
-<<<<<<< HEAD
       credByUser: []
     };
   },
@@ -5180,28 +5179,22 @@ __webpack_require__.r(__webpack_exports__);
           return o.id == user.id;
         });
 
+        var icon = "warning";
+        var title = "Credential Deactived!";
         _this.users[index].active = !user.active;
+
+        if (_this.users[index].active) {
+          icon = "success";
+          title = "Credential Actived!";
+        }
+
+        _this.swalToast(icon, title);
       });
     },
     assign: function assign(user, index) {
       var _this2 = this;
 
       console.log(this.users[index].id, this.credByUser[index]);
-=======
-      selectedVal: {
-        parent_id: []
-      }
-    };
-  },
-  methods: {
-    updateCountry: function updateCountry(person, country) {
-      person.country = country;
-    },
-    getValue: function getValue(e) {
-      console.log(e);
-    },
-    assign: function assign() {
->>>>>>> 2486559e2e3717bbdc6a2ae57990ac3f2f74b964
       axios.post("/assign", {
         user: this.users[index].id,
         cred: this.credByUser[index],
@@ -5212,6 +5205,19 @@ __webpack_require__.r(__webpack_exports__);
         });
 
         _this2.users[index].cred = _this2.credByUser[index];
+
+        _this2.swalToast("success", "Success assign credential!");
+      });
+    },
+    swalToast: function swalToast(icon, title) {
+      sweetalert2__WEBPACK_IMPORTED_MODULE_0___default().fire({
+        icon: icon,
+        title: title,
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true
       });
     }
   },
@@ -62605,7 +62611,6 @@ var render = function() {
                   _c(
                     "select",
                     {
-<<<<<<< HEAD
                       directives: [
                         {
                           name: "model",
@@ -62641,31 +62646,6 @@ var render = function() {
                         "option",
                         { attrs: { disabled: "" }, domProps: { value: null } },
                         [_vm._v("Select Credential")]
-=======
-                      key: inx,
-                      staticClass: "form-select",
-                      staticStyle: { "min-width": "150px" },
-                      attrs: { "aria-label": "Default select example" }
-                    },
-                    [
-                      _c("option", { attrs: { selected: "" } }, [
-                        _vm._v("Select Credential")
-                      ]),
-                      _vm._v(" "),
-                      _c(
-                        "option",
-                        {
-                          attrs: { selected: "" },
-                          domProps: { value: _vm.cred.id }
-                        },
-                        [
-                          _vm._v(
-                            "\n                  " +
-                              _vm._s(_vm.cred) +
-                              "\n                "
-                          )
-                        ]
->>>>>>> 2486559e2e3717bbdc6a2ae57990ac3f2f74b964
                       ),
                       _vm._v(" "),
                       _vm._l(_vm.creds, function(cred) {
@@ -62686,7 +62666,6 @@ var render = function() {
                   )
                 ]),
                 _vm._v(" "),
-<<<<<<< HEAD
                 _c("td", { staticClass: "d-flex action-container" }, [
                   _c(
                     "button",
@@ -62726,9 +62705,6 @@ var render = function() {
                     ]
                   )
                 ])
-=======
-                _vm._m(1, true)
->>>>>>> 2486559e2e3717bbdc6a2ae57990ac3f2f74b964
               ])
             }),
             0
@@ -62756,23 +62732,6 @@ var staticRenderFns = [
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Action")])
       ])
     ])
-<<<<<<< HEAD
-=======
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", { staticClass: "d-flex action-container" }, [
-      _c("button", { staticClass: "btn btn-outline-primary" }, [
-        _vm._v("Assign")
-      ]),
-      _vm._v(" "),
-      _c("button", { staticClass: "btn btn-outline-success" }, [
-        _vm._v("Active")
-      ])
-    ])
->>>>>>> 2486559e2e3717bbdc6a2ae57990ac3f2f74b964
   }
 ]
 render._withStripped = true
