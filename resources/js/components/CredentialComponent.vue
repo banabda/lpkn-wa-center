@@ -1,6 +1,5 @@
 <template>
   <div class="credential">
-    <EditCredential />
     <div class="card">
       <div class="card-body">
         <div class="table-responsive">
@@ -11,6 +10,8 @@
                 <th scope="col">Name</th>
                 <th scope="col">ChatId</th>
                 <th scope="col">Phone</th>
+                <th scope="col">Instance</th>
+                <th scope="col">Token</th>
                 <th scope="col">Action</th>
               </tr>
             </thead>
@@ -20,8 +21,10 @@
                 <td>{{ cre.name }}</td>
                 <td>{{ cre.chatId }}</td>
                 <td>{{ cre.phone }}</td>
+                <td>{{ cre.instance }}</td>
+                <td>{{ cre.token }}</td>
                 <td>
-                  <button class="btn btn-info" @click="edit">edit</button>
+                  <button class="btn btn-info" @click="edit(cre)">edit</button>
                 </td>
               </tr>
             </tbody>
@@ -36,14 +39,29 @@
 </template>
 <script>
 import EditCredential from "./modals/editCredential";
+import { mapState, mapGetters, mapActions, mapMutations } from "vuex";
 export default {
   components: { EditCredential },
-  props: {
-    creds: { require: true },
+  computed: {
+    ...mapGetters({
+      creds: "credentials/getCreds",
+    }),
+  },
+  mounted() {
+    this.setCreds();
   },
   methods: {
-    edit() {
-      this.$modal.show("edit-credential");
+    ...mapActions({
+      setCreds: "credentials/setCredentials",
+    }),
+    edit(cred) {
+      this.$modal.show(
+        EditCredential,
+        {
+          cred: cred,
+        },
+        { height: "auto" }
+      );
     },
   },
 };

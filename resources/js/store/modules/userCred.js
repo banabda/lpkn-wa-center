@@ -1,4 +1,4 @@
-const cred = {
+const userCred = {
     namespaced: true,
 
     state: () => ({
@@ -39,4 +39,4 @@ const cred = {
         }
     }
 };
-export default cred;
+export default userCred;

@@ -14,9 +14,7 @@ class CredentialController extends Controller
      */
     public function index()
     {
-        $creds = Credential::all();
-
-        return view('credential', compact('creds'));
+        return Credential::all();
     }
 
     /**
@@ -78,7 +76,8 @@ class CredentialController extends Controller
      */
     public function update(Request $request, Credential $credential)
     {
-        //
+        $credential->update($request->all());
+        return $credential;
     }
 
     /**
