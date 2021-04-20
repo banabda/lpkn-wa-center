@@ -5183,7 +5183,7 @@ __webpack_require__.r(__webpack_exports__);
         var title = "Credential Deactived!";
         _this.users[index].active = !user.active;
 
-        if (!_this.users[index].active) {
+        if (_this.users[index].active) {
           icon = "success";
           title = "Credential Actived!";
         }

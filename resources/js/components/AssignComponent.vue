@@ -72,7 +72,7 @@ export default {
         let icon = "warning";
         let title = "Credential Deactived!";
         this.users[index].active = !user.active;
-        if (!this.users[index].active) {
+        if (this.users[index].active) {
           icon = "success";
           title = "Credential Actived!";
         }
