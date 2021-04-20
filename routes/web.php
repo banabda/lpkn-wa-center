@@ -50,6 +50,7 @@ Route::group(['middleware' => ['role:admin']], function () {
     });
     Route::group(['prefix' => 'creds'], function () {
         Route::get('/', [CredentialController::class, 'index']);
+        Route::post('/', [CredentialController::class, 'store']);
         Route::put('/{credential}', [CredentialController::class, 'update'])->name('credential.update');
     });
 });

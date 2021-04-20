@@ -10,6 +10,9 @@ const credentials = {
         setCredentials(state, payload) {
             state.credentials = payload;
         },
+        addCredentials(state, payload) {
+            state.credentials.push(payload);
+        },
         updateCredential(state, payload) {
             const index = _.findIndex(state.credentials, function(o) {
                 return o.id == payload.id;
@@ -26,6 +29,9 @@ const credentials = {
         },
         updateCredential(state, payload) {
             state.commit("updateCredential", payload);
+        },
+        addCredentials(state, payload) {
+            state.commit("addCredentials", payload);
         }
     },
 

@@ -91,7 +91,7 @@
       <button
         type="button"
         class="btn btn-outline-primary"
-        @click="updateCredential"
+        @click="updateOrCreateCredential"
       >
         Save
       </button>
@@ -112,13 +112,17 @@ export default {
     chatId: "",
     instance: "",
     token: "",
+    act: "add",
   }),
   mounted() {
-    this.name = this.cred.name;
-    this.phone = this.cred.phone;
-    this.chatId = this.cred.chatId;
-    this.instance = this.cred.instance;
-    this.token = this.cred.token;
+    if (this.cred) {
+      this.name = this.cred.name;
+      this.phone = this.cred.phone;
+      this.chatId = this.cred.chatId;
+      this.instance = this.cred.instance;
+      this.token = this.cred.token;
+      this.act = "edit";
+    }
   },
   validations: {
     name: {
@@ -139,15 +143,16 @@ export default {
   methods: {
     ...mapActions({
       updateCreds: "credentials/updateCredential",
+      addCreds: "credentials/addCredentials",
     }),
     phoneChange() {
       this.chatId = this.phone + "@u.cs";
     },
-    updateCredential() {
+    updateOrCreateCredential() {
       this.$v.$touch();
       if (this.$v.$invalid) {
         console.log("any error");
-      } else {
+      } else if (this.act == "edit") {
         axios
           .put("/creds/" + this.cred.id, {
             name: this.name,
@@ -159,6 +164,24 @@ export default {
           .then((e) => {
             this.updateCreds(e.data);
             this.swalToast("success", "Credential Updated");
+            this.$modal.hideAll();
+          })
+          .catch((err) => {
+            this.swalToast("warning", err);
+            console.error(err);
+          });
+      } else if (this.act == "add") {
+        axios
+          .post("/creds", {
+            name: this.name,
+            phone: this.phone,
+            chatId: this.chatId,
+            instance: this.instance,
+            token: this.token,
+          })
+          .then((e) => {
+            this.addCreds(e.data);
+            this.swalToast("success", "Credential Added");
             this.$modal.hideAll();
           })
           .catch((err) => {

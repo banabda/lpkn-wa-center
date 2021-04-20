@@ -35,7 +35,7 @@ class CredentialController extends Controller
      */
     public function store(Request $request)
     {
-        $cred = Credential::firstOrCreate([
+        $cred = Credential::Create([
             'chatId' => $request->chatId,
             'phone' => $request->phone,
             'name' => $request->name,

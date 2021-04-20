@@ -24,24 +24,26 @@
                 <td>{{ cre.instance }}</td>
                 <td>{{ cre.token }}</td>
                 <td>
-                  <button class="btn btn-info" @click="edit(cre)">edit</button>
+                  <button class="btn btn-info" @click="showModal(cre)">
+                    edit
+                  </button>
                 </td>
               </tr>
             </tbody>
           </table>
         </div>
         <div class="grid">
-          <div class="btn btn-outline-primary">add</div>
+          <div class="btn btn-outline-primary" @click="showModal()">add</div>
         </div>
       </div>
     </div>
   </div>
 </template>
 <script>
-import EditCredential from "./modals/editCredential";
+import Credential from "./modals/Credential";
 import { mapState, mapGetters, mapActions, mapMutations } from "vuex";
 export default {
-  components: { EditCredential },
+  components: { Credential },
   computed: {
     ...mapGetters({
       creds: "credentials/getCreds",
@@ -54,9 +56,9 @@ export default {
     ...mapActions({
       setCreds: "credentials/setCredentials",
     }),
-    edit(cred) {
+    showModal(cred = null) {
       this.$modal.show(
-        EditCredential,
+        Credential,
         {
           cred: cred,
         },
