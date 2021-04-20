@@ -20,7 +20,7 @@
         </div>
     </div> --}}
         <?php $user = App\Models\UserCred::where('user_id', auth()->id())->first(); ?>
-        @if ($user->active)
+        @if (isset($user) && $user->active)
             <main-component></main-component>
         @else
             <div class="container">
