@@ -7,7 +7,7 @@
         :key="index"
       >
         <div class="time">
-          <span class="small text-center font-weight-bold">
+          <span class="small text-center font-weight-bold sticky top-0">
             {{ dateCheck(index) }}
           </span>
         </div>

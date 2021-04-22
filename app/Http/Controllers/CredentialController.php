@@ -14,7 +14,7 @@ class CredentialController extends Controller
      */
     public function index()
     {
-        //
+        return Credential::all();
     }
 
     /**
@@ -35,7 +35,7 @@ class CredentialController extends Controller
      */
     public function store(Request $request)
     {
-        $cred = Credential::firstOrCreate([
+        $cred = Credential::Create([
             'chatId' => $request->chatId,
             'phone' => $request->phone,
             'name' => $request->name,
@@ -76,7 +76,8 @@ class CredentialController extends Controller
      */
     public function update(Request $request, Credential $credential)
     {
-        //
+        $credential->update($request->all());
+        return $credential;
     }
 
     /**

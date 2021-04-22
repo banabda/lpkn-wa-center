@@ -34,8 +34,6 @@ export default {
   border: 1px solid rgba(255, 255, 255, 0.65);
 }
 .cute-image-preview-photo img {
-  //   width: 260px;
-  //   height: 260px;
   max-height: 80vh;
   max-width: 80vw;
 }

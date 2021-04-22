@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CredentialController;
 use App\Http\Controllers\DialogController;
 use App\Http\Controllers\HomeController;
@@ -32,8 +33,31 @@ Route::get('/fire', function () {
 });
 Auth::routes();
 
+Route::group(['middleware' => ['role:admin']], function () {
+
+    Route::group(['prefix' => 'manage'], function () {
+        Route::get('/user', function () {
+            return view('userApproval');
+        })->name('approval');
+        Route::get('/cred', function () {
+            return view('credential');
+        })->name('credential');
+    });
+    Route::group(['prefix' => 'assign'], function () {
+        Route::get('/', [AdminController::class, 'userApproval']);
+        Route::post('/', [AdminController::class, 'assignUser']);
+        Route::get('/active/{id}', [AdminController::class, 'activeUser']);
+    });
+    Route::group(['prefix' => 'creds'], function () {
+        Route::get('/', [CredentialController::class, 'index']);
+        Route::post('/', [CredentialController::class, 'store']);
+        Route::put('/{credential}', [CredentialController::class, 'update'])->name('credential.update');
+    });
+});
+
 Route::group(['middleware' => 'auth'], function () {
 
+    Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::group(['prefix' => 'chat-api'], function () {
 
         Route::group(['prefix' => 'user'], function () {
@@ -86,5 +110,3 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/role', [UserController::class, 'getRole']);
     });
 });
-
-Route::get('/home', [HomeController::class, 'index'])->name('home');

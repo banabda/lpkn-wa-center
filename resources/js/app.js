@@ -3,7 +3,7 @@
  * includes Vue and other libraries. It is a great starting point when
  * building robust, powerful web applications using Vue and Laravel.
  */
-
+import "tailwindcss/tailwind.css";
 require("./bootstrap");
 
 window.Vue = require("vue").default;
@@ -23,6 +23,14 @@ Vue.component(
     "main-component",
     require("./components/MainComponent.vue").default
 );
+Vue.component(
+    "assign-component",
+    require("./components/AssignComponent.vue").default
+);
+Vue.component(
+    "credential-component",
+    require("./components/CredentialComponent.vue").default
+);
 
 import Vue from "vue";
 /**
@@ -34,7 +42,9 @@ import VueTimeago from "vue-timeago";
 import store from "./store";
 import InfiniteLoading from "vue-infinite-loading";
 import vmodal from "vue-js-modal";
+import Vuelidate from "vuelidate";
 
+Vue.use(Vuelidate);
 Vue.use(vmodal);
 Vue.use(InfiniteLoading);
 Vue.use(VueTimeago, { locale: "id" });
