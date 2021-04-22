@@ -1,9 +1,8 @@
 <template>
   <div class="card">
-    <div class="card-header">User Approval</div>
     <div class="card-body">
       <div class="table-responsive">
-        <table class="table table-striped table-hover">
+        <table class="table table-striped table-hover table-auto">
           <thead>
             <tr class="text-center">
               <th scope="col">#</th>
@@ -19,11 +18,7 @@
               <td>{{ usr.name }}</td>
               <td>{{ usr.email }}</td>
               <td>
-                <select
-                  style="min-width: 150px"
-                  class="form-select"
-                  v-model="credByUser[inx]"
-                >
+                <select v-model="credByUser[inx]" class="form-select">
                   <option disabled :value="null">Select Credential</option>
                   <option v-for="cred in creds" :key="cred.id" :value="cred.id">
                     {{ cred.name }}
@@ -32,16 +27,18 @@
               </td>
               <td class="d-flex action-container">
                 <button
-                  class="btn btn-outline-primary"
+                  class="btn transition duration-300 ease-in-out bg-purple-600 text-white hover:bg-purple-800 w-20"
                   @click="assign(usr, inx)"
                 >
                   Assign
                 </button>
                 <button
                   @click="active(usr)"
-                  class="btn"
+                  class="btn w-20 transition duration-300 ease-in-out"
                   :class="[
-                    usr.active ? 'btn-outline-success' : 'btn-outline-danger',
+                    usr.active
+                      ? 'bg-green-500 text-white hover:bg-green-600'
+                      : 'bg-red-500 text-white hover:bg-red-700',
                     usr.cred ? '' : 'disabled',
                   ]"
                 >

@@ -213,7 +213,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .error {
-  color: hsl(0%, 100%, 60%);
+  color: red;
 }
 .edit-cred {
   height: auto;

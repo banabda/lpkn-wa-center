@@ -24,7 +24,10 @@
                 <td>{{ cre.instance }}</td>
                 <td>{{ cre.token }}</td>
                 <td>
-                  <button class="btn btn-info" @click="showModal(cre)">
+                  <button
+                    class="btn bg-blue-400 text-white hover:bg-blue-600"
+                    @click="showModal(cre)"
+                  >
                     edit
                   </button>
                 </td>
@@ -33,7 +36,12 @@
           </table>
         </div>
         <div class="grid">
-          <div class="btn btn-outline-primary" @click="showModal()">add</div>
+          <div
+            class="btn border-1 border-green-400 text-green-400 hover:text-white hover:bg-green-400"
+            @click="showModal()"
+          >
+            add
+          </div>
         </div>
       </div>
     </div>
