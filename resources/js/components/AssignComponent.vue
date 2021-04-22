@@ -27,7 +27,7 @@
               </td>
               <td class="d-flex action-container">
                 <button
-                  class="btn transition duration-300 ease-in-out bg-purple-600 text-white hover:bg-purple-800 w-20"
+                  class="btn transition duration-300 ease-in-out bg-orange_cus-default text-white hover:bg-orange_cus-dark w-20"
                   @click="assign(usr, inx)"
                 >
                   Assign
@@ -37,8 +37,8 @@
                   class="btn w-20 transition duration-300 ease-in-out"
                   :class="[
                     usr.active
-                      ? 'bg-green-500 text-white hover:bg-green-600'
-                      : 'bg-red-500 text-white hover:bg-red-700',
+                      ? 'bg-green_cus-default text-white hover:bg-green_cus-dark'
+                      : 'bg-pink_cus-default text-white hover:bg-pink_cus-dark',
                     usr.cred ? '' : 'disabled',
                   ]"
                 >

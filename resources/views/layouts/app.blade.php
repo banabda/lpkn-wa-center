@@ -23,10 +23,10 @@
 </head>
 
 <body>
-    <div id="app" class="bg-purple-500 h-screen text-white">
-        <nav class="navbar navbar-expand-md bg-purple-600 shadow-sm">
+    <div id="app" class="bg-black_cus-light h-screen">
+        <nav class="navbar navbar-expand-md bg-black_cus-default shadow-sm text-milk_cus-light">
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
+                <a class="navbar-brand hover:text-brown_cus-default" href="{{ url('/') }}">
                     {{ config('app.name', 'Laravel') }}
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse"
@@ -40,30 +40,36 @@
                         @guest
                             @if (Route::has('login'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                    <a class="nav-link hover:text-brown_cus-default"
+                                        href="{{ route('login') }}">{{ __('Login') }}</a>
                                 </li>
                             @endif
 
                             @if (Route::has('register'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                    <a class="nav-link hover:text-brown_cus-default"
+                                        href="{{ route('register') }}">{{ __('Register') }}</a>
                                 </li>
                             @endif
                         @else
                             @role('admin')
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('credential') }}" role="button">Manage Credential</a>
+                                <a class="nav-link hover:text-brown_cus-default" href="{{ route('credential') }}"
+                                    role="button">Manage Credential</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('approval') }}" role="button">Manage User</a>
+                                <a class="nav-link hover:text-brown_cus-default" href="{{ route('approval') }}"
+                                    role="button">Manage User</a>
                             </li>
                             @endrole
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('home') }}" role="button">Chat</a>
+                                <a class="nav-link hover:text-brown_cus-default" href="{{ route('home') }}"
+                                    role="button">Chat</a>
                             </li>
                             <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
-                                    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                <a id="navbarDropdown" class="nav-link hover:text-brown_cus-default dropdown-toggle"
+                                    href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true"
+                                    aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }}
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">

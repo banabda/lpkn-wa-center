@@ -24,7 +24,7 @@
 
 <body>
     <div id="app">
-        <main class="pt-4 container-fluid h-screen bg-purple-600 bg-opacity-100 grid content-center">
+        <main class="pt-4 container-fluid h-screen bg-black_cus-light bg-opacity-100 grid content-center">
             <div class="mx-auto object-center bg-white p-6 rounded-lg w-1/2 shadow-lg">
                 <p class="capitalize text-3xl font-bold font-sans mb-4 text-justify">Selamat datang di web LPKN Whatsapp
                     Service
@@ -46,7 +46,7 @@
                 <form id="logout-form" action="{{ route('logout') }}" method="POST">
                     @csrf
                     <button type="submit"
-                        class="text-purple-700 absolute top-0 right-0 pr-4 pt-2 font-bold btn focus:border-0">
+                        class="text-bg-black_cus-dark absolute top-0 right-0 pr-4 pt-2 font-bold btn focus:border-0">
                         Logout
                     </button>
                 </form>
