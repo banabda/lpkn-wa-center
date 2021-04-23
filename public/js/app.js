@@ -6385,10 +6385,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
 
 
 
@@ -64058,7 +64054,7 @@ var render = function() {
                 _c("div", { staticClass: "col-md-12" }, [
                   _c(
                     "div",
-                    { staticClass: "card rounded-lg border-none shadow-md" },
+                    { staticClass: "card rounded-lg border-none shadow-lg" },
                     [
                       _c(
                         "div",
@@ -64479,13 +64475,9 @@ var render = function() {
       _vm._v(" "),
       _c("twemoji-picker", {
         attrs: {
-          pickerWidth: "#area",
           emojiData: _vm.emojiDataAll,
           emojiGroups: _vm.emojiGroups,
           skinsSelection: false,
-          searchEmojisFeat: true,
-          searchEmojiPlaceholder: "Search here.",
-          searchEmojiNotFound: "Emojis not found.",
           isLoadingLabel: "Loading..."
         },
         on: { emojiUnicodeAdded: _vm.emojiUnicodeAdded }

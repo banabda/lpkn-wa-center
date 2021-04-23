@@ -34,13 +34,9 @@
       @keydown.enter.exact.prevent="sendMessage"
     ></textarea>
     <twemoji-picker
-      pickerWidth="#area"
       :emojiData="emojiDataAll"
       :emojiGroups="emojiGroups"
       :skinsSelection="false"
-      :searchEmojisFeat="true"
-      searchEmojiPlaceholder="Search here."
-      searchEmojiNotFound="Emojis not found."
       isLoadingLabel="Loading..."
       @emojiUnicodeAdded="emojiUnicodeAdded"
     ></twemoji-picker>
