@@ -10,7 +10,7 @@
       <SendImage />
       <div class="row justify-content-center">
         <div class="col-md-12">
-          <div class="card">
+          <div class="card rounded-lg border-none shadow-md">
             <div class="card-body p-0 d-flex">
               <MainLeft />
               <MainRight />

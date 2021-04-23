@@ -1,6 +1,6 @@
 <template>
   <div class="credential">
-    <div class="card">
+    <div class="card rounded-lg border-none shadow-md">
       <div class="card-body">
         <div class="table-responsive">
           <table class="table table-striped table-hover">

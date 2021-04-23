@@ -1,5 +1,5 @@
 <template>
-  <div class="card">
+  <div class="card rounded-lg border-none shadow-md">
     <div class="card-body">
       <div class="table-responsive">
         <table class="table table-striped table-hover table-auto">
@@ -27,7 +27,7 @@
               </td>
               <td class="d-flex action-container">
                 <button
-                  class="btn transition duration-300 ease-in-out bg-orange_cus-default text-white hover:bg-orange_cus-dark w-20"
+                  class="btn transition duration-300 ease-in-out bg-orange_cus-400 text-white hover:bg-orange_cus-500 w-20"
                   @click="assign(usr, inx)"
                 >
                   Assign
@@ -37,7 +37,7 @@
                   class="btn w-20 transition duration-300 ease-in-out"
                   :class="[
                     usr.active
-                      ? 'bg-green_cus-default text-white hover:bg-green_cus-dark'
+                      ? 'bg-green_cus-300 text-white hover:bg-green_cus-400'
                       : 'bg-pink_cus-default text-white hover:bg-pink_cus-dark',
                     usr.cred ? '' : 'disabled',
                   ]"

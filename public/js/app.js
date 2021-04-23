@@ -63277,7 +63277,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "card" }, [
+  return _c("div", { staticClass: "card rounded-lg border-none shadow-md" }, [
     _c("div", { staticClass: "card-body" }, [
       _c("div", { staticClass: "table-responsive" }, [
         _c(
@@ -63364,7 +63364,7 @@ var render = function() {
                       "button",
                       {
                         staticClass:
-                          "btn transition duration-300 ease-in-out bg-orange_cus-default text-white hover:bg-orange_cus-dark w-20",
+                          "btn transition duration-300 ease-in-out bg-orange_cus-400 text-white hover:bg-orange_cus-500 w-20",
                         on: {
                           click: function($event) {
                             return _vm.assign(usr, inx)
@@ -63381,7 +63381,7 @@ var render = function() {
                           "btn w-20 transition duration-300 ease-in-out",
                         class: [
                           usr.active
-                            ? "bg-green_cus-default text-white hover:bg-green_cus-dark"
+                            ? "bg-green_cus-300 text-white hover:bg-green_cus-400"
                             : "bg-pink_cus-default text-white hover:bg-pink_cus-dark",
                           usr.cred ? "" : "disabled"
                         ],
@@ -63453,7 +63453,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "credential" }, [
-    _c("div", { staticClass: "card" }, [
+    _c("div", { staticClass: "card rounded-lg border-none shadow-md" }, [
       _c("div", { staticClass: "card-body" }, [
         _c("div", { staticClass: "table-responsive" }, [
           _c("table", { staticClass: "table table-striped table-hover" }, [
@@ -64056,14 +64056,18 @@ var render = function() {
               _vm._v(" "),
               _c("div", { staticClass: "row justify-content-center" }, [
                 _c("div", { staticClass: "col-md-12" }, [
-                  _c("div", { staticClass: "card" }, [
-                    _c(
-                      "div",
-                      { staticClass: "card-body p-0 d-flex" },
-                      [_c("MainLeft"), _vm._v(" "), _c("MainRight")],
-                      1
-                    )
-                  ])
+                  _c(
+                    "div",
+                    { staticClass: "card rounded-lg border-none shadow-md" },
+                    [
+                      _c(
+                        "div",
+                        { staticClass: "card-body p-0 d-flex" },
+                        [_c("MainLeft"), _vm._v(" "), _c("MainRight")],
+                        1
+                      )
+                    ]
+                  )
                 ])
               ])
             ],
