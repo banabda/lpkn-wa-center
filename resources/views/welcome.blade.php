@@ -24,7 +24,7 @@
 
 <body>
     <div id="app">
-        <main class="pt-4 container-fluid h-screen bg-black_cus-light bg-opacity-100 grid content-center">
+        <main class="pt-4 container-fluid h-screen bg-green_cus-500 bg-opacity-100 grid content-center">
             <div class="mx-auto object-center bg-white p-6 rounded-lg w-1/2 shadow-lg">
                 <p class="capitalize text-3xl font-bold font-sans mb-4 text-justify">Selamat datang di web LPKN Whatsapp
                     Service
