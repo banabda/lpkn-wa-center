@@ -24,7 +24,8 @@
               <td>
                 <select
                   v-model="credByUser[inx]"
-                  class="form-select md:w-max w-40"
+                  class="form-select"
+                  style="width: 15rem"
                 >
                   <option disabled :value="null">Select Credential</option>
                   <option v-for="cred in creds" :key="cred.id" :value="cred.id">
@@ -32,7 +33,7 @@
                   </option>
                 </select>
               </td>
-              <td class="d-flex action-container md:w-max w-60">
+              <td class="d-flex action-container">
                 <button
                   class="btn transition duration-300 ease-in-out bg-orange_cus-400 text-white hover:bg-orange_cus-500 w-20"
                   @click="assign(usr, inx)"
