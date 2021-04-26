@@ -5158,6 +5158,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
@@ -63290,9 +63294,15 @@ var render = function() {
                     _vm._v(_vm._s(inx + 1))
                   ]),
                   _vm._v(" "),
-                  _c("td", [_vm._v(_vm._s(usr.name))]),
+                  _c("td", [
+                    _c("p", { staticClass: "w-40" }, [_vm._v(_vm._s(usr.name))])
+                  ]),
                   _vm._v(" "),
-                  _c("td", [_vm._v(_vm._s(usr.email))]),
+                  _c("td", [
+                    _c("p", { staticClass: "w-40" }, [
+                      _vm._v(_vm._s(usr.email))
+                    ])
+                  ]),
                   _vm._v(" "),
                   _c("td", [
                     _c(
@@ -63306,7 +63316,7 @@ var render = function() {
                             expression: "credByUser[inx]"
                           }
                         ],
-                        staticClass: "form-select",
+                        staticClass: "form-select w-40",
                         on: {
                           change: function($event) {
                             var $$selectedVal = Array.prototype.filter
@@ -63355,7 +63365,7 @@ var render = function() {
                     )
                   ]),
                   _vm._v(" "),
-                  _c("td", { staticClass: "d-flex action-container" }, [
+                  _c("td", { staticClass: "d-flex action-container w-60" }, [
                     _c(
                       "button",
                       {
