@@ -19,12 +19,14 @@
         >
           <div class="chat-bubble max-w-18 md:max-w-2xl">
             <div class="type-image" v-if="msg.type == 'image'">
-              <img
-                class="image-preview rounded mb-3"
-                :src="msg.body"
-                :alt="msg.type"
-                @click="showImage(msg.body)"
-              />
+              <div class="w-full image-preview mb-3 overflow-hidden">
+                <img
+                  class="rounded object-fill"
+                  :src="msg.body"
+                  :alt="msg.type"
+                  @click="showImage(msg.body)"
+                />
+              </div>
               <div
                 class="chat-message"
                 v-if="regex.test(msg.caption)"
@@ -54,6 +56,21 @@
               <a :href="msg.body" type="button" target="_blank">
                 {{ msg.caption }}
               </a>
+              <div class="chat-time">
+                {{ new Date(msg.time).toTimeString().substr(0, 5) }}
+              </div>
+            </div>
+            <div class="type-document" v-else-if="msg.type == 'ptt'">
+              <audio controls>
+                <source :src="msg.body" type="audio/ogg" />
+                Your browser does not support the audio element.
+              </audio>
+              <div class="chat-time">
+                {{ new Date(msg.time).toTimeString().substr(0, 5) }}
+              </div>
+            </div>
+            <div class="type-document" v-else-if="msg.type == 'call_log'">
+              <div class="font-bold">{{ msg.body }}</div>
               <div class="chat-time">
                 {{ new Date(msg.time).toTimeString().substr(0, 5) }}
               </div>
@@ -195,13 +212,13 @@ export default {
     margin: 2px 10px;
     padding: 5px;
     .chat-message {
-      // white-space: pre-line;
+      white-space: pre-line;
       padding: 0 5px;
       margin-bottom: 0;
     }
     .type-image {
       .image-preview {
-        width: 390px;
+        // width: 390px;
         height: 390px;
         cursor: pointer;
       }
