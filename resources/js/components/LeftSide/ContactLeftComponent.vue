@@ -4,7 +4,7 @@
     <div v-for="(dial, index) in localDialogs" :key="index">
       <div
         class="d-flex contact-container py-2 px-3 mb-1"
-        @click="selectedUser(dial)"
+        @click="selectUser(dial)"
       >
         <div class="contact-left w-25">
           <!-- {{ index }} -->
@@ -95,7 +95,7 @@
     <div v-for="(dial, index) in searched" :key="index">
       <div
         class="d-flex contact-container py-2 px-3 mb-1"
-        @click="selectedUser(dial)"
+        @click="selectUser(dial)"
       >
         <div class="contact-left w-25">
           <avatar :username="dial.name" :src="dial.image" :size="40"></avatar>
@@ -209,6 +209,10 @@ export default {
     });
   },
   methods: {
+    selectUser(user) {
+      this.selectedUser(user);
+      this.$emit("toggle");
+    },
     addDummy() {
       var index = _.findIndex(this.localDialogs, { id: this.dummy.id });
       console.log(index);

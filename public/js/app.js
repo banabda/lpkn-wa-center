@@ -5587,6 +5587,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     });
   },
   methods: _objectSpread(_objectSpread(_objectSpread({
+    selectUser: function selectUser(user) {
+      this.selectedUser(user);
+      this.$emit("toggle");
+    },
     addDummy: function addDummy() {
       var index = _.findIndex(this.localDialogs, {
         id: this.dummy.id
@@ -5889,6 +5893,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 
@@ -5914,13 +5924,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       status: null,
       today: new Date().toISOString().split("T")[0],
       isLoading: false,
-      qrCodeSrc: null
+      qrCodeSrc: null,
+      toggleSideBar: true,
+      isMobile: false
     };
   },
   beforeMount: function beforeMount() {
     var _this = this;
 
-    this.isLoading = true; // this.setDialogs();
+    this.isLoading = true;
+    this.isMobile = this.$vssWidth < 640; // this.setDialogs();
 
     this.setUser();
     this.setCred().then(function () {
@@ -5967,7 +5980,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     setUserStatus: "user/setStatus",
     setDialogs: "dialogs/setDialogs",
     setCred: "cred/setCred"
-  })), (0,vuex__WEBPACK_IMPORTED_MODULE_8__.mapMutations)({
+  })), {}, {
+    toggleSide: function toggleSide() {
+      this.toggleSideBar = !this.toggleSideBar;
+    }
+  }, (0,vuex__WEBPACK_IMPORTED_MODULE_8__.mapMutations)({
     minc: "increment",
     mincA: "a/increment"
   })), {}, {
@@ -5981,6 +5998,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }
   }),
   watch: {
+    toggleSideBar: function toggleSideBar(_toggleSideBar) {
+      this.toggleSideBar = _toggleSideBar;
+    },
     selectedDialogs: function selectedDialogs(_selectedDialogs) {
       if (_selectedDialogs) {
         this.select_contact = _selectedDialogs;
@@ -6309,9 +6329,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapGetters)({
     selected: "dialogs/getSelectedDialogs"
   })),
-  methods: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapActions)({
+  methods: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapActions)({
     selectedUser: "dialogs/setSelectedDialog"
-  }))
+  })), {}, {
+    selectUser: function selectUser() {
+      this.$emit("toggle");
+      this.selectedUser(null);
+    }
+  })
 });
 
 /***/ }),
@@ -7066,7 +7091,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_infinite_loading__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(vue_infinite_loading__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var vue_js_modal__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vue-js-modal */ "./node_modules/vue-js-modal/dist/index.js");
 /* harmony import */ var vue_js_modal__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(vue_js_modal__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var vuelidate__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vuelidate */ "./node_modules/vuelidate/lib/index.js");
+/* harmony import */ var vuelidate__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vuelidate */ "./node_modules/vuelidate/lib/index.js");
+/* harmony import */ var vue_screen_size__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vue-screen-size */ "./node_modules/vue-screen-size/dist/vue-screen-size.esm.js");
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -7102,7 +7128,9 @@ vue__WEBPACK_IMPORTED_MODULE_1__.default.component("credential-component", __web
 
 
 
-vue__WEBPACK_IMPORTED_MODULE_1__.default.use(vuelidate__WEBPACK_IMPORTED_MODULE_6__.default);
+
+vue__WEBPACK_IMPORTED_MODULE_1__.default.use(vue_screen_size__WEBPACK_IMPORTED_MODULE_6__.default);
+vue__WEBPACK_IMPORTED_MODULE_1__.default.use(vuelidate__WEBPACK_IMPORTED_MODULE_7__.default);
 vue__WEBPACK_IMPORTED_MODULE_1__.default.use((vue_js_modal__WEBPACK_IMPORTED_MODULE_5___default()));
 vue__WEBPACK_IMPORTED_MODULE_1__.default.use((vue_infinite_loading__WEBPACK_IMPORTED_MODULE_4___default()));
 vue__WEBPACK_IMPORTED_MODULE_1__.default.use(vue_timeago__WEBPACK_IMPORTED_MODULE_2__.default, {
@@ -63587,7 +63615,7 @@ var render = function() {
                   staticClass: "d-flex contact-container py-2 px-3 mb-1",
                   on: {
                     click: function($event) {
-                      return _vm.selectedUser(dial)
+                      return _vm.selectUser(dial)
                     }
                   }
                 },
@@ -63753,7 +63781,7 @@ var render = function() {
                 staticClass: "d-flex contact-container py-2 px-3 mb-1",
                 on: {
                   click: function($event) {
-                    return _vm.selectedUser(dial)
+                    return _vm.selectUser(dial)
                   }
                 }
               },
@@ -63963,7 +63991,13 @@ var render = function() {
       _vm._v(" "),
       _c("SearchLeftComponent"),
       _vm._v(" "),
-      _c("Contact")
+      _c("Contact", {
+        on: {
+          toggle: function($event) {
+            return _vm.$emit("toggle")
+          }
+        }
+      })
     ],
     1
   )
@@ -64073,7 +64107,25 @@ var render = function() {
                       _c(
                         "div",
                         { staticClass: "card-body p-0 d-flex" },
-                        [_c("MainLeft"), _vm._v(" "), _c("MainRight")],
+                        [
+                          _c("MainLeft", {
+                            class: _vm.isMobile
+                              ? !_vm.toggleSideBar
+                                ? "hidden"
+                                : ""
+                              : "",
+                            on: { toggle: _vm.toggleSide }
+                          }),
+                          _vm._v(" "),
+                          _c("MainRight", {
+                            class: _vm.isMobile
+                              ? _vm.toggleSideBar
+                                ? "hidden"
+                                : ""
+                              : "",
+                            on: { toggle: _vm.toggleSide }
+                          })
+                        ],
                         1
                       )
                     ]
@@ -64360,14 +64412,7 @@ var render = function() {
         1
       ),
       _vm._v(" "),
-      _c("i", {
-        staticClass: "bi bi-x",
-        on: {
-          click: function($event) {
-            return _vm.selectedUser(null)
-          }
-        }
-      })
+      _c("i", { staticClass: "bi bi-x", on: { click: _vm.selectUser } })
     ])
   ])
 }
@@ -64528,7 +64573,13 @@ var render = function() {
       ? _c(
           "div",
           [
-            _c("Header"),
+            _c("Header", {
+              on: {
+                toggle: function($event) {
+                  return _vm.$emit("toggle")
+                }
+              }
+            }),
             _vm._v(" "),
             _c("Chat"),
             _vm._v(" "),
@@ -65055,6 +65106,85 @@ function normalizeComponent (
 /***/ (function(module) {
 
 !function(t,e){ true?module.exports=e():0}("undefined"!=typeof self?self:this,(function(){return function(t){var e={};function i(n){if(e[n])return e[n].exports;var r=e[n]={i:n,l:!1,exports:{}};return t[n].call(r.exports,r,r.exports,i),r.l=!0,r.exports}return i.m=t,i.c=e,i.d=function(t,e,n){i.o(t,e)||Object.defineProperty(t,e,{enumerable:!0,get:n})},i.r=function(t){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(t,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(t,"__esModule",{value:!0})},i.t=function(t,e){if(1&e&&(t=i(t)),8&e)return t;if(4&e&&"object"==typeof t&&t&&t.__esModule)return t;var n=Object.create(null);if(i.r(n),Object.defineProperty(n,"default",{enumerable:!0,value:t}),2&e&&"string"!=typeof t)for(var r in t)i.d(n,r,function(e){return t[e]}.bind(null,r));return n},i.n=function(t){var e=t&&t.__esModule?function(){return t.default}:function(){return t};return i.d(e,"a",e),e},i.o=function(t,e){return Object.prototype.hasOwnProperty.call(t,e)},i.p="",i(i.s=1)}([function(t,e,i){},function(t,e,i){"use strict";i.r(e);var n="undefined"!=typeof window?window.HTMLElement:Object,r={mounted:function(){this.enforceFocus&&document.addEventListener("focusin",this.focusIn)},methods:{focusIn:function(t){if(this.isActive&&t.target!==this.$el&&!this.$el.contains(t.target)){var e=this.container?this.container:this.isFullPage?null:this.$el.parentElement;(this.isFullPage||e&&e.contains(t.target))&&(t.preventDefault(),this.$el.focus())}}},beforeDestroy:function(){document.removeEventListener("focusin",this.focusIn)}};function a(t,e,i,n,r,a,o,s){var l,u="function"==typeof t?t.options:t;if(e&&(u.render=e,u.staticRenderFns=i,u._compiled=!0),n&&(u.functional=!0),a&&(u._scopeId="data-v-"+a),o?(l=function(t){(t=t||this.$vnode&&this.$vnode.ssrContext||this.parent&&this.parent.$vnode&&this.parent.$vnode.ssrContext)||"undefined"==typeof __VUE_SSR_CONTEXT__||(t=__VUE_SSR_CONTEXT__),r&&r.call(this,t),t&&t._registeredComponents&&t._registeredComponents.add(o)},u._ssrRegister=l):r&&(l=s?function(){r.call(this,(u.functional?this.parent:this).$root.$options.shadowRoot)}:r),l)if(u.functional){u._injectStyles=l;var c=u.render;u.render=function(t,e){return l.call(e),c(t,e)}}else{var d=u.beforeCreate;u.beforeCreate=d?[].concat(d,l):[l]}return{exports:t,options:u}}var o=a({name:"spinner",props:{color:{type:String,default:"#000"},height:{type:Number,default:64},width:{type:Number,default:64}}},(function(){var t=this.$createElement,e=this._self._c||t;return e("svg",{attrs:{viewBox:"0 0 38 38",xmlns:"http://www.w3.org/2000/svg",width:this.width,height:this.height,stroke:this.color}},[e("g",{attrs:{fill:"none","fill-rule":"evenodd"}},[e("g",{attrs:{transform:"translate(1 1)","stroke-width":"2"}},[e("circle",{attrs:{"stroke-opacity":".25",cx:"18",cy:"18",r:"18"}}),e("path",{attrs:{d:"M36 18c0-9.94-8.06-18-18-18"}},[e("animateTransform",{attrs:{attributeName:"transform",type:"rotate",from:"0 18 18",to:"360 18 18",dur:"0.8s",repeatCount:"indefinite"}})],1)])])])}),[],!1,null,null,null).exports,s=a({name:"dots",props:{color:{type:String,default:"#000"},height:{type:Number,default:240},width:{type:Number,default:60}}},(function(){var t=this.$createElement,e=this._self._c||t;return e("svg",{attrs:{viewBox:"0 0 120 30",xmlns:"http://www.w3.org/2000/svg",fill:this.color,width:this.width,height:this.height}},[e("circle",{attrs:{cx:"15",cy:"15",r:"15"}},[e("animate",{attrs:{attributeName:"r",from:"15",to:"15",begin:"0s",dur:"0.8s",values:"15;9;15",calcMode:"linear",repeatCount:"indefinite"}}),e("animate",{attrs:{attributeName:"fill-opacity",from:"1",to:"1",begin:"0s",dur:"0.8s",values:"1;.5;1",calcMode:"linear",repeatCount:"indefinite"}})]),e("circle",{attrs:{cx:"60",cy:"15",r:"9","fill-opacity":"0.3"}},[e("animate",{attrs:{attributeName:"r",from:"9",to:"9",begin:"0s",dur:"0.8s",values:"9;15;9",calcMode:"linear",repeatCount:"indefinite"}}),e("animate",{attrs:{attributeName:"fill-opacity",from:"0.5",to:"0.5",begin:"0s",dur:"0.8s",values:".5;1;.5",calcMode:"linear",repeatCount:"indefinite"}})]),e("circle",{attrs:{cx:"105",cy:"15",r:"15"}},[e("animate",{attrs:{attributeName:"r",from:"15",to:"15",begin:"0s",dur:"0.8s",values:"15;9;15",calcMode:"linear",repeatCount:"indefinite"}}),e("animate",{attrs:{attributeName:"fill-opacity",from:"1",to:"1",begin:"0s",dur:"0.8s",values:"1;.5;1",calcMode:"linear",repeatCount:"indefinite"}})])])}),[],!1,null,null,null).exports,l=a({name:"bars",props:{color:{type:String,default:"#000"},height:{type:Number,default:40},width:{type:Number,default:40}}},(function(){var t=this.$createElement,e=this._self._c||t;return e("svg",{attrs:{xmlns:"http://www.w3.org/2000/svg",viewBox:"0 0 30 30",height:this.height,width:this.width,fill:this.color}},[e("rect",{attrs:{x:"0",y:"13",width:"4",height:"5"}},[e("animate",{attrs:{attributeName:"height",attributeType:"XML",values:"5;21;5",begin:"0s",dur:"0.6s",repeatCount:"indefinite"}}),e("animate",{attrs:{attributeName:"y",attributeType:"XML",values:"13; 5; 13",begin:"0s",dur:"0.6s",repeatCount:"indefinite"}})]),e("rect",{attrs:{x:"10",y:"13",width:"4",height:"5"}},[e("animate",{attrs:{attributeName:"height",attributeType:"XML",values:"5;21;5",begin:"0.15s",dur:"0.6s",repeatCount:"indefinite"}}),e("animate",{attrs:{attributeName:"y",attributeType:"XML",values:"13; 5; 13",begin:"0.15s",dur:"0.6s",repeatCount:"indefinite"}})]),e("rect",{attrs:{x:"20",y:"13",width:"4",height:"5"}},[e("animate",{attrs:{attributeName:"height",attributeType:"XML",values:"5;21;5",begin:"0.3s",dur:"0.6s",repeatCount:"indefinite"}}),e("animate",{attrs:{attributeName:"y",attributeType:"XML",values:"13; 5; 13",begin:"0.3s",dur:"0.6s",repeatCount:"indefinite"}})])])}),[],!1,null,null,null).exports,u=a({name:"vue-loading",mixins:[r],props:{active:Boolean,programmatic:Boolean,container:[Object,Function,n],isFullPage:{type:Boolean,default:!0},enforceFocus:{type:Boolean,default:!0},lockScroll:{type:Boolean,default:!1},transition:{type:String,default:"fade"},canCancel:Boolean,onCancel:{type:Function,default:function(){}},color:String,backgroundColor:String,blur:{type:String,default:"2px"},opacity:Number,width:Number,height:Number,zIndex:Number,loader:{type:String,default:"spinner"}},data:function(){return{isActive:this.active}},components:{Spinner:o,Dots:s,Bars:l},beforeMount:function(){this.programmatic&&(this.container?(this.isFullPage=!1,this.container.appendChild(this.$el)):document.body.appendChild(this.$el))},mounted:function(){this.programmatic&&(this.isActive=!0),document.addEventListener("keyup",this.keyPress)},methods:{cancel:function(){this.canCancel&&this.isActive&&(this.hide(),this.onCancel.apply(null,arguments))},hide:function(){var t=this;this.$emit("hide"),this.$emit("update:active",!1),this.programmatic&&(this.isActive=!1,setTimeout((function(){var e;t.$destroy(),void 0!==(e=t.$el).remove?e.remove():e.parentNode.removeChild(e)}),150))},disableScroll:function(){this.isFullPage&&this.lockScroll&&document.body.classList.add("vld-shown")},enableScroll:function(){this.isFullPage&&this.lockScroll&&document.body.classList.remove("vld-shown")},keyPress:function(t){27===t.keyCode&&this.cancel()}},watch:{active:function(t){this.isActive=t},isActive:function(t){t?this.disableScroll():this.enableScroll()}},computed:{bgStyle:function(){return{background:this.backgroundColor,opacity:this.opacity,backdropFilter:"blur(".concat(this.blur,")")}}},beforeDestroy:function(){document.removeEventListener("keyup",this.keyPress)}},(function(){var t=this,e=t.$createElement,i=t._self._c||e;return i("transition",{attrs:{name:t.transition}},[i("div",{directives:[{name:"show",rawName:"v-show",value:t.isActive,expression:"isActive"}],staticClass:"vld-overlay is-active",class:{"is-full-page":t.isFullPage},style:{zIndex:t.zIndex},attrs:{tabindex:"0","aria-busy":t.isActive,"aria-label":"Loading"}},[i("div",{staticClass:"vld-background",style:t.bgStyle,on:{click:function(e){return e.preventDefault(),t.cancel(e)}}}),i("div",{staticClass:"vld-icon"},[t._t("before"),t._t("default",[i(t.loader,{tag:"component",attrs:{color:t.color,width:t.width,height:t.height}})]),t._t("after")],2)])])}),[],!1,null,null,null).exports,c=function(t){var e=arguments.length>1&&void 0!==arguments[1]?arguments[1]:{},i=arguments.length>2&&void 0!==arguments[2]?arguments[2]:{};return{show:function(){var n=arguments.length>0&&void 0!==arguments[0]?arguments[0]:e,r=arguments.length>1&&void 0!==arguments[1]?arguments[1]:i,a={programmatic:!0},o=Object.assign({},e,n,a),s=new(t.extend(u))({el:document.createElement("div"),propsData:o}),l=Object.assign({},i,r);return Object.keys(l).map((function(t){s.$slots[t]=l[t]})),s}}};i(0);u.install=function(t){var e=arguments.length>1&&void 0!==arguments[1]?arguments[1]:{},i=arguments.length>2&&void 0!==arguments[2]?arguments[2]:{},n=c(t,e,i);t.$loading=n,t.prototype.$loading=n};e.default=u}]).default}));
+
+/***/ }),
+
+/***/ "./node_modules/vue-screen-size/dist/vue-screen-size.esm.js":
+/*!******************************************************************!*\
+  !*** ./node_modules/vue-screen-size/dist/vue-screen-size.esm.js ***!
+  \******************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
+
+
+var reactiveComponent = new vue__WEBPACK_IMPORTED_MODULE_0__.default({
+    data: function data() {
+        return {
+            event: null,
+            vssWidth: null,
+            vssHeight: null
+        }
+    }
+});
+
+var VueScreenSizeMixin = {
+    computed: {
+        $vssEvent: function $vssEvent() {
+            return reactiveComponent.event
+        },
+        $vssWidth: function $vssWidth() {
+            return reactiveComponent.vssWidth || this.getScreenWidth()
+        },
+        $vssHeight: function $vssHeight() {
+            return reactiveComponent.vssHeight || this.getScreenHeight()
+        }
+    },
+    methods: {
+        getScreenWidth: function getScreenWidth() {
+            return window.innerWidth
+            || document.documentElement.clientWidth
+            || document.body.clientWidth
+        },
+        getScreenHeight: function getScreenHeight() {
+            return window.innerHeight
+            || document.documentElement.clientHeight
+            || document.body.clientHeight
+        },
+        handleResize: function handleResize(event) {
+            reactiveComponent.event = event;
+            reactiveComponent.vssWidth = this.getScreenWidth();
+            reactiveComponent.vssHeight = this.getScreenHeight();
+        },
+
+        $vssDestroyListener: function $vssDestroyListener() {
+            window.removeEventListener('resize', this.handleResize);
+        }
+    },
+    mounted: function mounted() {
+        window.addEventListener('resize', this.handleResize);
+    },
+    destroyed: function destroyed() {
+        window.removeEventListener('resize', this.handleResize);
+    }
+}
+
+var install = function (Vue$$1) {
+    Vue$$1.mixin(VueScreenSizeMixin);
+};
+
+// Note that here we're not only exporting the install function, but
+// also the mixin itself - this is so with can `Vue.use()` or
+// `mixins: [],` it.
+var index = { install: install, VueScreenSizeMixin: VueScreenSizeMixin }
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (index);
+
 
 /***/ }),
 

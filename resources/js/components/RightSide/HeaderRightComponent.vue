@@ -13,7 +13,7 @@
           <div class="name" v-else>No User</div>
         </div>
       </div>
-      <i class="bi bi-x" @click="selectedUser(null)"></i>
+      <i class="bi bi-x" @click="selectUser"></i>
     </div>
   </div>
 </template>
@@ -33,6 +33,10 @@ export default {
     ...mapActions({
       selectedUser: "dialogs/setSelectedDialog",
     }),
+    selectUser() {
+      this.$emit("toggle");
+      this.selectedUser(null);
+    },
   },
 };
 </script>

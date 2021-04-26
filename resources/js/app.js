@@ -43,7 +43,9 @@ import store from "./store";
 import InfiniteLoading from "vue-infinite-loading";
 import vmodal from "vue-js-modal";
 import Vuelidate from "vuelidate";
+import VueScreenSize from "vue-screen-size";
 
+Vue.use(VueScreenSize);
 Vue.use(Vuelidate);
 Vue.use(vmodal);
 Vue.use(InfiniteLoading);
