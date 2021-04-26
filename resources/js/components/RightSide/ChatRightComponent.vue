@@ -17,7 +17,7 @@
           :class="msg.from_me ? 'send' : ''"
           :key="ind"
         >
-          <div class="chat-bubble">
+          <div class="chat-bubble max-w-18 md:max-w-2xl">
             <div class="type-image" v-if="msg.type == 'image'">
               <img
                 class="image-preview rounded mb-3"
@@ -41,7 +41,9 @@
                 v-if="regex.test(msg.body)"
                 v-html="msg.body.replaceAll(regex, regexTo)"
               ></div>
-              <div v-else class="chat-message">{{ msg.body }}</div>
+              <div v-else class="chat-message break-all">
+                {{ msg.body.trim() }}
+              </div>
               <div class="chat-time">
                 {{ new Date(msg.time).toTimeString().substr(0, 5) }}
               </div>
@@ -185,7 +187,7 @@ export default {
   .chat-bubble {
     background-color: burlywood;
     border-radius: 8px;
-    max-width: 500px;
+    // max-width: 500px;
     min-width: 100px;
     display: inline-block;
     margin: 2px 10px;
