@@ -24,15 +24,20 @@
 
 <body>
     <div id="app" class="h-screen">
-        <nav class="navbar navbar-expand-md bg-green_cus-400 shadow-sm text-milk_cus-light">
+        <nav class="navbar navbar-expand-lg bg-green_cus-400 shadow-sm text-milk_cus-light">
             <div class="container">
                 <a class="navbar-brand hover:text-skin_cus-500" href="{{ url('/') }}">
                     {{ config('app.name', 'Laravel') }}
                 </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse"
-                    data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                    aria-label="{{ __('Toggle navigation') }}">
-                    <span class="navbar-toggler-icon"></span>
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M19 13l-7 7-7-7m14-8l-7 7-7-7" />
+                    </svg>
                 </button>
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
