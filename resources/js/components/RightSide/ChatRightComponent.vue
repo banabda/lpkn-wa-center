@@ -17,14 +17,16 @@
           :class="msg.from_me ? 'send' : ''"
           :key="ind"
         >
-          <div class="chat-bubble">
+          <div class="chat-bubble max-w-18 md:max-w-2xl">
             <div class="type-image" v-if="msg.type == 'image'">
-              <img
-                class="image-preview rounded mb-3"
-                :src="msg.body"
-                :alt="msg.type"
-                @click="showImage(msg.body)"
-              />
+              <div class="w-full image-preview mb-3 overflow-hidden">
+                <img
+                  class="rounded object-fill"
+                  :src="msg.body"
+                  :alt="msg.type"
+                  @click="showImage(msg.body)"
+                />
+              </div>
               <div
                 class="chat-message"
                 v-if="regex.test(msg.caption)"
@@ -41,7 +43,11 @@
                 v-if="regex.test(msg.body)"
                 v-html="msg.body.replaceAll(regex, regexTo)"
               ></div>
-              <div v-else class="chat-message">{{ msg.body }}</div>
+              <div
+                v-else
+                class="chat-message break-all whitespace-pre-wrap"
+                v-html="msg.body"
+              ></div>
               <div class="chat-time">
                 {{ new Date(msg.time).toTimeString().substr(0, 5) }}
               </div>
@@ -50,6 +56,21 @@
               <a :href="msg.body" type="button" target="_blank">
                 {{ msg.caption }}
               </a>
+              <div class="chat-time">
+                {{ new Date(msg.time).toTimeString().substr(0, 5) }}
+              </div>
+            </div>
+            <div class="type-document" v-else-if="msg.type == 'ptt'">
+              <audio controls>
+                <source :src="msg.body" type="audio/ogg" />
+                Your browser does not support the audio element.
+              </audio>
+              <div class="chat-time">
+                {{ new Date(msg.time).toTimeString().substr(0, 5) }}
+              </div>
+            </div>
+            <div class="type-document" v-else-if="msg.type == 'call_log'">
+              <div class="font-bold">{{ msg.body }}</div>
               <div class="chat-time">
                 {{ new Date(msg.time).toTimeString().substr(0, 5) }}
               </div>
@@ -185,7 +206,7 @@ export default {
   .chat-bubble {
     background-color: burlywood;
     border-radius: 8px;
-    max-width: 500px;
+    // max-width: 500px;
     min-width: 100px;
     display: inline-block;
     margin: 2px 10px;
@@ -197,7 +218,7 @@ export default {
     }
     .type-image {
       .image-preview {
-        width: 390px;
+        // width: 390px;
         height: 390px;
         cursor: pointer;
       }

@@ -3,7 +3,11 @@
     <div class="me d-flex px-4">
       <span class="name">{{ user.name }}</span>
 
-      <i class="bi bi-box-arrow-right" @click="exitWa"></i>
+      <i
+        class="bi bi-box-arrow-right"
+        title="Log Out from Whatsapp"
+        @click="exitWa"
+      ></i>
     </div>
   </div>
 </template>

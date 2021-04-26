@@ -91,6 +91,12 @@ module.exports = {
                     800: "#736526",
                     900: "#26220d"
                 }
+            },
+            minHeight: {
+                10: "10rem"
+            },
+            maxWidth: {
+                18: "18rem"
             }
         }
     },

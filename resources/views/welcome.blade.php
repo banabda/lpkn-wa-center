@@ -25,22 +25,31 @@
 <body>
     <div id="app">
         <main class="pt-4 container-fluid h-screen bg-green_cus-500 bg-opacity-100 grid content-center">
-            <div class="mx-auto object-center bg-white p-6 rounded-lg w-1/2 shadow-lg">
-                <p class="capitalize text-3xl font-bold font-sans mb-4 text-justify">Selamat datang di web LPKN Whatsapp
-                    Service
-                    Center!
-                </p>
-                <p class="text-justify text-md">Web khusus admin lpkn yang difungsikan untuk merespon semua keluhan,
-                    masukkan,
-                    dan konsultasi dengan
-                    event yang akan berlangsung. </p>
+            <div class="mx-auto object-center bg-white rounded-lg md:w-1/2 w-80 shadow-lg md:flex grid grid-cols-1">
+                <div class="md:flex-none md:w-56 w-40 justify-self-center md:justify-center md:relative pt-4">
+                    <img src="{{ asset('images/whatsapp.png') }}"
+                        class="md:absolute md:inset-0 w-full h-full mx-auto md:object-cover object-contain rounded-lg md:rounded-l-lg" />
+
+                </div>
+                <div class="p-6">
+                    <p class="capitalize text-xl md:text-3xl font-bold font-sans mb-4 text-justify">Selamat datang di
+                        web LPKN
+                        Whatsapp
+                        Service
+                        Center!
+                    </p>
+                    <p class="text-justify text-md">Web khusus admin lpkn yang difungsikan untuk merespon semua keluhan,
+                        masukkan,
+                        dan konsultasi dengan
+                        event yang akan berlangsung. </p>
+                </div>
             </div>
             @guest
-                <div class="mx-auto my-6 w-1/2 object-center grid grid-cols-2 space-x-6 self-center">
+                <div class="mx-auto my-6 md:w-1/2 w-80 object-center grid grid-cols-2 justify-items-center self-center">
                     <a href="{{ route('login') }}"
-                        class="btn border-2 border-blue-500 bg-blue-500 bg-opacity-50 hover:bg-opacity-100 text-white shadow-lg">Login</a>
+                        class="btn border-2 w-11/12 border-blue-500 bg-blue-500 bg-opacity-50 hover:bg-opacity-100 text-white shadow-lg">Login</a>
                     <a href="{{ route('register') }}"
-                        class="btn border-2 border-red-500 bg-red-500 bg-opacity-50 hover:bg-opacity-100 text-white shadow-lg">Register</a>
+                        class="btn border-2 w-11/12 border-red-500 bg-red-500 bg-opacity-50 hover:bg-opacity-100 text-white shadow-lg">Register</a>
                 </div>
             @else
                 <form id="logout-form" action="{{ route('logout') }}" method="POST">
@@ -51,22 +60,22 @@
                     </button>
                 </form>
                 @role('admin')
-                <div class="mx-auto my-6 w-1/2 object-center grid grid-cols-3 space-x-6 self-center">
+                <div class="mx-auto my-6 md:w-1/2 w-80 object-center grid grid-cols-3 justify-items-center self-center">
                     <a href="{{ route('home') }}"
-                        class="btn border-2 border-green-500 bg-green-500 bg-opacity-50 hover:bg-opacity-100 text-white shadow-lg">Respon
+                        class="btn border-2 w-11/12 border-green-500 bg-green-500 bg-opacity-50 hover:bg-opacity-100 text-white shadow-lg">Respon
                         Sekarang!</a>
                     <a href="{{ route('approval') }}"
-                        class="btn border-2 border-pink-500 bg-pink-500 bg-opacity-50 hover:bg-opacity-100 text-white shadow-lg">Manage
+                        class="btn border-2 w-11/12 border-pink-500 bg-pink-500 bg-opacity-50 hover:bg-opacity-100 text-white shadow-lg">Manage
                         User</a>
                     <a href="{{ route('credential') }}"
-                        class="btn border-2 border-yellow-500 bg-yellow-500 bg-opacity-50 hover:bg-opacity-100 text-white shadow-lg">Manage
+                        class="btn border-2 w-11/12 border-yellow-500 bg-yellow-500 bg-opacity-50 hover:bg-opacity-100 text-white shadow-lg">Manage
                         Credential</a>
                 </div>
                 @endrole
                 @role('user')
-                <div class="mx-auto my-6 w-1/2 object-center grid grid-cols-1 space-x-6 self-center">
+                <div class="mx-auto my-6 md:w-1/2 w-80 object-center grid grid-cols-1 self-center">
                     <button
-                        class="btn border-2 border-green-500 bg-green-500 bg-opacity-50 hover:bg-opacity-100 text-white shadow-lg">Respon
+                        class="btn border-2 w-11/12 border-green-500 bg-green-500 bg-opacity-50 hover:bg-opacity-100 text-white shadow-lg">Respon
                         Sekarang!</button>
                 </div>
                 @endrole

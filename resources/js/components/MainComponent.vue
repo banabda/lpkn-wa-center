@@ -12,8 +12,14 @@
         <div class="col-md-12">
           <div class="card rounded-lg border-none shadow-lg">
             <div class="card-body p-0 d-flex">
-              <MainLeft />
-              <MainRight />
+              <MainLeft
+                :class="isMobile ? (!toggleSideBar ? 'hidden' : '') : ''"
+                @toggle="toggleSide"
+              />
+              <MainRight
+                :class="isMobile ? (toggleSideBar ? 'hidden' : '') : ''"
+                @toggle="toggleSide"
+              />
               <!-- <button @click="handleinc">{{ aGet }}</button> -->
               <!-- <button @click="$modal.show('image-preview')">show</button> -->
             </div>
@@ -54,10 +60,13 @@ export default {
       today: new Date().toISOString().split("T")[0],
       isLoading: false,
       qrCodeSrc: null,
+      toggleSideBar: true,
+      isMobile: false,
     };
   },
   beforeMount() {
     this.isLoading = true;
+    this.isMobile = this.$vssWidth < 640;
     // this.setDialogs();
     this.setUser();
     this.setCred().then(() => {
@@ -107,6 +116,9 @@ export default {
       setDialogs: "dialogs/setDialogs",
       setCred: "cred/setCred",
     }),
+    toggleSide() {
+      this.toggleSideBar = !this.toggleSideBar;
+    },
     ...mapMutations({ minc: "increment", mincA: "a/increment" }),
     handleinc() {
       this.minc();
@@ -118,6 +130,9 @@ export default {
     },
   },
   watch: {
+    toggleSideBar(toggleSideBar) {
+      this.toggleSideBar = toggleSideBar;
+    },
     selectedDialogs(selectedDialogs) {
       if (selectedDialogs) {
         this.select_contact = selectedDialogs;

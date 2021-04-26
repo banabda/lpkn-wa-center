@@ -2,7 +2,7 @@
   <div class="main-left">
     <Header />
     <SearchLeftComponent />
-    <Contact />
+    <Contact @toggle="$emit('toggle')" />
   </div>
 </template>
 <script>

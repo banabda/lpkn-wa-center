@@ -50,6 +50,7 @@
 <script>
 import Credential from "./modals/Credential";
 import { mapState, mapGetters, mapActions, mapMutations } from "vuex";
+import Swal from "sweetalert2";
 export default {
   components: { Credential },
   computed: {
@@ -70,7 +71,7 @@ export default {
         {
           cred: cred,
         },
-        { height: "auto" }
+        { height: "auto", width: "90%" }
       );
     },
   },

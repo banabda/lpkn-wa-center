@@ -1,7 +1,7 @@
 <template>
   <div class="right-side">
     <div v-if="selected">
-      <Header />
+      <Header @toggle="$emit('toggle')" />
       <Chat />
       <InputRight />
     </div>

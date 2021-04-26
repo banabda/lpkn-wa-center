@@ -15,17 +15,21 @@
           <tbody>
             <tr v-for="(usr, inx) in users" :key="inx">
               <th scope="row">{{ inx + 1 }}</th>
-              <td>{{ usr.name }}</td>
-              <td>{{ usr.email }}</td>
               <td>
-                <select v-model="credByUser[inx]" class="form-select">
+                <p class="w-40">{{ usr.name }}</p>
+              </td>
+              <td>
+                <p class="w-40">{{ usr.email }}</p>
+              </td>
+              <td>
+                <select v-model="credByUser[inx]" class="form-select w-40">
                   <option disabled :value="null">Select Credential</option>
                   <option v-for="cred in creds" :key="cred.id" :value="cred.id">
                     {{ cred.name }}
                   </option>
                 </select>
               </td>
-              <td class="d-flex action-container">
+              <td class="d-flex action-container w-60">
                 <button
                   class="btn transition duration-300 ease-in-out bg-orange_cus-400 text-white hover:bg-orange_cus-500 w-20"
                   @click="assign(usr, inx)"

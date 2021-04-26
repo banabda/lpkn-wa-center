@@ -1,13 +1,15 @@
 <template>
   <div class="qr-code container">
     <div class="card">
-      <div class="d-flex qrcode-container">
-        <div class="right-side">
-          <h3>Scan QR Code for login to Whatsapp:</h3>
-          <h4 class="mt-5 mb-4">
+      <div class="md:flex qrcode-container">
+        <div class="right-side text-center p-6">
+          <h3 class="font-bold text-3xl mb-5">
+            Scan QR Code for login to Whatsapp:
+          </h3>
+          <h4 class="font-medium text-lg">
             {{ userCred.name }}
           </h4>
-          <h4>
+          <h4 class="font-medium text-lg">
             {{ userCred.phone }}
           </h4>
         </div>
