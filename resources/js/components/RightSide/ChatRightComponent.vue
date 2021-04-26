@@ -41,9 +41,11 @@
                 v-if="regex.test(msg.body)"
                 v-html="msg.body.replaceAll(regex, regexTo)"
               ></div>
-              <div v-else class="chat-message break-all">
-                {{ msg.body.trim() }}
-              </div>
+              <div
+                v-else
+                class="chat-message break-all whitespace-pre-wrap"
+                v-html="msg.body"
+              ></div>
               <div class="chat-time">
                 {{ new Date(msg.time).toTimeString().substr(0, 5) }}
               </div>
@@ -193,7 +195,7 @@ export default {
     margin: 2px 10px;
     padding: 5px;
     .chat-message {
-      white-space: pre-line;
+      // white-space: pre-line;
       padding: 0 5px;
       margin-bottom: 0;
     }

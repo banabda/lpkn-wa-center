@@ -6198,6 +6198,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -15702,7 +15704,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "[data-v-5b933d40]::-webkit-scrollbar {\n  width: 8px;\n}\n[data-v-5b933d40]::-webkit-scrollbar-track {\n  background: #f1f1f1;\n}\n[data-v-5b933d40]::-webkit-scrollbar-thumb {\n  background: #888;\n}\n[data-v-5b933d40]::-webkit-scrollbar-thumb:hover {\n  background: #555;\n}\n.chat[data-v-5b933d40] {\n  height: 63vh;\n  overflow-y: auto;\n  padding-top: 10px;\n}\n.chat .chat-list.send[data-v-5b933d40] {\n  text-align: end;\n}\n.chat .chat-list.send .chat-bubble[data-v-5b933d40] {\n  background-color: lightcoral;\n  text-align: left;\n}\n.chat .time[data-v-5b933d40] {\n  text-align: center;\n  margin: 20px 0;\n}\n.chat .time span[data-v-5b933d40] {\n  padding: 8px;\n  background-color: lightskyblue;\n  border-radius: 10px;\n}\n.chat .chat-time[data-v-5b933d40] {\n  text-align: right;\n  font-size: 0.6rem;\n  margin-bottom: 0;\n}\n.chat .chat-bubble[data-v-5b933d40] {\n  background-color: burlywood;\n  border-radius: 8px;\n  min-width: 100px;\n  display: inline-block;\n  margin: 2px 10px;\n  padding: 5px;\n}\n.chat .chat-bubble .chat-message[data-v-5b933d40] {\n  white-space: pre-line;\n  padding: 0 5px;\n  margin-bottom: 0;\n}\n.chat .chat-bubble .type-image .image-preview[data-v-5b933d40] {\n  width: 390px;\n  height: 390px;\n  cursor: pointer;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "[data-v-5b933d40]::-webkit-scrollbar {\n  width: 8px;\n}\n[data-v-5b933d40]::-webkit-scrollbar-track {\n  background: #f1f1f1;\n}\n[data-v-5b933d40]::-webkit-scrollbar-thumb {\n  background: #888;\n}\n[data-v-5b933d40]::-webkit-scrollbar-thumb:hover {\n  background: #555;\n}\n.chat[data-v-5b933d40] {\n  height: 63vh;\n  overflow-y: auto;\n  padding-top: 10px;\n}\n.chat .chat-list.send[data-v-5b933d40] {\n  text-align: end;\n}\n.chat .chat-list.send .chat-bubble[data-v-5b933d40] {\n  background-color: lightcoral;\n  text-align: left;\n}\n.chat .time[data-v-5b933d40] {\n  text-align: center;\n  margin: 20px 0;\n}\n.chat .time span[data-v-5b933d40] {\n  padding: 8px;\n  background-color: lightskyblue;\n  border-radius: 10px;\n}\n.chat .chat-time[data-v-5b933d40] {\n  text-align: right;\n  font-size: 0.6rem;\n  margin-bottom: 0;\n}\n.chat .chat-bubble[data-v-5b933d40] {\n  background-color: burlywood;\n  border-radius: 8px;\n  min-width: 100px;\n  display: inline-block;\n  margin: 2px 10px;\n  padding: 5px;\n}\n.chat .chat-bubble .chat-message[data-v-5b933d40] {\n  padding: 0 5px;\n  margin-bottom: 0;\n}\n.chat .chat-bubble .type-image .image-preview[data-v-5b933d40] {\n  width: 390px;\n  height: 390px;\n  cursor: pointer;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -64310,17 +64312,11 @@ var render = function() {
                                         )
                                       }
                                     })
-                                  : _c(
-                                      "div",
-                                      { staticClass: "chat-message break-all" },
-                                      [
-                                        _vm._v(
-                                          "\n              " +
-                                            _vm._s(msg.body.trim()) +
-                                            "\n            "
-                                        )
-                                      ]
-                                    ),
+                                  : _c("div", {
+                                      staticClass:
+                                        "chat-message break-all whitespace-pre-wrap",
+                                      domProps: { innerHTML: _vm._s(msg.body) }
+                                    }),
                                 _vm._v(" "),
                                 _c("div", { staticClass: "chat-time" }, [
                                   _vm._v(
