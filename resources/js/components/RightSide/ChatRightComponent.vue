@@ -150,11 +150,11 @@ export default {
     selected(selected) {
       this.getMessages(selected.id).then(() => this.scrollToBottom());
       if (this.nowId) {
-        console.log("msg." + this.nowId);
+        // console.log("msg." + this.nowId);
         Echo.leaveChannel("message." + this.nowId);
       }
       this.nowId = selected.id;
-      console.log("msg." + this.nowId);
+      // console.log("msg." + this.nowId);
     },
     messages(messages) {
       this.localMessages = _.groupBy(messages, (message) =>
