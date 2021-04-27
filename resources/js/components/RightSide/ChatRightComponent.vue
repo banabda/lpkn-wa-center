@@ -93,6 +93,7 @@ export default {
       regex: /\*(.*?)\*/g,
       regexTo: "<b>$1</b>",
       localMessages: null,
+      nowId: null,
     };
   },
   computed: {
@@ -110,6 +111,7 @@ export default {
   methods: {
     ...mapActions({
       getMessages: "messages/setMessages",
+      appendMessage: "messages/appendMessage",
       setUrl: "image/setUrl",
     }),
     showImage(url) {
@@ -147,6 +149,12 @@ export default {
   watch: {
     selected(selected) {
       this.getMessages(selected.id).then(() => this.scrollToBottom());
+      if (this.nowId) {
+        console.log("msg." + this.nowId);
+        Echo.leaveChannel("message." + this.nowId);
+      }
+      this.nowId = selected.id;
+      console.log("msg." + this.nowId);
     },
     messages(messages) {
       this.localMessages = _.groupBy(messages, (message) =>
@@ -158,7 +166,12 @@ export default {
   },
   mounted() {
     Echo.private("message." + this.selected.id).listen("NewMessage", (e) => {
-      console.log(e);
+      // console.log(e.message.time, typeof e.message.time);
+      if (!e.message.fromMe && this.selected.id == e.message.chatId) {
+        // console.log(this.selected, e.message);
+        e.message.time = new Date(e.message.time * 1000);
+        this.appendMessage(e.message);
+      }
     });
   },
 };

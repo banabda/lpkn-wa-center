@@ -31,7 +31,7 @@ export default {
         .post(this.userCred.instance + "logout?token=" + this.userCred.token)
         .then(() => {
           this.setUserStatus(null);
-          console.log("exit wa");
+          // console.log("exit wa");
         });
     },
   },

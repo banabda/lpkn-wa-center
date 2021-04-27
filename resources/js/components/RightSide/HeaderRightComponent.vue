@@ -52,6 +52,7 @@ export default {
       selectedUser: "dialogs/setSelectedDialog",
     }),
     selectUser() {
+      Echo.leave("message." + this.selected.id);
       this.$emit("toggle");
       this.selectedUser(null);
     },

@@ -85,7 +85,7 @@ export default {
       });
     },
     assign(user, index) {
-      console.log(this.users[index].id, this.credByUser[index]);
+      // console.log(this.users[index].id, this.credByUser[index]);
       axios
         .post("/assign", {
           user: this.users[index].id,

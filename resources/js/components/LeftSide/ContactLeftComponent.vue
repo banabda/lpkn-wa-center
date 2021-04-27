@@ -199,7 +199,7 @@ export default {
   },
   mounted() {
     Echo.private("chat").listen("NewChat", (e) => {
-      console.log(e);
+      // console.log(e);
       const data = e.dialog;
       var index = _.findIndex(this.localDialogs, { id: data.id });
       if (index !== false) {
@@ -215,10 +215,10 @@ export default {
     },
     addDummy() {
       var index = _.findIndex(this.localDialogs, { id: this.dummy.id });
-      console.log(index);
+      // console.log(index);
       if (index !== false) {
         _.remove(this.localDialogs, { id: this.dummy.id });
-        console.log("removed");
+        // console.log("removed");
       }
       this.localDialogs.splice(0, 0, this.dummy);
     },

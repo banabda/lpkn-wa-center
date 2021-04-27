@@ -54,9 +54,7 @@ export default {
         axios
           .get(this.userCred.instance + "status?token=" + this.userCred.token)
           .then((res) => {
-            this.setSrc(res.data.qrCode).then(
-              () => ((this.showQr = true), console.log(res.data.qrCode))
-            );
+            this.setSrc(res.data.qrCode).then(() => (this.showQr = true));
           });
       } else {
         this.setSrc(e.status);
