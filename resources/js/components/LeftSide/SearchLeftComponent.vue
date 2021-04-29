@@ -2,7 +2,7 @@
   <div class="search-left">
     <input
       type="text"
-      class="search-input"
+      class="search-input border border-transparent rounded-lg focus:outline-none focus:ring-2 focus:ring-green_cus-300 focus:border-transparent"
       placeholder="Search Contact"
       v-model="search"
       @change="searchName"
@@ -46,10 +46,7 @@ export default {
   height: 10vh;
   .search-input {
     width: 100%;
-    border-radius: 8px;
     height: 6vh;
-    border-color: black;
-    border-width: 1px;
     padding: 0 8px;
   }
 }

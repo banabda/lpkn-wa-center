@@ -29,6 +29,7 @@
     </svg>
     <textarea
       id="area"
+      class="border border-transparent focus:outline-none focus:ring-2 focus:ring-green_cus-300 focus:border-transparent"
       placeholder="Type something ..."
       v-model="text"
       @keydown.enter.exact.prevent="sendMessage"

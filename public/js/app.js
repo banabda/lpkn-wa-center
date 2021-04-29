@@ -6505,6 +6505,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 
 
@@ -15717,7 +15718,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".search-left[data-v-1a1e74b0] {\n  padding: 10px 20px;\n  height: 10vh;\n}\n.search-left .search-input[data-v-1a1e74b0] {\n  width: 100%;\n  border-radius: 8px;\n  height: 6vh;\n  border-color: black;\n  border-width: 1px;\n  padding: 0 8px;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".search-left[data-v-1a1e74b0] {\n  padding: 10px 20px;\n  height: 10vh;\n}\n.search-left .search-input[data-v-1a1e74b0] {\n  width: 100%;\n  height: 6vh;\n  padding: 0 8px;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -64128,7 +64129,8 @@ var render = function() {
           expression: "search"
         }
       ],
-      staticClass: "search-input",
+      staticClass:
+        "search-input border border-transparent rounded-lg focus:outline-none focus:ring-2 focus:ring-green_cus-300 focus:border-transparent",
       attrs: { type: "text", placeholder: "Search Contact" },
       domProps: { value: _vm.search },
       on: {
@@ -64712,6 +64714,8 @@ var render = function() {
             expression: "text"
           }
         ],
+        staticClass:
+          "border border-transparent focus:outline-none focus:ring-2 focus:ring-green_cus-300 focus:border-transparent",
         attrs: { id: "area", placeholder: "Type something ..." },
         domProps: { value: _vm.text },
         on: {
