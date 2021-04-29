@@ -17,7 +17,31 @@
           :class="msg.from_me ? 'send' : ''"
           :key="ind"
         >
-          <div class="chat-bubble max-w-18 md:max-w-2xl">
+          <div class="flex justify-center" v-if="msg.type == 'call_log'">
+            <div
+              class="flex items-center min-w-min justify-center text-center justify-items-start bg-green_cus-200 rounded-lg py-1 px-3"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-4 w-4 fill-current text-red-600"
+                fill="red"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="1"
+                  d="M16 8l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2M5 3a2 2 0 00-2 2v1c0 8.284 6.716 15 15 15h1a2 2 0 002-2v-3.28a1 1 0 00-.684-.948l-4.493-1.498a1 1 0 00-1.21.502l-1.13 2.257a11.042 11.042 0 01-5.516-5.517l2.257-1.128a1 1 0 00.502-1.21L9.228 3.683A1 1 0 008.279 3H5z"
+                />
+              </svg>
+              <div class="ml-2">
+                Missed voice call at
+                {{ new Date(msg.time).toTimeString().substr(0, 5) }}
+              </div>
+            </div>
+          </div>
+          <div v-else class="chat-bubble max-w-18 md:max-w-2xl">
             <div class="type-image" v-if="msg.type == 'image'">
               <div class="w-full image-preview max-h-96 mb-3 overflow-hidden">
                 <img
@@ -88,12 +112,6 @@
                 <source :src="msg.body" type="audio/ogg" />
                 Your browser does not support the audio element.
               </audio>
-              <div class="chat-time">
-                {{ new Date(msg.time).toTimeString().substr(0, 5) }}
-              </div>
-            </div>
-            <div class="type-document" v-else-if="msg.type == 'call_log'">
-              <div class="font-bold">{{ msg.body }}</div>
               <div class="chat-time">
                 {{ new Date(msg.time).toTimeString().substr(0, 5) }}
               </div>

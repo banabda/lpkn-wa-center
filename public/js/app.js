@@ -6245,6 +6245,24 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -64343,50 +64361,43 @@ var render = function() {
                       class: msg.from_me ? "send" : ""
                     },
                     [
-                      _c(
-                        "div",
-                        { staticClass: "chat-bubble max-w-18 md:max-w-2xl" },
-                        [
-                          msg.type == "image"
-                            ? _c("div", { staticClass: "type-image" }, [
+                      msg.type == "call_log"
+                        ? _c("div", { staticClass: "flex justify-center" }, [
+                            _c(
+                              "div",
+                              {
+                                staticClass:
+                                  "flex items-center min-w-min justify-center text-center justify-items-start bg-green_cus-200 rounded-lg py-1 px-3"
+                              },
+                              [
                                 _c(
-                                  "div",
+                                  "svg",
                                   {
                                     staticClass:
-                                      "w-full image-preview max-h-96 mb-3 overflow-hidden"
+                                      "h-4 w-4 fill-current text-red-600",
+                                    attrs: {
+                                      xmlns: "http://www.w3.org/2000/svg",
+                                      fill: "red",
+                                      viewBox: "0 0 24 24",
+                                      stroke: "currentColor"
+                                    }
                                   },
                                   [
-                                    _c("img", {
-                                      staticClass: "rounded object-fill",
-                                      attrs: { src: msg.body, alt: msg.type },
-                                      on: {
-                                        click: function($event) {
-                                          return _vm.showImage(msg.body)
-                                        }
+                                    _c("path", {
+                                      attrs: {
+                                        "stroke-linecap": "round",
+                                        "stroke-linejoin": "round",
+                                        "stroke-width": "1",
+                                        d:
+                                          "M16 8l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2M5 3a2 2 0 00-2 2v1c0 8.284 6.716 15 15 15h1a2 2 0 002-2v-3.28a1 1 0 00-.684-.948l-4.493-1.498a1 1 0 00-1.21.502l-1.13 2.257a11.042 11.042 0 01-5.516-5.517l2.257-1.128a1 1 0 00.502-1.21L9.228 3.683A1 1 0 008.279 3H5z"
                                       }
                                     })
                                   ]
                                 ),
                                 _vm._v(" "),
-                                _vm.regex.test(msg.caption)
-                                  ? _c("div", {
-                                      staticClass: "chat-message",
-                                      domProps: {
-                                        innerHTML: _vm._s(
-                                          msg.caption.replaceAll(
-                                            _vm.regex,
-                                            _vm.regexTo
-                                          )
-                                        )
-                                      }
-                                    })
-                                  : _c("div", { staticClass: "chat-message" }, [
-                                      _vm._v(_vm._s(msg.caption))
-                                    ]),
-                                _vm._v(" "),
-                                _c("div", { staticClass: "chat-time" }, [
+                                _c("div", { staticClass: "ml-2" }, [
                                   _vm._v(
-                                    "\n              " +
+                                    "\n              Missed voice call at\n              " +
                                       _vm._s(
                                         new Date(msg.time)
                                           .toTimeString()
@@ -64395,149 +64406,198 @@ var render = function() {
                                       "\n            "
                                   )
                                 ])
-                              ])
-                            : msg.type == "chat"
-                            ? _c("div", { staticClass: "type-chat" }, [
-                                _vm.regex.test(msg.body)
-                                  ? _c("div", {
-                                      staticClass: "chat-message",
-                                      domProps: {
-                                        innerHTML: _vm._s(
-                                          msg.body.replaceAll(
-                                            _vm.regex,
-                                            _vm.regexTo
-                                          )
-                                        )
-                                      }
-                                    })
-                                  : _c("div", {
-                                      staticClass:
-                                        "chat-message break-all whitespace-pre-wrap",
-                                      domProps: { innerHTML: _vm._s(msg.body) }
-                                    }),
-                                _vm._v(" "),
-                                _c("div", { staticClass: "chat-time" }, [
-                                  _vm._v(
-                                    "\n              " +
-                                      _vm._s(
-                                        new Date(msg.time)
-                                          .toTimeString()
-                                          .substr(0, 5)
-                                      ) +
-                                      "\n            "
-                                  )
-                                ])
-                              ])
-                            : msg.type == "document"
-                            ? _c("div", { staticClass: "type-document" }, [
-                                _c(
-                                  "a",
-                                  {
-                                    staticClass: "text-base",
-                                    attrs: {
-                                      href: msg.body,
-                                      type: "button",
-                                      target: "_blank"
-                                    }
-                                  },
-                                  [
+                              ]
+                            )
+                          ])
+                        : _c(
+                            "div",
+                            {
+                              staticClass: "chat-bubble max-w-18 md:max-w-2xl"
+                            },
+                            [
+                              msg.type == "image"
+                                ? _c("div", { staticClass: "type-image" }, [
                                     _c(
                                       "div",
                                       {
                                         staticClass:
-                                          "flex bg-opacity-25 items-center p-2 bg-black rounded-lg cursor-pointer"
+                                          "w-full image-preview max-h-96 mb-3 overflow-hidden"
+                                      },
+                                      [
+                                        _c("img", {
+                                          staticClass: "rounded object-fill",
+                                          attrs: {
+                                            src: msg.body,
+                                            alt: msg.type
+                                          },
+                                          on: {
+                                            click: function($event) {
+                                              return _vm.showImage(msg.body)
+                                            }
+                                          }
+                                        })
+                                      ]
+                                    ),
+                                    _vm._v(" "),
+                                    _vm.regex.test(msg.caption)
+                                      ? _c("div", {
+                                          staticClass: "chat-message",
+                                          domProps: {
+                                            innerHTML: _vm._s(
+                                              msg.caption.replaceAll(
+                                                _vm.regex,
+                                                _vm.regexTo
+                                              )
+                                            )
+                                          }
+                                        })
+                                      : _c(
+                                          "div",
+                                          { staticClass: "chat-message" },
+                                          [_vm._v(_vm._s(msg.caption))]
+                                        ),
+                                    _vm._v(" "),
+                                    _c("div", { staticClass: "chat-time" }, [
+                                      _vm._v(
+                                        "\n              " +
+                                          _vm._s(
+                                            new Date(msg.time)
+                                              .toTimeString()
+                                              .substr(0, 5)
+                                          ) +
+                                          "\n            "
+                                      )
+                                    ])
+                                  ])
+                                : msg.type == "chat"
+                                ? _c("div", { staticClass: "type-chat" }, [
+                                    _vm.regex.test(msg.body)
+                                      ? _c("div", {
+                                          staticClass: "chat-message",
+                                          domProps: {
+                                            innerHTML: _vm._s(
+                                              msg.body.replaceAll(
+                                                _vm.regex,
+                                                _vm.regexTo
+                                              )
+                                            )
+                                          }
+                                        })
+                                      : _c("div", {
+                                          staticClass:
+                                            "chat-message break-all whitespace-pre-wrap",
+                                          domProps: {
+                                            innerHTML: _vm._s(msg.body)
+                                          }
+                                        }),
+                                    _vm._v(" "),
+                                    _c("div", { staticClass: "chat-time" }, [
+                                      _vm._v(
+                                        "\n              " +
+                                          _vm._s(
+                                            new Date(msg.time)
+                                              .toTimeString()
+                                              .substr(0, 5)
+                                          ) +
+                                          "\n            "
+                                      )
+                                    ])
+                                  ])
+                                : msg.type == "document"
+                                ? _c("div", { staticClass: "type-document" }, [
+                                    _c(
+                                      "a",
+                                      {
+                                        staticClass: "text-base",
+                                        attrs: {
+                                          href: msg.body,
+                                          type: "button",
+                                          target: "_blank"
+                                        }
                                       },
                                       [
                                         _c(
-                                          "svg",
+                                          "div",
                                           {
-                                            staticClass: "h-8 w-8 mr-2",
-                                            attrs: {
-                                              xmlns:
-                                                "http://www.w3.org/2000/svg",
-                                              fill: "none",
-                                              viewBox: "0 0 24 24",
-                                              stroke: "currentColor"
-                                            }
+                                            staticClass:
+                                              "flex bg-opacity-25 items-center p-2 bg-black rounded-lg cursor-pointer"
                                           },
                                           [
-                                            _c("path", {
-                                              attrs: {
-                                                "stroke-linecap": "round",
-                                                "stroke-linejoin": "round",
-                                                "stroke-width": "2",
-                                                d:
-                                                  "M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"
-                                              }
-                                            })
+                                            _c(
+                                              "svg",
+                                              {
+                                                staticClass: "h-8 w-8 mr-2",
+                                                attrs: {
+                                                  xmlns:
+                                                    "http://www.w3.org/2000/svg",
+                                                  fill: "none",
+                                                  viewBox: "0 0 24 24",
+                                                  stroke: "currentColor"
+                                                }
+                                              },
+                                              [
+                                                _c("path", {
+                                                  attrs: {
+                                                    "stroke-linecap": "round",
+                                                    "stroke-linejoin": "round",
+                                                    "stroke-width": "2",
+                                                    d:
+                                                      "M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"
+                                                  }
+                                                })
+                                              ]
+                                            ),
+                                            _vm._v(
+                                              "\n                " +
+                                                _vm._s(msg.caption) +
+                                                "\n              "
+                                            )
                                           ]
-                                        ),
-                                        _vm._v(
-                                          "\n                " +
-                                            _vm._s(msg.caption) +
-                                            "\n              "
                                         )
                                       ]
-                                    )
-                                  ]
-                                ),
-                                _vm._v(" "),
-                                _c("div", { staticClass: "chat-time" }, [
-                                  _vm._v(
-                                    "\n              " +
-                                      _vm._s(
-                                        new Date(msg.time)
-                                          .toTimeString()
-                                          .substr(0, 5)
-                                      ) +
-                                      "\n            "
-                                  )
-                                ])
-                              ])
-                            : msg.type == "ptt"
-                            ? _c("div", { staticClass: "type-document" }, [
-                                _c("audio", { attrs: { controls: "" } }, [
-                                  _c("source", {
-                                    attrs: { src: msg.body, type: "audio/ogg" }
-                                  }),
-                                  _vm._v(
-                                    "\n              Your browser does not support the audio element.\n            "
-                                  )
-                                ]),
-                                _vm._v(" "),
-                                _c("div", { staticClass: "chat-time" }, [
-                                  _vm._v(
-                                    "\n              " +
-                                      _vm._s(
-                                        new Date(msg.time)
-                                          .toTimeString()
-                                          .substr(0, 5)
-                                      ) +
-                                      "\n            "
-                                  )
-                                ])
-                              ])
-                            : msg.type == "call_log"
-                            ? _c("div", { staticClass: "type-document" }, [
-                                _c("div", { staticClass: "font-bold" }, [
-                                  _vm._v(_vm._s(msg.body))
-                                ]),
-                                _vm._v(" "),
-                                _c("div", { staticClass: "chat-time" }, [
-                                  _vm._v(
-                                    "\n              " +
-                                      _vm._s(
-                                        new Date(msg.time)
-                                          .toTimeString()
-                                          .substr(0, 5)
-                                      ) +
-                                      "\n            "
-                                  )
-                                ])
-                              ])
-                            : _vm._e()
-                        ]
-                      )
+                                    ),
+                                    _vm._v(" "),
+                                    _c("div", { staticClass: "chat-time" }, [
+                                      _vm._v(
+                                        "\n              " +
+                                          _vm._s(
+                                            new Date(msg.time)
+                                              .toTimeString()
+                                              .substr(0, 5)
+                                          ) +
+                                          "\n            "
+                                      )
+                                    ])
+                                  ])
+                                : msg.type == "ptt"
+                                ? _c("div", { staticClass: "type-document" }, [
+                                    _c("audio", { attrs: { controls: "" } }, [
+                                      _c("source", {
+                                        attrs: {
+                                          src: msg.body,
+                                          type: "audio/ogg"
+                                        }
+                                      }),
+                                      _vm._v(
+                                        "\n              Your browser does not support the audio element.\n            "
+                                      )
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("div", { staticClass: "chat-time" }, [
+                                      _vm._v(
+                                        "\n              " +
+                                          _vm._s(
+                                            new Date(msg.time)
+                                              .toTimeString()
+                                              .substr(0, 5)
+                                          ) +
+                                          "\n            "
+                                      )
+                                    ])
+                                  ])
+                                : _vm._e()
+                            ]
+                          )
                     ]
                   )
                 })
