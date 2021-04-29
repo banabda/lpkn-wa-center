@@ -25,14 +25,14 @@
 <body>
     <div id="app">
         <main class="pt-4 container-fluid h-screen bg-green_cus-500 bg-opacity-100 grid content-center">
-            <div class="mx-auto object-center bg-white rounded-lg md:w-1/2 w-80 shadow-lg md:flex grid grid-cols-1">
+            <div class="mx-auto object-center bg-white rounded-lg md:w-1/2 w-80 shadow-2xl md:flex grid grid-cols-1">
                 <div class="md:flex-none md:w-56 w-40 justify-self-center md:justify-center md:relative pt-4">
                     <img src="{{ asset('images/whatsapp.png') }}"
                         class="md:absolute md:inset-0 w-full h-full mx-auto md:object-cover object-contain rounded-lg md:rounded-l-lg" />
 
                 </div>
                 <div class="p-6">
-                    <p class="capitalize text-xl md:text-3xl font-bold font-sans mb-4 text-justify">Selamat datang di
+                    <p class="capitalize text-xl md:text-3xl font-bold font-sans mb-4 text-left">Selamat datang di
                         web LPKN
                         Whatsapp
                         Service
@@ -73,9 +73,9 @@
                 </div>
                 @endrole
                 @role('user')
-                <div class="mx-auto my-6 md:w-1/2 w-80 object-center grid grid-cols-1 self-center">
+                <div class="mx-auto my-6 md:w-1/2 w-80 object-center grid grid-cols-1">
                     <button
-                        class="btn border-2 w-11/12 border-green-500 bg-green-500 bg-opacity-50 hover:bg-opacity-100 text-white shadow-lg">Respon
+                        class="btn border-2 w-11/12 border-green-500 bg-green-500 bg-opacity-50 hover:bg-opacity-100 text-white shadow-lg justify-self-center">Respon
                         Sekarang!</button>
                 </div>
                 @endrole

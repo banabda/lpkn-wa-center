@@ -6,10 +6,12 @@
         @if (isset($user) && $user->active)
             <main-component></main-component>
         @else
-            <div class="container">
-                <div class="card">
+            <div class="container flex justify-center">
+                <div class="card w-max border-0 shadow-md p-8">
                     <div class="card-body">
-                        <div class="home-status">menunggu konfirmasi admin</div>
+                        <div class="home-status capitalize">menunggu konfirmasi admin</div>
+                        <div class="mt-4 text-lg">Hubungi admin WA Center untuk mendapatkan akses, <br> dengan
+                            menyerahkan email dan nama api.</div>
                     </div>
                 </div>
             </div>

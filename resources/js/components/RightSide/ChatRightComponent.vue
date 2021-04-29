@@ -53,8 +53,31 @@
               </div>
             </div>
             <div class="type-document" v-else-if="msg.type == 'document'">
-              <a :href="msg.body" type="button" target="_blank">
-                {{ msg.caption }}
+              <a
+                :href="msg.body"
+                type="button"
+                target="_blank"
+                class="text-base"
+              >
+                <div
+                  class="flex bg-opacity-25 items-center p-2 bg-black rounded-lg cursor-pointer"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="h-8 w-8 mr-2"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"
+                    />
+                  </svg>
+                  {{ msg.caption }}
+                </div>
               </a>
               <div class="chat-time">
                 {{ new Date(msg.time).toTimeString().substr(0, 5) }}
