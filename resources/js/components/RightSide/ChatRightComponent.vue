@@ -19,7 +19,7 @@
         >
           <div class="chat-bubble max-w-18 md:max-w-2xl">
             <div class="type-image" v-if="msg.type == 'image'">
-              <div class="w-full image-preview mb-3 overflow-hidden">
+              <div class="w-full image-preview max-h-96 mb-3 overflow-hidden">
                 <img
                   class="rounded object-fill"
                   :src="msg.body"
@@ -255,7 +255,7 @@ export default {
     .type-image {
       .image-preview {
         // width: 390px;
-        height: 390px;
+        // height: 390px;
         cursor: pointer;
       }
     }
