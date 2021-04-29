@@ -41,22 +41,67 @@
             </span>
             <span v-else>photo</span>
           </div>
-          <div class="message" v-else>
-            <span v-if="regex.test(dial.latest_message.body)">
-              {{
-                dial.latest_message.body.length > 25
-                  ? dial.latest_message.body
-                      .replaceAll(regex, regexTo)
-                      .substr(0, 21) + "..."
-                  : dial.latest_message.body.replaceAll(regex, regexTo)
-              }}
+          <div
+            class="message"
+            v-else-if="dial.latest_message.type == 'document'"
+          >
+            <span class="flex items-center">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-4 w-4 mr-1"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="1"
+                  d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"
+                />
+              </svg>
+              <span>File</span>
             </span>
-            <span v-else>
-              {{
-                dial.latest_message.body.length > 25
-                  ? dial.latest_message.body.substr(0, 21) + "..."
-                  : dial.latest_message.body
-              }}
+          </div>
+          <div
+            class="message"
+            v-else-if="dial.latest_message.type == 'call_log'"
+          >
+            <span class="flex items-center">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-4 w-4 mr-1"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M16 8l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2M5 3a2 2 0 00-2 2v1c0 8.284 6.716 15 15 15h1a2 2 0 002-2v-3.28a1 1 0 00-.684-.948l-4.493-1.498a1 1 0 00-1.21.502l-1.13 2.257a11.042 11.042 0 01-5.516-5.517l2.257-1.128a1 1 0 00.502-1.21L9.228 3.683A1 1 0 008.279 3H5z"
+                />
+              </svg>
+              <span>Missed voice call</span>
+            </span>
+          </div>
+          <div class="message" v-else>
+            <span class="flex items-center">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-4 w-4 mr-1"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"
+                />
+              </svg>
+              <span>Audio</span>
             </span>
           </div>
         </div>
