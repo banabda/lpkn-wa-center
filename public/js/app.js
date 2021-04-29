@@ -6601,7 +6601,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                     // console.log(e.data.name, e.data.type);
                     var data = {};
                     data.chatId = _this2.cUser.id;
-                    data.filename = e.data.name + e.data.type;
+                    data.filename = e.data.name;
                     data.caption = e.data.name;
                     data.url = e.data.url;
                     data.id = new Date();

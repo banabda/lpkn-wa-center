@@ -115,7 +115,8 @@ class MessageController extends Controller
     {
         $client = new Client();
         $data = [
-            "body" => 'https://e-lpkn.id' . $request->url,
+            // "body" => 'https://e-lpkn.id' . $request->url,
+            "body" => 'https://s3.eu-central-1.wasabisys.com/incoming-chat-api/2021/4/27/152953/b33904ba-7ca8-4428-8e8f-434be0c90da3.pdf',
             "filename" => $request->filename,
             "chatId" => $request->chatId,
             "caption" => isset($request->caption) ? $request->caption : null
