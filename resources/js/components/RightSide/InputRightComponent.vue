@@ -114,7 +114,7 @@ export default {
             const data = {};
             data.chatId = this.cUser.id;
             data.filename = e.data.name + e.data.type;
-            data.caption = e.data.name + e.data.type;
+            data.caption = e.data.name;
             data.url = e.data.url;
             data.id = new Date();
             data.time = new Date();

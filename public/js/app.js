@@ -6602,7 +6602,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                     var data = {};
                     data.chatId = _this2.cUser.id;
                     data.filename = e.data.name + e.data.type;
-                    data.caption = e.data.name + e.data.type;
+                    data.caption = e.data.name;
                     data.url = e.data.url;
                     data.id = new Date();
                     data.time = new Date();
