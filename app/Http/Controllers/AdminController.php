@@ -27,12 +27,23 @@ class AdminController extends Controller
     public function assignUser(Request $request)
     {
         $user = UserCred::updateOrCreate([
-            "user_id" => $request->user
+            "user_id" => isset($request->user) ? $request->user : auth()->id()
         ], [
             "credential_id" => $request->cred,
             "active" => false
         ]);
         return response($user, 201);
+    }
+
+    public function requestCred(Request $request)
+    {
+        $user = UserCred::updateOrCreate([
+            "user_id" => isset($request->user) ? $request->user : auth()->id()
+        ], [
+            "credential_id" => $request->cred,
+            "active" => false
+        ]);
+        return back();
     }
 
     public function activeUser($id)

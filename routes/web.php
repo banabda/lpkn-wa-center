@@ -24,7 +24,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('contact', [MessageController::class, 'contact']);
-Route::get('contact2', [MessageController::class, 'contact2']);
+Route::post('test', [HomeController::class, 'testing'])->name('test');
 Route::get('/', function () {
     return view('welcome');
 });
@@ -45,19 +45,23 @@ Route::group(['middleware' => ['role:admin']], function () {
             return view('credential');
         })->name('credential');
     });
-    Route::group(['prefix' => 'assign'], function () {
-        Route::get('/', [AdminController::class, 'userApproval']);
-        Route::post('/', [AdminController::class, 'assignUser']);
-        Route::get('/active/{id}', [AdminController::class, 'activeUser']);
-    });
+
     Route::group(['prefix' => 'creds'], function () {
         Route::get('/', [CredentialController::class, 'index']);
         Route::post('/', [CredentialController::class, 'store']);
         Route::put('/{credential}', [CredentialController::class, 'update'])->name('credential.update');
     });
+
+    Route::group(['prefix' => 'assign'], function () {
+        Route::get('/', [AdminController::class, 'userApproval']);
+        Route::post('/', [AdminController::class, 'assignUser']);
+        Route::get('/active/{id}', [AdminController::class, 'activeUser']);
+    });
 });
 
 Route::group(['middleware' => 'auth'], function () {
+
+    Route::post('/reqAssign', [AdminController::class, 'requestCred'])->name('assign.cred');
 
     Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::group(['prefix' => 'chat-api'], function () {
