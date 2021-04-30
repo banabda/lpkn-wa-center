@@ -33,6 +33,7 @@ export default {
     ...mapGetters({
       selectedContact: "dialogs/getSelectedDialogs",
       cred: "cred/getCred",
+      currentUser: "user/currentUser",
     }),
   },
   methods: {
@@ -81,6 +82,7 @@ export default {
               data.time = new Date();
               data.type = "image";
               data.body = e.data.url;
+              data.user = this.currentUser;
               data.from_me = true;
               data.instance = this.cred.instance;
               data.token = this.cred.token;

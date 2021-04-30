@@ -121,6 +121,7 @@ export default {
             data.time = new Date();
             data.type = "document";
             data.body = e.data.url;
+            data.user = this.currentUser;
             data.from_me = true;
             data.instance = this.cred.instance;
             data.token = this.cred.token;
@@ -147,6 +148,7 @@ export default {
         data.time = new Date();
         data.type = "chat";
         data.body = this.text;
+        data.user = this.currentUser;
         data.from_me = true;
         data.instance = this.cred.instance;
         data.token = this.cred.token;
@@ -160,6 +162,7 @@ export default {
     ...mapGetters({
       cUser: "dialogs/getSelectedDialogs",
       cred: "cred/getCred",
+      currentUser: "user/currentUser",
     }),
     emojiDataAll() {
       return EmojiAllData;
