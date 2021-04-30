@@ -48,7 +48,7 @@
           >
             <span
               class="absolute -bottom-3 -left-5 rounded-lg p-1 bg-green_cus-400 text-white"
-              v-if="msg.user"
+              v-if="msg.user && msg.from_me"
               >{{ msg.user.name }}</span
             >
             <div class="type-image" v-if="msg.type == 'image'">
