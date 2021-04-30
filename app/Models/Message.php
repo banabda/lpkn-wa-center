@@ -20,4 +20,14 @@ class Message extends Model
     {
         return $this->belongsTo(Dialog::class);
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function hasUser()
+    {
+        return $this->hasOne(User::class, 'user_id')->orderBy("time", "desc");
+    }
 }

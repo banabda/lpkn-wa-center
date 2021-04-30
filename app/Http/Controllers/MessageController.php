@@ -148,4 +148,9 @@ class MessageController extends Controller
         $result = $client->request('POST', env('WA_URL') . 'deleteMessage' . env('WA_TOKEN'), ['form_params' => $data])->getBody()->getContents();
         return $result;
     }
+
+    public function contact()
+    {
+        return Message::whereNotNull('user_id')->with('user')->get();
+    }
 }

@@ -23,6 +23,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('contact', [MessageController::class, 'contact']);
+Route::get('contact2', [MessageController::class, 'contact2']);
 Route::get('/', function () {
     return view('welcome');
 });

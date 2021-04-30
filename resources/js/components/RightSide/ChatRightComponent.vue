@@ -6,13 +6,13 @@
         v-for="(message, index) in localMessages"
         :key="index"
       >
-        <div class="time sticky top-0">
+        <div class="time sticky top-0 z-10">
           <span class="small text-center font-weight-bold">
             {{ dateCheck(index) }}
           </span>
         </div>
         <div
-          class="chat-list"
+          class="chat-list z-0"
           v-for="(msg, ind) in message"
           :class="msg.from_me ? 'send' : ''"
           :key="ind"
@@ -41,7 +41,16 @@
               </div>
             </div>
           </div>
-          <div v-else class="chat-bubble max-w-18 md:max-w-2xl">
+          <div
+            v-else
+            class="chat-bubble relative mx-1 max-w-18 md:max-w-2xl"
+            :class="msg.user ? 'my-2' : 'my-1'"
+          >
+            <span
+              class="absolute -bottom-3 -left-5 rounded-lg p-1 bg-green_cus-400 text-white"
+              v-if="msg.user"
+              >{{ msg.user.name }}</span
+            >
             <div class="type-image" v-if="msg.type == 'image'">
               <div class="w-full image-preview max-h-96 mb-3 overflow-hidden">
                 <img
@@ -263,7 +272,7 @@ export default {
     // max-width: 500px;
     min-width: 100px;
     display: inline-block;
-    margin: 2px 10px;
+    // margin: 2px 10px;
     padding: 5px;
     .chat-message {
       white-space: pre-line;
