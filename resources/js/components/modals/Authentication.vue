@@ -171,8 +171,6 @@ export default {
             location.reload();
 
 
-
-            
           })
           .catch((err) => {
             this.swalToast("warning", err);
