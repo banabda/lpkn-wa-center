@@ -169,7 +169,6 @@ export default {
             this.swalToast("success", "Credential Updated");
             this.$modal.hideAll();
             location.reload();
-            
           })
           .catch((err) => {
             this.swalToast("warning", err);
