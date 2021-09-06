@@ -50,6 +50,12 @@
                 </button>
                 <button
                   class="btn transition duration-300 ease-in-out bg-orange_cus-400 text-white hover:bg-orange_cus-500 w-20"
+                  @click="deleteUsr(usr)"
+                >
+                  Delete
+                </button>
+                <button
+                  class="btn transition duration-300 ease-in-out bg-orange_cus-400 text-white hover:bg-orange_cus-500 w-20"
                   @click="assign(usr, inx)"
                 >
                   Assign
@@ -129,9 +135,17 @@ export default {
         timerProgressBar: true,
       });
     },
+    deleteUsr(user) {
+      axios
+        .post("/assign/delete/" + user.id , {
+        })
+        .then((e) => {
+            if (e.data.status == "ok") {
+                location.reload();
+            }
+        });
+    },
     showModal(user, roles) {
-      console.log(roles);
-      console.log(user);
       this.$modal.show(
         Credential,
         {

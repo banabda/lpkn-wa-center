@@ -5086,6 +5086,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -5150,9 +5156,14 @@ __webpack_require__.r(__webpack_exports__);
         timerProgressBar: true
       });
     },
+    deleteUsr: function deleteUsr(user) {
+      axios.post("/assign/delete/" + user.id, {}).then(function (e) {
+        if (e.data.status == "ok") {
+          location.reload();
+        }
+      });
+    },
     showModal: function showModal(user, roles) {
-      console.log(roles);
-      console.log(user);
       this.$modal.show(_modals_Authentication__WEBPACK_IMPORTED_MODULE_0__.default, {
         cred: user,
         roles: roles
@@ -61074,6 +61085,20 @@ var render = function() {
                         }
                       },
                       [_vm._v("\n                Edit\n              ")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass:
+                          "btn transition duration-300 ease-in-out bg-orange_cus-400 text-white hover:bg-orange_cus-500 w-20",
+                        on: {
+                          click: function($event) {
+                            return _vm.deleteUsr(usr)
+                          }
+                        }
+                      },
+                      [_vm._v("\n                Delete\n              ")]
                     ),
                     _vm._v(" "),
                     _c(

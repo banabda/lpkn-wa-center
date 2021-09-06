@@ -55,6 +55,7 @@ Route::group(['middleware' => ['role:admin']], function () {
     Route::group(['prefix' => 'assign'], function () {
         Route::get('/', [AdminController::class, 'userApproval']);
         Route::post('/', [AdminController::class, 'assignUser']);
+        Route::post('/delete/{id}', [AdminController::class, 'delete']);
         Route::post('/store', [AdminController::class, 'store']);
         Route::put('/update/{id}', [AdminController::class, 'update']);
         Route::get('/active/{id}', [AdminController::class, 'activeUser']);

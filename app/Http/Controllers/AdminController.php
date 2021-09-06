@@ -101,4 +101,18 @@ class AdminController extends Controller
         ], 200);
 
     }
+
+    public function delete($id)
+    {
+        $user = User::find($id);
+        $user->delete();
+
+        $delete_role_user = DB::table('model_has_roles')->where('model_id',$id)->delete();
+
+        return response()->json([
+            'status' => 'ok',
+            'response' => 'deleted-successfully'
+        ], 200);
+
+    }
 }
