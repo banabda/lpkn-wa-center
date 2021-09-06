@@ -2,6 +2,14 @@
   <div class="card rounded-lg border-none shadow-md">
     <div class="card-body">
       <div class="table-responsive">
+        <div class="grid">
+          <div
+            class="btn border-1 border-green-400 text-green-400 hover:text-white hover:bg-green-400"
+            @click="showModalCreate(roles)"
+          >
+            add
+          </div>
+      </div>
         <table class="table table-striped table-hover table-auto">
           <thead>
             <tr class="text-center">
@@ -35,6 +43,12 @@
               </td>
               <td class="d-flex action-container">
                 <button
+                  class="btn transition duration-300 ease-in-out bg-red_cus-400 text-white hover:bg-red_cus-500 w-20"
+                  @click="showModal(usr, roles)"
+                >
+                  Edit
+                </button>
+                <button
                   class="btn transition duration-300 ease-in-out bg-orange_cus-400 text-white hover:bg-orange_cus-500 w-20"
                   @click="assign(usr, inx)"
                 >
@@ -57,16 +71,20 @@
           </tbody>
         </table>
       </div>
+
     </div>
   </div>
 </template>
 <script>
+import Credential from "./modals/Authentication";
 import Swal from "sweetalert2";
 export default {
+  components: { Credential },
   data: () => ({
     users: null,
     creds: null,
     credByUser: [],
+    roles: null,
   }),
   methods: {
     active(user) {
@@ -111,11 +129,34 @@ export default {
         timerProgressBar: true,
       });
     },
+    showModal(user, roles) {
+      console.log(roles);
+      console.log(user);
+      this.$modal.show(
+        Credential,
+        {
+          cred: user,
+          roles: roles
+        },
+        { height: "auto", width: "90%" }
+      );
+    },
+    showModalCreate(roles) {
+      console.log(roles);
+      this.$modal.show(
+        Credential,
+        {
+          roles: roles
+        },
+        { height: "auto", width: "90%" }
+      );
+    },
   },
   beforeMount() {
     axios.get("/assign").then((e) => {
       this.users = e.data.users;
       this.creds = e.data.creds;
+      this.roles = e.data.roles;
       this.users.forEach((usr) => {
         this.credByUser.push(usr.cred);
       });
@@ -124,7 +165,7 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-.action-container {
-  justify-content: space-evenly;
-}
+    .action-container {
+    justify-content: space-evenly;
+    }
 </style>

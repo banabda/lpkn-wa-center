@@ -64,6 +64,21 @@ module.exports = {
                     800: "#652a10",
                     900: "#2c1207"
                 },
+                red_cus: {
+                    // light: "#F1D5A7",
+                    // default: "#E6B566",
+                    // dark: "#E0A23E",
+                    50: "#FEF2F2",
+                    100: "#FEE2E2",
+                    200: "#FECACA",
+                    300: "#FCA5A5",
+                    400: "#F87171",
+                    500: "#EF4444",
+                    600: "#DC2626",
+                    700: "#B91C1C",
+                    800: "#991B1B",
+                    900: "#7F1D1D"
+                },
                 green_cus: {
                     //     light: "#D2EEE6",
                     //     default: "#A3DDCB",

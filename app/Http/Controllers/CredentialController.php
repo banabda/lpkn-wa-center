@@ -42,6 +42,7 @@ class CredentialController extends Controller
             'instance' => $request->instance,
             'token' => $request->token
         ]);
+        
         return $cred;
     }
 
