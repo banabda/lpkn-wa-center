@@ -18,69 +18,153 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- Styles -->
+    <link href="{{ asset('css/login.css') }}" rel="stylesheet">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
+    {{-- <link href="https://unpkg.com/tailwindcss@2.2.4/dist/tailwind.min.css" rel="stylesheet"> --}}
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css">
 </head>
 
-<body>
+<body class="h-screen overflow-hidden" style="background: #edf2f7;">
     <div id="app">
-        <main class="pt-4 container-fluid h-screen bg-green_cus-500 bg-opacity-100 grid content-center">
-            <div class="mx-auto object-center bg-white rounded-lg md:w-1/2 w-80 shadow-2xl md:flex grid grid-cols-1">
-                <div class="md:flex-none md:w-56 w-40 justify-self-center md:justify-center md:relative pt-4">
-                    <img src="{{ asset('images/whatsapp.png') }}"
-                        class="md:absolute md:inset-0 w-full h-full mx-auto md:object-cover object-contain rounded-lg md:rounded-l-lg" />
-
+        <div class="relative min-h-screen flex ">
+            <div
+                class="flex flex-col sm:flex-row items-center md:items-start sm:justify-center md:justify-start flex-auto min-w-0 bg-white">
+                <div class="sm:w-1/2 xl:w-3/5 h-full hidden md:flex flex-auto items-center justify-center p-10 overflow-hidden bg-purple-900 text-white bg-no-repeat bg-cover relative"
+                    style="background-image: url(https://images.unsplash.com/photo-1579451861283-a2239070aaa9?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80);">
+                    <div class="absolute bg-gradient-to-b bg-green_cus-400 to-blue-500 opacity-75 inset-0 z-0"></div>
+                    <div class="w-full  max-w-md z-10">
+                        <div class="sm:text-4xl xl:text-5xl font-bold leading-tight mb-6">LPKN
+                            Whatsapp
+                            Service
+                            Center</div>
+                        <div class="sm:text-sm xl:text-md text-gray-200 font-normal">Web khusus admin lpkn yang difungsikan untuk merespon semua keluhan,
+                            masukkan,
+                            dan konsultasi dengan
+                            event yang akan berlangsung.</div>
+                    </div>
+                    <!---remove custom style-->
+                    <ul class="circles">
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                    </ul>
                 </div>
-                <div class="p-6">
-                    <p class="capitalize text-xl md:text-3xl font-bold font-sans mb-4 text-left">Selamat datang di
-                        web LPKN
-                        Whatsapp
-                        Service
-                        Center!
-                    </p>
-                    <p class="text-justify text-md">Web khusus admin lpkn yang difungsikan untuk merespon semua keluhan,
-                        masukkan,
-                        dan konsultasi dengan
-                        event yang akan berlangsung. </p>
+                <div  class="md:flex md:items-center md:justify-center w-full sm:w-auto md:h-full w-2/5 xl:w-2/5 p-8  md:p-10 lg:p-14 sm:rounded-lg md:rounded-none bg-white">
+                    <div class="max-w-md w-full space-y-8">
+                        @guest
+                        <div class="text-center">
+                            <h2 class="mt-6 text-3xl font-bold text-gray-900">
+                                Welcome Back!
+                            </h2>
+                            <p class="mt-2 text-sm text-gray-500">Please sign in to your account</p>
+                        </div>
+
+
+                        <form class="mt-8 space-y-6" method="POST" action="{{ route('login') }}">
+                            @csrf
+                            <input type="hidden" name="remember" value="true">
+                            <div class="relative">
+                                <div class="absolute right-3 mt-4">
+                                    @error('email')
+                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                    class="h-6 w-6 text-red-500" fill="none" viewBox="0 0 24 24"
+                                    stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                    </svg>
+                                    @enderror
+
+                                </div>
+                                <label class="ml-3 text-sm font-bold text-gray-700 tracking-wide">Email</label>
+                                <input
+                                    class=" @error('email') is-invalid @enderror w-full text-base px-4 py-2 border-b border-gray-300 focus:outline-none rounded-2xl focus:border-indigo-500"
+                                    id="email" type="email" placeholder="Your Email" name="email"
+                                    value="{{ old('email') }}" required autocomplete="email" autofocus>
+                            </div>
+                            <div class="mt-8 content-center">
+                                <div class="absolute right-3 mt-4">
+                                    @error('password')
+                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                        class="h-6 w-6 text-red-500" fill="none" viewBox="0 0 24 24"
+                                        stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                        </svg>
+                                    @enderror
+
+                                </div>
+                                <label class="ml-3 text-sm font-bold text-gray-700 tracking-wide">
+                                    Password
+                                </label>
+                                <input
+                                    class=" @error('password') is-invalid @enderror w-full content-center text-base px-4 py-2 border-b rounded-2xl border-gray-300 focus:outline-none focus:border-indigo-500"
+                                    type="password" placeholder="Enter your password" name="password"
+                                    placeholder="Your Password" required autocomplete="current-password">
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center">
+                                    <input id="remember_me" name="remember_me" type="checkbox"
+                                        class="h-4 w-4 bg-blue-500 focus:ring-blue-400 border-gray-300 rounded">
+                                    <label for="remember_me" class="ml-2 block text-sm text-gray-900">
+                                        Remember me
+                                    </label>
+                                </div>
+                                <div class="text-sm">
+                                    <a href="{{ route('password.request') }}" class="text-indigo-400 hover:text-blue-500">
+                                        Forgot your password?
+                                    </a>
+                                </div>
+                            </div>
+                            <div>
+                                <button type="submit"
+                                    class="w-full flex justify-center bg-gradient-to-r bg-green_cus-400 to-blue-600  hover:bg-gradient-to-l hover:from-blue-500 hover:to-indigo-600 text-gray-100 p-4  rounded-full tracking-wide font-semibold  shadow-lg cursor-pointer transition ease-in duration-500">
+                                    {{ __('Masuk') }}
+                                </button>
+                            </div>
+
+                        </form>
+                        @else
+
+
+                        @role('admin')
+                            <a href="{{ route('home') }}"
+                                class="w-full flex justify-center bg-gradient-to-r bg-green-500 to-pink-600  hover:bg-green_cus-400 hover:bg-pink-500 hover:to-indigo-600 text-gray-100 p-4  rounded-full tracking-wide font-semibold  shadow-lg cursor-pointer transition ease-in duration-500">Respon
+                                Sekarang!</a>
+                            <a href="{{ route('approval') }}"
+                                class="w-full flex justify-center bg-gradient-to-r bg-pink-500 to-green-600  hover:bg-green_cus-400 hover:bg-green-500 hover:to-indigo-600 text-gray-100 p-4  rounded-full tracking-wide font-semibold  shadow-lg cursor-pointer transition ease-in duration-500">Manage
+                                User</a>
+                            <a href="{{ route('credential') }}"
+                                class="w-full flex justify-center bg-gradient-to-r bg-yellow-500 to-green-600  hover:bg-green_cus-400 hover:bg-green-500 hover:to-indigo-600 text-gray-100 p-4  rounded-full tracking-wide font-semibold  shadow-lg cursor-pointer transition ease-in duration-500">Manage
+                                Credential</a>
+
+                        @endrole
+                        @role('user')
+                        <div class="mx-auto my-6 md:w-1/2 w-80 object-center grid grid-cols-1">
+                            <button
+                                class="btn border-2 w-11/12 border-green-500 bg-green-500 bg-opacity-50 hover:bg-opacity-100 text-white shadow-lg justify-self-center">Respon
+                                Sekarang!</button>
+                        </div>
+                        @endrole
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST">
+                            @csrf
+                            <button type="submit" class="w-full flex justify-center bg-gradient-to-r bg-green_cus-400 to-blue-600  hover:bg-green_cus-400 hover:from-blue-500 hover:to-indigo-600 text-gray-100 p-4  rounded-full tracking-wide font-semibold  shadow-lg cursor-pointer transition ease-in duration-500">
+                                {{ __('Keluar') }}
+                            </button>
+                        </form>
+                        @endguest
+                    </div>
                 </div>
             </div>
-            @guest
-                <div class="mx-auto my-6 md:w-1/2 w-80 object-center grid grid-cols-2 justify-items-center self-center">
-                    <a href="{{ route('login') }}"
-                        class="btn border-2 w-11/12 border-blue-500 bg-blue-500 bg-opacity-50 hover:bg-opacity-100 text-white shadow-lg">Login</a>
-                    <a href="{{ route('register') }}"
-                        class="btn border-2 w-11/12 border-red-500 bg-red-500 bg-opacity-50 hover:bg-opacity-100 text-white shadow-lg">Register</a>
-                </div>
-            @else
-                <form id="logout-form" action="{{ route('logout') }}" method="POST">
-                    @csrf
-                    <button type="submit"
-                        class="text-bg-black_cus-dark absolute top-0 right-0 pr-4 pt-2 font-bold btn focus:border-0">
-                        Logout
-                    </button>
-                </form>
-                @role('admin')
-                <div class="mx-auto my-6 md:w-1/2 w-80 object-center grid grid-cols-3 justify-items-center self-center">
-                    <a href="{{ route('home') }}"
-                        class="btn border-2 w-11/12 border-green-500 bg-green-500 bg-opacity-50 hover:bg-opacity-100 text-white shadow-lg">Respon
-                        Sekarang!</a>
-                    <a href="{{ route('approval') }}"
-                        class="btn border-2 w-11/12 border-pink-500 bg-pink-500 bg-opacity-50 hover:bg-opacity-100 text-white shadow-lg">Manage
-                        User</a>
-                    <a href="{{ route('credential') }}"
-                        class="btn border-2 w-11/12 border-yellow-500 bg-yellow-500 bg-opacity-50 hover:bg-opacity-100 text-white shadow-lg">Manage
-                        Credential</a>
-                </div>
-                @endrole
-                @role('user')
-                <div class="mx-auto my-6 md:w-1/2 w-80 object-center grid grid-cols-1">
-                    <button
-                        class="btn border-2 w-11/12 border-green-500 bg-green-500 bg-opacity-50 hover:bg-opacity-100 text-white shadow-lg justify-self-center">Respon
-                        Sekarang!</button>
-                </div>
-                @endrole
-            @endguest
-        </main>
+        </div>
     </div>
 </body>
 

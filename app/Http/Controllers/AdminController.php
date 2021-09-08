@@ -14,7 +14,7 @@ class AdminController extends Controller
 {
     public function userApproval()
     {
-        $users = User::role('user')->get();
+        $users = User::all();
         $creds = Credential::all();
         $userCreds = [];
         $roles = Role::all();

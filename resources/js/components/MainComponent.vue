@@ -73,6 +73,7 @@ export default {
       axios
         .get(this.userCred.instance + "status?token=" + this.userCred.token)
         .then((e) => {
+            console.log(e);
           if (e.data.accountStatus == "authenticated") {
             this.setUserStatus(e.data.accountStatus);
           } else {

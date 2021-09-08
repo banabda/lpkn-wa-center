@@ -11,6 +11,7 @@ class UserController extends Controller
     {
         $client = new Client();
         $result = $client->request('GET', env('WA_URL') . 'status' . env('WA_TOKEN'))->getBody()->getContents();
+        // dd($result);
         return $result;
     }
 

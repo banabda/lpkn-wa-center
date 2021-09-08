@@ -129,6 +129,7 @@ class MessageController extends Controller
     {
         $client = new Client();
         $result = $client->request('GET', env('WA_URL') . 'messages' . env('WA_TOKEN'))->getBody()->getContents();
+        // dd($result);
         return $result;
     }
 

@@ -29,6 +29,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $credentials = Credential::all();
+        // dd($credentials);
         foreach ($credentials as $cred) {
             if (!Dialog::where('credential_id', $cred->id)->first()) {
                 $schedule->command('dialogs:first')->everyMinute();

@@ -244,7 +244,7 @@ export default {
   },
   mounted() {
     Echo.private("chat").listen("NewChat", (e) => {
-      // console.log(e);
+      console.log(e);
       const data = e.dialog;
       var index = _.findIndex(this.localDialogs, { id: data.id });
       if (index !== false) {

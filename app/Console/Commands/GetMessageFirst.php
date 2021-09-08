@@ -48,7 +48,7 @@ class GetMessageFirst extends Command
             $result = json_decode($client->request('GET', $cred->instance . 'messagesHistory?token=' . $cred->token . '&count=3000')
                 ->getBody()
                 ->getContents());
-
+            // dd($result);
             // Log::info($result->messages);
             foreach ($result->messages as $res) {
                 $message = Message::where('id', $res->id);

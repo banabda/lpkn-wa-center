@@ -5576,7 +5576,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     var _this = this;
 
     Echo["private"]("chat").listen("NewChat", function (e) {
-      // console.log(e);
+      console.log(e);
       var data = e.dialog;
 
       var index = _.findIndex(_this.localDialogs, {
@@ -5944,6 +5944,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     this.setUser();
     this.setCred().then(function () {
       axios__WEBPACK_IMPORTED_MODULE_0___default().get(_this.userCred.instance + "status?token=" + _this.userCred.token).then(function (e) {
+        console.log(e);
+
         if (e.data.accountStatus == "authenticated") {
           _this.setUserStatus(e.data.accountStatus);
         } else {
