@@ -24,6 +24,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .right-side {
+
   flex: 4;
   .no-contact {
     height: 100%;

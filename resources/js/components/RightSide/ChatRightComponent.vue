@@ -2,7 +2,7 @@
   <div class="chat" ref="chat">
     <div v-if="localMessages">
       <div
-        class="chat-container"
+        class="chat-container background"
         v-for="(message, index) in localMessages"
         :key="index"
       >
@@ -43,11 +43,11 @@
           </div>
           <div
             v-else
-            class="chat-bubble relative mx-1 max-w-18 md:max-w-2xl"
+            class="chat-bubble relative mx-1 max-w-18 md:max-w-2xl shadow-sm p-3 mb-5"
             :class="msg.user ? 'my-2' : 'my-1'"
           >
             <span
-              class="absolute -bottom-3 -left-5 rounded-lg p-1 bg-green_cus-400 text-white"
+              class="-top-3 -left-3 bubble-ship"
               v-if="msg.user && msg.from_me"
               >{{ msg.user.name }}</span
             >
@@ -239,6 +239,12 @@ export default {
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
+.background {
+    background-color: #E3F2FD;
+}
+.bubble-ship{
+   color: #808080;
+}
 .chat {
   height: 63vh;
   overflow-y: auto;
@@ -247,7 +253,7 @@ export default {
     &.send {
       text-align: end;
       .chat-bubble {
-        background-color: lightcoral;
+        background-color: #ffffff;
         text-align: left;
       }
     }
