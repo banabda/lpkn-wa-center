@@ -32924,7 +32924,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "[data-v-5b933d40]::-webkit-scrollbar {\n  width: 8px;\n}\n[data-v-5b933d40]::-webkit-scrollbar-track {\n  background: #f1f1f1;\n}\n[data-v-5b933d40]::-webkit-scrollbar-thumb {\n  background: #888;\n}\n[data-v-5b933d40]::-webkit-scrollbar-thumb:hover {\n  background: #555;\n}\n.background[data-v-5b933d40] {\n  background-color: #E3F2FD;\n}\n.bubble-ship[data-v-5b933d40] {\n  color: #808080;\n}\n.chat[data-v-5b933d40] {\n  height: 63vh;\n  overflow-y: auto;\n  padding-top: 10px;\n}\n.chat .chat-list.send[data-v-5b933d40] {\n  text-align: end;\n}\n.chat .chat-list.send .chat-bubble[data-v-5b933d40] {\n  background-color: #ffffff;\n  text-align: left;\n}\n.chat .time[data-v-5b933d40] {\n  text-align: center;\n  margin: 20px 0;\n}\n.chat .time span[data-v-5b933d40] {\n  padding: 8px;\n  background-color: lightskyblue;\n  border-radius: 10px;\n}\n.chat .chat-time[data-v-5b933d40] {\n  text-align: right;\n  font-size: 0.6rem;\n  margin-bottom: 0;\n}\n.chat .chat-bubble[data-v-5b933d40] {\n  background-color: burlywood;\n  border-radius: 8px;\n  min-width: 100px;\n  display: inline-block;\n  padding: 5px;\n}\n.chat .chat-bubble .chat-message[data-v-5b933d40] {\n  white-space: pre-line;\n  padding: 0 5px;\n  margin-bottom: 0;\n}\n.chat .chat-bubble .type-image .image-preview[data-v-5b933d40] {\n  cursor: pointer;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "[data-v-5b933d40]::-webkit-scrollbar {\n  width: 8px;\n}\n[data-v-5b933d40]::-webkit-scrollbar-track {\n  background: #f1f1f1;\n}\n[data-v-5b933d40]::-webkit-scrollbar-thumb {\n  background: #888;\n}\n[data-v-5b933d40]::-webkit-scrollbar-thumb:hover {\n  background: #555;\n}\n.background[data-v-5b933d40] {\n  background-color: #E3F2FD;\n}\n.bubble-ship[data-v-5b933d40] {\n  color: #808080;\n}\n.chat[data-v-5b933d40] {\n  height: 63vh;\n  overflow-y: auto;\n  padding-top: 10px;\n}\n.chat .chat-list.send[data-v-5b933d40] {\n  text-align: end;\n}\n.chat .chat-list.send .chat-bubble[data-v-5b933d40] {\n  background-color: #dcf8c6;\n  text-align: left;\n}\n.chat .time[data-v-5b933d40] {\n  text-align: center;\n}\n.chat .time span[data-v-5b933d40] {\n  padding: 8px;\n  background-color: lightskyblue;\n  border-radius: 10px;\n}\n.chat .chat-time[data-v-5b933d40] {\n  text-align: right;\n  font-size: 0.6rem;\n  margin-bottom: 0;\n}\n.chat .chat-bubble[data-v-5b933d40] {\n  background-color: #ffffff;\n  border-radius: 8px;\n  min-width: 100px;\n  display: inline-block;\n  padding: 5px;\n}\n.chat .chat-bubble .chat-message[data-v-5b933d40] {\n  white-space: pre-line;\n  padding: 0 5px;\n  margin-bottom: 0;\n}\n.chat .chat-bubble .type-image .image-preview[data-v-5b933d40] {\n  cursor: pointer;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -62255,23 +62255,19 @@ var render = function() {
               "div",
               { key: index, staticClass: "chat-container background" },
               [
-                _c(
-                  "div",
-                  { staticClass: "time sticky top-0 z-10 background" },
-                  [
-                    _c(
-                      "span",
-                      { staticClass: "small text-center font-weight-bold" },
-                      [
-                        _vm._v(
-                          "\n          " +
-                            _vm._s(_vm.dateCheck(index)) +
-                            "\n        "
-                        )
-                      ]
-                    )
-                  ]
-                ),
+                _c("div", { staticClass: "time sticky top-0 z-10" }, [
+                  _c(
+                    "span",
+                    { staticClass: "small text-center font-weight-bold" },
+                    [
+                      _vm._v(
+                        "\n          " +
+                          _vm._s(_vm.dateCheck(index)) +
+                          "\n        "
+                      )
+                    ]
+                  )
+                ]),
                 _vm._v(" "),
                 _vm._l(message, function(msg, ind) {
                   return _c(

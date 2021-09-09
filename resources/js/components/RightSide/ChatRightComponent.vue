@@ -6,7 +6,7 @@
         v-for="(message, index) in localMessages"
         :key="index"
       >
-        <div class="time sticky top-0 z-10 background">
+        <div class="time sticky top-0 z-10">
           <span class="small text-center font-weight-bold">
             {{ dateCheck(index) }}
           </span>
@@ -253,14 +253,15 @@ export default {
     &.send {
       text-align: end;
       .chat-bubble {
-        background-color: #ffffff;
+        background-color: #dcf8c6;
         text-align: left;
       }
     }
   }
   .time {
     text-align: center;
-    margin: 20px 0;
+    // margin: 20px 0;
+    // background-color:#E3F2FD;
     span {
       padding: 8px;
       background-color: lightskyblue;
@@ -273,7 +274,7 @@ export default {
     margin-bottom: 0;
   }
   .chat-bubble {
-    background-color: burlywood;
+    background-color: #ffffff;
     border-radius: 8px;
     // max-width: 500px;
     min-width: 100px;
