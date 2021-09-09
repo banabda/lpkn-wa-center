@@ -29,7 +29,7 @@ import axios from "axios";
 import { mapState, mapGetters, mapActions, mapMutations } from "vuex";
 
 export default {
-  components: { UploadImages, VueDropify },
+  components: { UploadImages },
   computed: {
     ...mapGetters({
       selectedContact: "dialogs/getSelectedDialogs",
