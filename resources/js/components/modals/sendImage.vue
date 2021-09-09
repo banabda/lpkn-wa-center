@@ -8,7 +8,6 @@
         :max="1"
         maxError="Max files exceed"
       />
-      <!-- <VueDropify class="mb-3" @change="fileChange" /> -->
       <button type="button" class="btn btn-outline-primary" @click="sendImages">
         Send
       </button>
@@ -28,7 +27,6 @@ import UploadImages from "vue-upload-drop-images";
 import Swal from "sweetalert2";
 import axios from "axios";
 import { mapState, mapGetters, mapActions, mapMutations } from "vuex";
-import VueDropify from 'vue-dropify';
 
 export default {
   components: { UploadImages, VueDropify },
