@@ -5,7 +5,12 @@
       <Chat />
       <InputRight />
     </div>
-    <div class="no-contact" v-else>Select contact to start chat</div>
+    <div class="no-contact" v-else>
+        Pastikan telepon Anda terhubung ke Internet
+      
+        </div>
+       
+
   </div>
 </template>
 <script>
@@ -34,5 +39,6 @@ export default {
     font-weight: bolder;
     font-size: 2rem;
   }
+  
 }
 </style>

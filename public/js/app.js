@@ -6974,6 +6974,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 
@@ -62791,7 +62796,9 @@ var render = function() {
           1
         )
       : _c("div", { staticClass: "no-contact" }, [
-          _vm._v("Select contact to start chat")
+          _vm._v(
+            "\n      Pastikan telepon Anda terhubung ke Internet\n    \n      "
+          )
         ])
   ])
 }
