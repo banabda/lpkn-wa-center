@@ -28,6 +28,7 @@ Route::post('test', [HomeController::class, 'testing'])->name('test');
 Route::get('/', function () {
     return view('welcome');
 });
+
 Route::get('/fire', function () {
     $data = array('msg' => 'hello world asdsadsasda');
     event(new \App\Events\TestEvent($data));
