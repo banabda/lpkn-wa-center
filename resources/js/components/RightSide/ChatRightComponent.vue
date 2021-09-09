@@ -6,7 +6,7 @@
         v-for="(message, index) in localMessages"
         :key="index"
       >
-        <div class="time sticky top-0 z-10">
+        <div class="time sticky top-0 z-10 background">
           <span class="small text-center font-weight-bold">
             {{ dateCheck(index) }}
           </span>
