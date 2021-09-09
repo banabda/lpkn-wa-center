@@ -34,22 +34,22 @@ class ImageController extends Controller
         $input['imagename'] = time() . '.' . $image->extension();
         $destinationPath = storage_path() . '/app/public/upload/sendMedia/' . $input['imagename'];
         // $destinationPath = public_path('thumbnail/'). $input['imagename'];
-        if (@is_array(getimagesize($file))) {
-            $img = Img::make($image->path());
-            $img->resize(500, 500, function ($constraint) {
-                $constraint->aspectRatio();
-            })->save($destinationPath);
-            $url = '/storage/upload/sendMedia/' . $input['imagename'];
-        } else {
-            $path = 'upload/sendMedia';
+        // if (@is_array(getimagesize($file))) {
+        //     $img = Img::make($image->path());
+        //     $img->resize(500, 500, function ($constraint) {
+        //         $constraint->aspectRatio();
+        //     })->save($destinationPath);
+        //     $url = '/storage/upload/sendMedia/' . $input['imagename'];
+        // } else {
+        // }
+        
+        $path = 'upload/sendMedia';
 
-            $path = Storage::disk('public')->put(
-                $path,
-                $file
-            );
-            $url = Storage::url($path);
-        }
-
+        $path = Storage::disk('public')->put(
+            $path,
+            $file
+        );
+        $url = Storage::url($path);
         // $destinationPath = public_path('/images');
         // $image->move($destinationPath, $input['imagename']);
 

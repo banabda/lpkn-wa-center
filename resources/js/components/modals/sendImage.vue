@@ -45,10 +45,10 @@ export default {
         console.log(event);
     },
     handleImages(files) {
-    console.log("mauk");
+    // console.log("mauk");
       let _imgsDetails = [];
       let _imgsFiles = [];
-      console.log(files);
+      // console.log(files);
       files.forEach((element) => {
         _imgsFiles.push(element);
         _imgsDetails.push({
@@ -80,6 +80,7 @@ export default {
               headers: { "Content-Type": "multipart/form-data" },
             })
             .then((e) => {
+              console.log(e);
               // console.log(e.data.name, e.data.type);
               const data = {};
               data.chatId = this.selectedContact.id;

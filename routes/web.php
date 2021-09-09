@@ -33,6 +33,7 @@ Route::get('/fire', function () {
     event(new \App\Events\TestEvent($data));
     return 'ok';
 });
+
 Auth::routes();
 
 Route::group(['middleware' => ['role:admin']], function () {

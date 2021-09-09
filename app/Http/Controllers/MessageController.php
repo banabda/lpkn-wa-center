@@ -115,7 +115,7 @@ class MessageController extends Controller
     {
         $client = new Client();
         $data = [
-            "body" => 'https://e-lpkn.id' . $request->url,
+            "body" => env('APP_URL') . $request->url,
             "filename" => $request->filename,
             "chatId" => $request->chatId,
             "caption" => isset($request->caption) ? $request->caption : null
