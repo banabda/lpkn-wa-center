@@ -4,10 +4,11 @@
       <h1 class="mb-3">Send Images</h1>
       <UploadImages
         class="mb-3"
-        @change="handleImages"
-        :max="5"
+        @changed="handleImages"
+        :max="1"
         maxError="Max files exceed"
       />
+      <!-- <VueDropify class="mb-3" @change="fileChange" /> -->
       <button type="button" class="btn btn-outline-primary" @click="sendImages">
         Send
       </button>
@@ -27,8 +28,10 @@ import UploadImages from "vue-upload-drop-images";
 import Swal from "sweetalert2";
 import axios from "axios";
 import { mapState, mapGetters, mapActions, mapMutations } from "vuex";
+import VueDropify from 'vue-dropify';
+
 export default {
-  components: { UploadImages },
+  components: { UploadImages, VueDropify },
   computed: {
     ...mapGetters({
       selectedContact: "dialogs/getSelectedDialogs",
@@ -40,9 +43,14 @@ export default {
     ...mapActions({
       sendFile: "messages/sendFile",
     }),
+    fileChange(event) {
+        console.log(event);
+    },
     handleImages(files) {
+    console.log("mauk");
       let _imgsDetails = [];
       let _imgsFiles = [];
+      console.log(files);
       files.forEach((element) => {
         _imgsFiles.push(element);
         _imgsDetails.push({
@@ -56,6 +64,7 @@ export default {
       this.imagesFiles = _imgsFiles;
     },
     sendImages() {
+    console.log(this);
       if (this.imagesFiles) {
         Swal.fire({
           title: "Sending Images!",
