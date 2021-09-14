@@ -62251,14 +62251,14 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { ref: "chat", staticClass: "chat" }, [
+  return _c("div", { ref: "chat", staticClass: "chat  background" }, [
     _vm.localMessages
       ? _c(
           "div",
           _vm._l(_vm.localMessages, function(message, index) {
             return _c(
               "div",
-              { key: index, staticClass: "chat-container background" },
+              { key: index, staticClass: "chat-container" },
               [
                 _c("div", { staticClass: "time sticky top-0 z-10" }, [
                   _c(

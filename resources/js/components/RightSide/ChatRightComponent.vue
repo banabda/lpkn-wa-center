@@ -1,8 +1,8 @@
 <template>
-  <div class="chat" ref="chat">
+  <div class="chat  background" ref="chat">
     <div v-if="localMessages">
       <div
-        class="chat-container background"
+        class="chat-container"
         v-for="(message, index) in localMessages"
         :key="index"
       >
