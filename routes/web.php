@@ -22,7 +22,13 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Auth::routes();
+Auth::routes([
+    'reset' => false,
+    'verify' => false,
+    'register' => false,
+]);
+
+
 Route::get('contact', [MessageController::class, 'contact']);
 Route::post('test', [HomeController::class, 'testing'])->name('test');
 Route::get('/', function () {

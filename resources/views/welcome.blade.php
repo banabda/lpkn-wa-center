@@ -120,11 +120,11 @@
                                         Remember me
                                     </label>
                                 </div>
-                                <div class="text-sm">
+                                {{-- <div class="text-sm">
                                     <a href="{{ route('password.request') }}" class="text-indigo-400 hover:text-blue-500">
                                         Forgot your password?
                                     </a>
-                                </div>
+                                </div> --}}
                             </div>
                             <div>
                                 <button type="submit"
