@@ -26,7 +26,7 @@
 
 <body>
     <div id="app" class="h-screen">
-        <nav class="navbar navbar-expand-lg bg-pink-700 shadow-sm text-milk_cus-light">
+        <nav class="navbar navbar-expand-lg bg-green-700 shadow-sm text-milk_cus-light">
             <div class="container">
                 <a class="navbar-brand hover:text-skin_cus-500" href="{{ url('/') }}">
                     {{ config('app.name', 'Laravel') }}

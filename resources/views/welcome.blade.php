@@ -32,14 +32,14 @@
             <div
                 class="flex flex-col sm:flex-row items-center md:items-start sm:justify-center md:justify-start flex-auto min-w-0 bg-white">
                 <div class="sm:w-1/2 xl:w-3/5 h-full hidden md:flex flex-auto items-center justify-center p-10 overflow-hidden bg-purple-900 text-white bg-no-repeat bg-cover relative"
-                    style="background-image: url(https://a-cloud.b-cdn.net/media/iW=5000&iH=any/de4d3251e11e024ad5c12a002a43fbea.jpg);">
-                    <div class="absolute bg-gradient-to-b bg-pink-700 to-blue-500 opacity-75 inset-0 z-0"></div>
+                    style="background-image: url(images/cover.jpg);">
+                    <div class="absolute bg-gradient-to-b bg-green_cus-500 to-blue-500 opacity-75 inset-0 z-0"></div>
                     <div class="w-full  max-w-md z-10">
-                        <div class="sm:text-4xl xl:text-5xl font-bold leading-tight mb-6">Arayu
+                        <div class="sm:text-4xl xl:text-5xl font-bold leading-tight mb-6">LPKN
                             Whatsapp
                             Service
                             Center</div>
-                        <div class="sm:text-sm xl:text-md text-gray-200 font-normal">Web khusus admin clinic arayu yang difungsikan untuk merespon semua keluhan,
+                        <div class="sm:text-sm xl:text-md text-gray-200 font-normal">Web khusus admin LPKN yang difungsikan untuk merespon semua keluhan,
                             masukkan,
                             dan konsultasi dengan
                             pesanan yang akan berlangsung.</div>
@@ -62,7 +62,7 @@
                     <div class="max-w-md w-full space-y-8">
                         @guest
                         <div class="text-center">
-                            <img src="/images/arayu-clinic.png" class="img-fluid">
+                            <img src="/images/lpkn.png" class="img-fluid">
 
                             <h2 class="mt-6 text-3xl font-bold text-gray-900">
                                 Welcome Back!
@@ -128,7 +128,7 @@
                             </div>
                             <div>
                                 <button type="submit"
-                                    class="w-full flex justify-center bg-gradient-to-r bg-pink-700 bg-pink-500  hover:from-pink-500 hover:from-pink-500 hover:from-pink-500 text-gray-100 p-4  rounded-full tracking-wide font-semibold  shadow-lg cursor-pointer transition ease-in duration-500">
+                                    class="w-full flex justify-center bg-gradient-to-r bg-green_cus-700 bg-green_cus-500  hover:bg-green_cus-500 hover:bg-green_cus-500 hover:from-green-500 text-gray-100 p-4  rounded-full tracking-wide font-semibold  shadow-lg cursor-pointer transition ease-in duration-500">
                                     {{ __('Masuk') }}
                                 </button>
                             </div>
