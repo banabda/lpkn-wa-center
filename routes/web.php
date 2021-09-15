@@ -40,7 +40,17 @@ Route::get('/fire', function () {
     return 'ok';
 });
 
-Auth::routes();
+Route::get('register', function () {
+    return redirect('/');
+});
+
+// Route::get('login', function () {
+//     return redirect('/');
+// });
+
+Route::get('password/reset', function () {
+    return redirect('/');
+});
 
 Route::group(['middleware' => ['role:admin']], function () {
 
