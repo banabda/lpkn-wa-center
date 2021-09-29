@@ -4,7 +4,7 @@
     <div v-for="(dial, index) in localDialogs" :key="index">
       <div
         class="d-flex contact-container py-2 px-3 mb-1"
-        @click="selectUser(dial)"
+        @click="selectUser(dial, index)"
       >
         <div class="contact-left w-25">
           <!-- {{ index }} -->
@@ -106,6 +106,12 @@
           </div>
         </div>
         <div class="time">
+          <button type="button"
+            ref="newnotice"
+            v-bind:class = "(dial.latest_message.status == 0) ? 'btn btn-sm btn-success rounded-circle' : 'btn btn-sm btn-success rounded-circle d-none'"
+            class="btn btn-sm btn-success rounded-circle"
+            v-if="dial.latest_message.status == 0 ">New</button>
+          <br>
           <span
             class="small text-right"
             v-if="
@@ -140,7 +146,7 @@
     <div v-for="(dial, index) in searched" :key="index">
       <div
         class="d-flex contact-container py-2 px-3 mb-1"
-        @click="selectUser(dial)"
+        @click="selectUser(dial, index)"
       >
         <div class="contact-left w-25">
           <avatar :username="dial.name" :src="dial.image" :size="40"></avatar>
@@ -196,6 +202,11 @@
           </div>
         </div>
         <div class="time">
+          <button type="button" 
+            ref="newnotice"
+            class="btn btn-sm btn-success rounded-circle"
+            v-if="dial.latest_message.status == 0">New</button>
+          <br>
           <span
             class="small text-right"
             v-if="
@@ -244,19 +255,27 @@ export default {
   },
   mounted() {
     Echo.private("chat").listen("NewChat", (e) => {
-      console.log(e);
+      
       const data = e.dialog;
       var index = _.findIndex(this.localDialogs, { id: data.id });
+      
+      console.log(e);
+      console.log(index);
+      console.log(index !== false);
+
       if (index !== false) {
         _.remove(this.localDialogs, { id: data.id });
       }
+
       this.localDialogs.splice(0, 0, data);
+      this.localDialogs[index].latest_message.status = 0;
     });
   },
   methods: {
-    selectUser(user) {
+    selectUser(user, index) {
       this.selectedUser(user);
       this.$emit("toggle");
+      this.localDialogs[index].latest_message.status = 1;
     },
     addDummy() {
       var index = _.findIndex(this.localDialogs, { id: this.dummy.id });

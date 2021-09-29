@@ -13,6 +13,7 @@ use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Log;
 use App\Models\UserCred;
+use App\Models\Message;
 
 class NewChat implements ShouldBroadcast
 {
@@ -53,6 +54,64 @@ class NewChat implements ShouldBroadcast
         }
         $this->data['time'] = date('m/d/Y H:i:s', $this->data['time']);
         $dialog->latest_message = $this->data;
+        
+        $idChat = $this->data['id'];
+        $message = Message::where('id', $idChat)->first();
+        // where('id', $this->id);
+        // Log::info($idChat);
+        Log::info($this->data);
+        // Log::info($message);
+        // Log::info($dialog->credential_id);
+        // Log::info(is_null($message) ? "Bener Kosong" : "Tidak Kosong");
+        // Log::info(is_null($cred) ? "Null" : "Tidak Null");
+        
+        $chatId = $this->data['chatId'];
+        $body = $this->data['body'];
+        $from_me = $this->data['fromMe'];
+        $type = $this->data['type'];
+        $author = $this->data['author'];
+        $caption = $this->data['caption'];
+        $sender_name = $this->data['senderName'];
+        $message_number = $this->data['messageNumber'];
+        $time = $this->data['time'];
+
+        if (is_null($message)) {
+            // Log::info("Masuk Null");
+            // Log::info($this->data->id);
+
+            $createMessage = Message::Create([
+                'id' => $idChat,
+                'credential_id' => $dialog->credential_id,
+                'chatId' => $chatId,
+                'body' => $body,
+                'from_me' => $from_me,
+                'type' => $type,
+                'author' => $author,
+                'caption' => isset($caption) ? $caption : null,
+                'sender_name' => $sender_name,
+                'message_number' => $message_number,
+                'time' => $time
+            ]);
+
+            // Log::info($createMessage);
+        } 
+        else {
+            // Log::info("Masuk Ada Data");
+            $message->update([
+                'id' => $idChat,
+                'credential_id' => $dialog->credential_id,
+                'chatId' => $chatId,
+                'body' => $body,
+                'from_me' => $from_me,
+                'type' => $type,
+                'author' => $author,
+                'caption' => isset($caption) ? $caption : null,
+                'sender_name' => $sender_name,
+                'message_number' => $message_number,
+                'time' => $time
+            ]);
+        }
+    
         return ['dialog' => $dialog];
     }
 }

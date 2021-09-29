@@ -82,6 +82,8 @@
                 v-html="msg.body"
               ></div>
               <div class="chat-time">
+                <span v-if="msg.status == 0">Unread</span>
+                <span v-else-if="msg.status == 1">Read</span>
                 {{ new Date(msg.time).toTimeString().substr(0, 5) }}
               </div>
             </div>

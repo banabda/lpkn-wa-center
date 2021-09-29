@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Dialog;
+use App\Models\UserCred;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class DialogController extends Controller
 {
@@ -101,8 +103,35 @@ class DialogController extends Controller
 
     public function selected($chatid)
     {
-        $dialog = Dialog::where('id', $chatid)->first();
+        $dialog = Dialog::with('messages')->where('id', $chatid)->first();
+        $user = Auth::user()->id;
+        $userCred = UserCred::where('user_id', $user)->first();
+        // dd($userCred->credential);
+        
+        foreach ($dialog->messages as $value) {
+            $value->update([
+                'status' => 1
+            ]);
+        }
+
+        $client = new Client();
+        $urlClient = $userCred->credential->instance . 'readChat?token=' . $userCred->credential->token;
+        $body = [
+            "chatId" => $chatid
+        ];
+
+        $response = $client->request('POST', $urlClient , [
+            'headers' => [
+                'Accept'     => 'application/json',
+                'Content-Type' => 'application/json',
+            ],
+            'body' => json_encode($body)
+        ]);
+        
+        $result = json_decode($response->getBody()->getContents());
+        
         return $dialog->messages;
+
         // return $dialog->messages->groupBy(function ($item) {
         //     return $item->time->translatedFormat('Y-m-d');
         // });
