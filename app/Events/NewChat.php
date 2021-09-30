@@ -53,13 +53,16 @@ class NewChat implements ShouldBroadcast
             $dialog->credential_id = $cred->credential_id;
         }
         $this->data['time'] = date('m/d/Y H:i:s', $this->data['time']);
+        $this->data['status'] = $this->data['fromMe'] ? 1 : 0;
         $dialog->latest_message = $this->data;
         
         $idChat = $this->data['id'];
         $message = Message::where('id', $idChat)->first();
+        
         // where('id', $this->id);
-        // Log::info($idChat);
+        
         Log::info($this->data);
+
         // Log::info($message);
         // Log::info($dialog->credential_id);
         // Log::info(is_null($message) ? "Bener Kosong" : "Tidak Kosong");

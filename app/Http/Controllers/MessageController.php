@@ -50,7 +50,8 @@ class MessageController extends Controller
             'caption' => isset($request->caption) ? $request->caption : null,
             'sender_name' => isset($request->senderName) ? $request->senderName : null,
             'message_number' => isset($request->messageNumber) ? $request->messageNumber : null,
-            'time' => date('Y-m-d H:i:s', now()->timestamp)
+            'time' => date('Y-m-d H:i:s', now()->timestamp),
+            'status' => 1
         ]);
     }
 

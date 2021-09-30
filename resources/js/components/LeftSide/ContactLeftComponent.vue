@@ -259,16 +259,20 @@ export default {
       const data = e.dialog;
       var index = _.findIndex(this.localDialogs, { id: data.id });
       
-      console.log(e);
-      console.log(index);
+      console.log("data", data);
+      console.log("index",index);
       console.log(index !== false);
+
+      if (!data.latest_message.fromMe) {
+        this.localDialogs[index].latest_message.status = 0;
+      }
 
       if (index !== false) {
         _.remove(this.localDialogs, { id: data.id });
       }
 
       this.localDialogs.splice(0, 0, data);
-      this.localDialogs[index].latest_message.status = 0;
+
     });
   },
   methods: {
