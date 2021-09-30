@@ -66,7 +66,6 @@ class NewChat implements ShouldBroadcast
         // Log::info($message);
         // Log::info($dialog->credential_id);
         // Log::info(is_null($message) ? "Bener Kosong" : "Tidak Kosong");
-        // Log::info(is_null($cred) ? "Null" : "Tidak Null");
         
         $chatId = $this->data['chatId'];
         $body = $this->data['body'];
