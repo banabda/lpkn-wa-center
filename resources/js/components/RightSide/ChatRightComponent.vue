@@ -1,5 +1,6 @@
 <template>
-  <div class="chat  background" ref="chat">
+  <div class="chat background" ref="chat">
+
     <div v-if="localMessages">
       <div
         class="chat-container"
@@ -14,9 +15,10 @@
         <div
           class="chat-list z-0"
           v-for="(msg, ind) in message"
-          :class="msg.from_me ? 'send' : ''"
+          :class="msg.from_me ? 'send' : 'dropdown'"
           :key="ind"
         >
+
           <div class="flex justify-center" v-if="msg.type == 'call_log'">
             <div
               class="flex items-center min-w-min justify-center text-center justify-items-start bg-green_cus-200 rounded-lg py-1 px-3"
@@ -41,11 +43,13 @@
               </div>
             </div>
           </div>
+
           <div
             v-else
-            class="chat-bubble relative mx-1 max-w-18 md:max-w-2xl shadow-sm p-3 mb-5"
+            class="chat-bubble relative mx-1 max-w-18 md:max-w-2xl shadow-sm p-3 mb-5 "
             :class="msg.user ? 'my-2' : 'my-1'"
           >
+              
             <span
               class="-top-3 -left-3 bubble-ship"
               v-if="msg.user && msg.from_me"
@@ -128,11 +132,50 @@
               </div>
             </div>
           </div>
+
+            <button class="btn btn-secondary dropdown-toggle" id="dropdownMenuButton1" 
+              v-if="msg.from_me == false" 
+              data-bs-toggle="dropdown" aria-expanded="false">
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+              <li @click="show = !show; replyMessage()"><a class="dropdown-item" href="javascript:void(0)">Balas</a></li>
+              <li><a class="dropdown-item" href="#">Tarik Pesan</a></li>
+            </ul>
+
         </div>
       </div>
+
+      <!-- <div class="col-sm-12" style="background-color:#EFFFF0; border-radius:4px; ">
+    
+        <span class="namapesan">Test</span> <br>
+        <span class="isipesan">Test</span>
+        
+      </div> -->
+
+      <div class="container" 
+        style="background-color:#cbdce0; border-radius:4px"
+        v-if="show">
+        <div class="container pt-2 pb-2 br-4" >
+          <div class="row">
+              <div class="col-sm-11 " style="background-color:#EFFFF0; border-radius:4px">
+                <span class="namapesan">Test</span> <br>
+                <span class="isipesan">Test</span>
+              </div>
+              <div class="col-sm-1 mt-1">
+                <a @click="show = !show;" href="javascript:void(0)">
+                  <svg  xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x mt-2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </a>
+              </div>
+          </div>
+        </div>
+      </div>
+
     </div>
+
   </div>
+  
 </template>
+
 <script>
 import { mapState, mapGetters, mapActions, mapMutations } from "vuex";
 import Swal from "sweetalert2";
@@ -146,6 +189,7 @@ export default {
       regexTo: "<b>$1</b>",
       localMessages: null,
       nowId: null,
+      show: false,
     };
   },
   computed: {
@@ -197,6 +241,10 @@ export default {
         chat.scrollTop = chat.scrollHeight;
       });
     },
+    replyMessage() {
+
+      this.scrollToBottom();
+    }
   },
   watch: {
     selected(selected) {
@@ -296,5 +344,14 @@ export default {
       }
     }
   }
+}
+
+.namapesan{
+  color:  #343434;
+    font-size:  14px;
+}
+.isipesan{
+  color:  #696969;
+    font-size:  12px;
 }
 </style>
